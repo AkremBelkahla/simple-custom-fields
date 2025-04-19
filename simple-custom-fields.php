@@ -54,6 +54,12 @@ function scf_get_field($field_name, $post_id = null) {
     return null;
 }
 
+// Chargement des traductions
+function scf_load_textdomain() {
+    load_plugin_textdomain('simple-custom-fields', false, SCF_PLUGIN_DIR . 'languages');
+}
+add_action('plugins_loaded', 'scf_load_textdomain');
+
 // Initialisation du plugin
 function scf_init() {
     $plugin = SCF_Simple_Custom_Fields::get_instance();

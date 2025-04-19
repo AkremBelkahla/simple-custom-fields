@@ -162,7 +162,12 @@ function scf_deactivate() {
 
 // Activation des classes principales
 function scf_boot() {
-    SCF_Admin_Page::get_instance();
-    SCF_Fields::get_instance();
+    error_log('Initializing SCF plugin');
+    $admin = SCF_Admin_Page::get_instance();
+    $fields = SCF_Fields::get_instance();
+    
+    // Debug hooks
+    error_log('Admin hooks registered: ' . has_action('admin_enqueue_scripts', array($admin, 'enqueue_admin_scripts')));
+    error_log('Admin menu registered: ' . has_action('admin_menu', array($admin, 'add_admin_menu')));
 }
-add_action('plugins_loaded', 'scf_boot');
+add_action('plugins_loaded', 'scf_boot', 1); // Priorité plus haute

@@ -109,28 +109,58 @@ jQuery(document).ready(function($) {
             return;
         }
 
+        if (typeof scf_vars === 'undefined' || !scf_vars.ajaxurl) {
+            console.error('Configuration AJAX manquante');
+            alert('Erreur de configuration');
+            return;
+        }
+
         var groupId = $(this).data('group-id');
+
+        if (typeof scf_vars.isAdmin === 'undefined' || scf_vars.isAdmin !== '1') {
+            alert('Vous n\'avez pas les permissions nécessaires.');
+            return;
+        }
 
         $.ajax({
             url: scf_vars.ajaxurl,
             type: 'POST',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 action: 'scf_delete_group',
                 group_id: groupId,
-                nonce: scf_vars.nonce
+                nonce: scf_vars.nonce || ''
+            },
+            beforeSend: function() {
+                if (!scf_vars.nonce) {
+                    console.error('Nonce de sécurité manquant');
+                    return false;
+                }
+                return true;
             },
             success: function(response) {
-                console.log('Response:', response);
+                console.log('Delete group response:', response);
                 if (response.success) {
                     alert(response.data.message);
-                    location.reload();
+                    var row = $('[data-group-id="' + response.data.group_id + '"]').closest('tr');
+                    row.fadeOut(400, function() {
+                        row.remove();
+                        if ($('table tbody tr').length === 0) {
+                            location.reload();
+                        }
+                    });
                 } else {
-                    alert('Une erreur est survenue : ' + (response.data ? response.data.message : 'Erreur inconnue'));
+                    var errorMessage = response.data ? response.data.message : 'Erreur inconnue';
+                    if (scf_vars.debug && response.data && response.data.trace) {
+                        console.error('Delete group trace:', response.data.trace);
+                    }
+                    alert('Une erreur est survenue : ' + errorMessage);
                 }
             },
             error: function(xhr, status, error) {
-                console.log('Error:', error);
-                alert('Une erreur est survenue lors de la suppression du groupe: ' + error);
+                console.error('Delete group error:', {xhr: xhr, status: status, error: error});
+                alert('Une erreur est survenue lors de la suppression du groupe. Veuillez consulter la console pour plus de détails.');
             }
         });
     });

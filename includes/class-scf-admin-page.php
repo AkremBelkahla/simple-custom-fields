@@ -19,13 +19,40 @@ class SCF_Admin_Page {
     }
 
     public function enqueue_admin_scripts($hook) {
-        if (strpos($hook, 'simple-custom-fields') !== false) {
+        error_log('=== SCF DEBUG === Enqueue scripts called for hook: ' . $hook);
+        
+        // Pages où le script doit être chargé
+        $allowed_pages = array(
+            'toplevel_page_simple-custom-fields',
+            'simple-custom-fields_page_scf-add-group',
+            'admin_page_simple-custom-fields'
+        );
+        
+        error_log('Allowed pages: ' . print_r($allowed_pages, true));
+        error_log('Current hook matches: ' . (in_array($hook, $allowed_pages) ? 'YES' : 'NO'));
+        
+        if (in_array($hook, $allowed_pages)) {
+            error_log('=== Loading SCF scripts ===');
+            error_log('SCF_PLUGIN_URL: ' . SCF_PLUGIN_URL);
+            error_log('Script path: ' . SCF_PLUGIN_URL . 'assets/js/admin.js');
+            
+            // Debug de la fonction wp_enqueue_script
+            error_log('Before wp_enqueue_script');
+            error_log('Before wp_enqueue_script');
             wp_enqueue_script('scf-admin', SCF_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), '1.0.0', true);
-            wp_localize_script('scf-admin', 'scf_vars', array(
+            
+            $scf_vars = array(
                 'nonce' => wp_create_nonce('scf_delete_group'),
                 'ajaxurl' => admin_url('admin-ajax.php'),
-                'debug' => WP_DEBUG
-            ));
+                'debug' => WP_DEBUG,
+                'isAdmin' => (current_user_can('manage_options') ? true : false),
+                'deleteGroupEndpoint' => admin_url('admin-ajax.php'),
+                'userId' => get_current_user_id()
+            );
+            error_log('Localizing script with: ' . print_r($scf_vars, true));
+            
+            wp_localize_script('scf-admin', 'scf_vars', $scf_vars);
+            error_log('After wp_localize_script');
         }
     }
 
@@ -141,44 +168,79 @@ class SCF_Admin_Page {
 
     public function delete_group() {
         try {
-            if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'scf_delete_group')) {
-                throw new Exception('Vérification de sécurité échouée');
+            error_log('Starting delete_group - Request method: ' . $_SERVER['REQUEST_METHOD']);
+            error_log('Starting delete_group - Request: ' . print_r($_REQUEST, true));
+            error_log('Starting delete_group - Post: ' . print_r($_POST, true));
+
+            // Vérification de la méthode HTTP
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                throw new Exception('Méthode non autorisée');
             }
 
+            // Vérification AJAX
+            if (!defined('DOING_AJAX') || !DOING_AJAX) {
+                throw new Exception('Requête invalide');
+            }
+
+            // Vérification des permissions
             if (!current_user_can('manage_options')) {
+                error_log('Delete group - Permission denied for user ID: ' . get_current_user_id());
                 throw new Exception('Permissions insuffisantes');
             }
 
+            error_log('Delete group - Permission check passed for user ID: ' . get_current_user_id());
+
+            // Vérification du nonce
+            if (!check_ajax_referer('scf_delete_group', 'nonce', false)) {
+                error_log('Delete group - Nonce verification failed');
+                error_log('Delete group - Nonce received: ' . (isset($_POST['nonce']) ? $_POST['nonce'] : 'none'));
+                error_log('Delete group - Expected action: scf_delete_group');
+                throw new Exception('Vérification de sécurité échouée');
+            }
+            error_log('Delete group - Nonce verification successful');
+
+            // Vérification du referrer
+            $referrer = wp_get_referer();
+            if (!$referrer || strpos($referrer, admin_url()) !== 0) {
+                throw new Exception('Origine de la requête non autorisée');
+            }
+
+            // Récupération et validation de l'ID
             $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
             if (!$group_id) {
                 throw new Exception('ID de groupe invalide');
             }
 
+            // Vérification du groupe
             $group = get_post($group_id);
             if (!$group || $group->post_type !== 'scf-field-group') {
                 throw new Exception('Groupe non trouvé ou type invalide');
             }
 
-            // Supprimer d'abord les meta données associées
+            // Suppression des meta données
             delete_post_meta($group_id, 'scf_fields');
             delete_post_meta($group_id, 'scf_rules');
 
-            // Supprimer le post
+            // Suppression du post
             $result = wp_delete_post($group_id, true);
-            
             if (!$result) {
                 throw new Exception('Échec de la suppression du groupe');
             }
 
             wp_send_json_success(array(
-                'message' => 'Groupe supprimé avec succès'
+                'message' => 'Groupe supprimé avec succès',
+                'group_id' => $group_id
             ));
 
         } catch (Exception $e) {
+            error_log('Delete group error: ' . $e->getMessage());
             wp_send_json_error(array(
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'trace' => WP_DEBUG ? $e->getTraceAsString() : null
             ));
         }
+
+        wp_die();
     }
 
     private function sanitize_fields($fields) {

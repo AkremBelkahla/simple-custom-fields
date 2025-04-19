@@ -190,14 +190,25 @@ class SCF_Admin_Page {
 
             error_log('Delete group - Permission check passed for user ID: ' . get_current_user_id());
 
-            // Vérification du nonce
-            if (!check_ajax_referer('scf_delete_group', 'nonce', false)) {
-                error_log('Delete group - Nonce verification failed');
-                error_log('Delete group - Nonce received: ' . (isset($_POST['nonce']) ? $_POST['nonce'] : 'none'));
-                error_log('Delete group - Expected action: scf_delete_group');
-                throw new Exception('Vérification de sécurité échouée');
+            // Vérification approfondie du nonce
+            error_log('Nonce verification details:');
+            error_log('Received nonce: ' . ($_POST['nonce'] ?? 'none'));
+            error_log('Expected action: scf_delete_group');
+            error_log('Current user ID: ' . get_current_user_id());
+            error_log('Nonce key: ' . wp_create_nonce('scf_delete_group'));
+            
+            if (!isset($_POST['nonce'])) {
+                throw new Exception('Nonce manquant');
             }
-            error_log('Delete group - Nonce verification successful');
+            
+            if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'scf_delete_group')) {
+                error_log('Nonce verification failed - Possible causes:');
+                error_log('- Nonce expiré (12h de validité)');
+                error_log('- Mauvais utilisateur');
+                error_log('- Action incorrecte');
+                throw new Exception('Vérification de sécurité échouée (nonce invalide)');
+            }
+            error_log('Nonce verification successful');
 
             // Vérification du referrer
             $referrer = wp_get_referer();

@@ -19,10 +19,12 @@ class SCF_Admin_Page {
     }
 
     public function enqueue_admin_scripts($hook) {
-        if ($hook === 'toplevel_page_simple-custom-fields') {
+        if (strpos($hook, 'simple-custom-fields') !== false) {
             wp_enqueue_script('scf-admin', SCF_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), '1.0.0', true);
             wp_localize_script('scf-admin', 'scf_vars', array(
-                'nonce' => wp_create_nonce('scf_delete_group')
+                'nonce' => wp_create_nonce('scf_delete_group'),
+                'ajaxurl' => admin_url('admin-ajax.php'),
+                'debug' => WP_DEBUG
             ));
         }
     }
@@ -138,22 +140,44 @@ class SCF_Admin_Page {
     }
 
     public function delete_group() {
-        check_ajax_referer('scf_delete_group', 'nonce');
+        try {
+            if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'scf_delete_group')) {
+                throw new Exception('Vérification de sécurité échouée');
+            }
 
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error('Permission denied');
-        }
+            if (!current_user_can('manage_options')) {
+                throw new Exception('Permissions insuffisantes');
+            }
 
-        $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
-        if (!$group_id) {
-            wp_send_json_error('Invalid group ID');
-        }
+            $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
+            if (!$group_id) {
+                throw new Exception('ID de groupe invalide');
+            }
 
-        $result = wp_delete_post($group_id, true);
-        if ($result) {
-            wp_send_json_success();
-        } else {
-            wp_send_json_error('Failed to delete group');
+            $group = get_post($group_id);
+            if (!$group || $group->post_type !== 'scf-field-group') {
+                throw new Exception('Groupe non trouvé ou type invalide');
+            }
+
+            // Supprimer d'abord les meta données associées
+            delete_post_meta($group_id, 'scf_fields');
+            delete_post_meta($group_id, 'scf_rules');
+
+            // Supprimer le post
+            $result = wp_delete_post($group_id, true);
+            
+            if (!$result) {
+                throw new Exception('Échec de la suppression du groupe');
+            }
+
+            wp_send_json_success(array(
+                'message' => 'Groupe supprimé avec succès'
+            ));
+
+        } catch (Exception $e) {
+            wp_send_json_error(array(
+                'message' => $e->getMessage()
+            ));
         }
     }
 

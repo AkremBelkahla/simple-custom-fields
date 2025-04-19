@@ -133,15 +133,10 @@ jQuery(document).ready(function($) {
             var label = $row.find('.option-label').val().trim();
             var value = $row.find('.option-value').val().trim();
             
-            console.log('Option trouvée:', { label: label, value: value });
-            
             if (label) {
                 options.push({
                     label: label,
-                    value: value || label.toLowerCase()
-                        .replace(/[^a-z0-9]+/g, '_')
-                        .replace(/^_+|_+$/g, '')
-                        .replace(/_+/g, '_')
+                    value: value || label
                 });
             }
         });

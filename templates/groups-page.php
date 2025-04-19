@@ -112,7 +112,7 @@ jQuery(document).ready(function($) {
         var groupId = $(this).data('group-id');
 
         $.ajax({
-            url: ajaxurl,
+            url: scf_vars.ajaxurl,
             type: 'POST',
             data: {
                 action: 'scf_delete_group',
@@ -120,11 +120,17 @@ jQuery(document).ready(function($) {
                 nonce: scf_vars.nonce
             },
             success: function(response) {
+                console.log('Response:', response);
                 if (response.success) {
+                    alert(response.data.message);
                     location.reload();
                 } else {
-                    alert('Une erreur est survenue lors de la suppression du groupe.');
+                    alert('Une erreur est survenue : ' + (response.data ? response.data.message : 'Erreur inconnue'));
                 }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                alert('Une erreur est survenue lors de la suppression du groupe: ' + error);
             }
         });
     });

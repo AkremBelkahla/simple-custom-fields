@@ -137,14 +137,14 @@ if ($group_id) {
                                                         class="button button-primary edit-options"
                                                         <?php echo !$show_options ? 'style="display: none;"' : ''; ?>>
                                                     <span class="dashicons dashicons-list-view"
-                                                          style="margin-top: 5px;"></span>
-                                                    Options
+                                                          style="margin-top: 5px;"
+                                                          title="Options"></span>
                                                 </button>
                                                 <button type="button"
                                                         class="button button-primary remove-field">
                                                     <span class="dashicons dashicons-trash"
-                                                          style="margin-top: 5px;"></span>
-                                                    Supprimer
+                                                          style="margin-top: 5px;"
+                                                          title="Supprimer"></span>
                                                 </button>
                                                 <?php 
                                                         $options = isset($field['options']) ? $field['options'] : array();
@@ -305,12 +305,10 @@ if ($group_id) {
         </td>
         <td class="column-actions">
             <button type="button" class="button button-primary edit-options" style="display: none;">
-                <span class="dashicons dashicons-list-view"></span>
-                Options
+                <span class="dashicons dashicons-list-view" title="Options"></span>
             </button>
             <button type="button" class="button button-primary remove-field">
-                <span class="dashicons dashicons-trash"></span>
-                Supprimer
+                <span class="dashicons dashicons-trash" title="Supprimer"></span>
             </button>
             <input type="hidden" name="fields[{index}][options]" class="field-options" value="[]">
         </td>

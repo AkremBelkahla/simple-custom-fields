@@ -24,15 +24,25 @@ class SCF_Fields {
             'post_type' => 'scf-field-group',
             'posts_per_page' => -1,
             'orderby' => 'title',
-            'order' => 'ASC'
+            'order' => 'ASC',
+            'post_status' => array('publish', 'draft')
         ));
 
         foreach ($groups as $group) {
             $rules = get_post_meta($group->ID, 'scf_rules', true);
             
+            // Debug: Afficher les informations de règles
+            error_log('Type de contenu actuel : ' . $post_type);
+            error_log('Règles du groupe ' . $group->ID . ' : ' . print_r($rules, true));
+
             // Vérifier si le groupe doit être affiché pour ce type de contenu
-            if ($rules && isset($rules['param']) && $rules['param'] === 'post_type' 
-                && isset($rules['value']) && $rules['value'] === $post_type) {
+            if ($group->post_status === 'publish' && 
+                $rules && isset($rules['param']) && $rules['param'] === 'post_type' && 
+                isset($rules['value']) && $rules['value'] === $post_type) {
+                
+                // Debug: Afficher les champs du groupe
+                $fields = get_post_meta($group->ID, 'scf_fields', true);
+                error_log('Champs trouvés pour le groupe ' . $group->ID . ' : ' . print_r($fields, true));
                 
                 add_meta_box(
                     'scf-fields-' . $group->ID,
@@ -161,7 +171,8 @@ class SCF_Fields {
         $post_type = get_post_type($post_id);
         $groups = get_posts(array(
             'post_type' => 'scf-field-group',
-            'posts_per_page' => -1
+            'posts_per_page' => -1,
+            'post_status' => array('publish', 'draft')
         ));
 
         foreach ($groups as $group) {
@@ -201,10 +212,10 @@ class SCF_Fields {
                             break;
                         case 'select':
                         case 'radio':
-                            $values[$field_name] = sanitize_text_field($field_value);
+                            $values[$field_name] = $field_value;
                             break;
                         case 'checkbox':
-                            $values[$field_name] = array_map('sanitize_text_field', (array)$field_value);
+                            $values[$field_name] = (array)$field_value;
                             break;
                         default:
                             $values[$field_name] = sanitize_text_field($field_value);

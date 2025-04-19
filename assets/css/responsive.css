@@ -1,0 +1,7 @@
+/* Styles responsifs */
+@media screen and (max-width: 782px) {
+    .scf-modal-content {
+        width: 90%;
+        margin: 30px auto;
+    }
+}

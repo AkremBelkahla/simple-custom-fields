@@ -1,0 +1,33 @@
+/* Styles pour la table des groupes */
+.scf-box .wp-list-table th.column-order {
+    width: 20px;
+}
+
+.scf-box .wp-list-table th.column-type {
+    width: 150px;
+}
+
+.scf-box .wp-list-table th {
+    padding: 8px;
+}
+
+/* Ajustement des colonnes du tableau */
+.scf-box .wp-list-table .column-title {
+    width: 25%;
+}
+
+.scf-box .wp-list-table .column-description {
+    width: 30%;
+}
+
+.scf-box .wp-list-table .column-fields {
+    width: 15%;
+}
+
+.scf-box .wp-list-table .column-status {
+    width: 15%;
+}
+
+.scf-box .wp-list-table .column-rules {
+    width: 15%;
+}

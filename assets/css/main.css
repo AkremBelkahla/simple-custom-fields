@@ -1,0 +1,53 @@
+/* Import des différents fichiers CSS */
+@import url("./fields.css");
+@import url("./modal.css");
+@import url("./options.css");
+@import url("./responsive.css");
+@import url("./buttons.css");
+
+/* Styles pour la liste des groupes */
+.row-description {
+	color: #666;
+	margin-top: 4px;
+	font-size: 13px;
+	padding: 4px 0;
+}
+
+.row-status {
+	margin-top: 4px;
+	padding: 4px 0;
+}
+
+.status-indicator {
+	display: inline-block;
+	padding: 4px 12px;
+	border-radius: 16px;
+	font-size: 12px;
+	line-height: 1.4;
+	font-weight: 500;
+}
+
+.status-indicator.active {
+	background-color: #dff0d8;
+	color: #3c763d;
+}
+
+.status-indicator.inactive {
+	background-color: #f2dede;
+	color: #a94442;
+}
+
+.scf-box .wp-list-table .row-actions {
+	display: block;
+	padding: 4px 0;
+	visibility: visible;
+	position: static;
+}
+
+/* Styles pour le toggle d'état */
+.components-toggle-control__label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}

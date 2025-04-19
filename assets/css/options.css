@@ -1,0 +1,50 @@
+/* Styles pour le bouton Ajouter un champ */
+.scf-add-field-wrapper {
+    margin: 0px 20px;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.scf-add-field-wrapper .button {
+    padding: 5px 15px;
+    height: auto de;
+}
+
+/* Styles pour la table des groupes */
+.manage-column.column-order {
+    width: 20px !important;
+}
+
+.manage-column.column-type {
+    width: 150px !important;
+}
+
+.wp-list-table th {
+    padding: 8px;
+}
+
+/* Ajustement des colonnes du tableau */
+.wp-list-table .column-title {
+    width: 20%;
+}
+
+.wp-list-table .column-description {
+    width: 25%;
+}
+
+.wp-list-table .column-fields {
+    width: 10%;
+}
+
+.wp-list-table .column-status {
+    width: 10%;
+}
+
+.wp-list-table .column-rules {
+    width: 20%;
+}
+
+.wp-list-table .column-actions {
+    width: 15%;
+}

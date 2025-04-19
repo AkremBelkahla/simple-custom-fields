@@ -1,26 +1,27 @@
 # 🔧 Simple Custom Fields
 
 ## 📝 Description
-Simple Custom Fields est un plugin WordPress qui permet de créer et de gérer des champs personnalisés pour différents types de contenu 📄.
+Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types 📄.
 
-## ✨ Fonctionnalités
-- 📁 Création de groupes de champs personnalisés
-- 📝 Ajout de différents types de champs (texte, zone de texte, nombre, email, liste déroulante, boutons radio, cases à cocher)
-- 🔍 Configuration des règles d'affichage par type de contenu
-- 🔄 Activation/désactivation des groupes de champs
-- 🌐 Affichage des champs personnalisés sur le front-end via une fonction dédiée
+## ✨ Features
+- 📁 Create custom field groups
+- 📝 Add various field types (text, textarea, number, email, select, radio, checkbox)
+- 🔍 Configure display rules by content type
+- 🔄 Enable/disable field groups
+- 🌐 Display custom fields on the front-end using a dedicated function
 
 ## 🚀 Installation
-1. 📥 Téléchargez le dossier du plugin
-2. 📦 Décompressez le dossier dans le répertoire `wp-content/plugins` de votre installation WordPress
-3. ✅ Activez le plugin via le menu "Extensions" de WordPress
+1. 📥 Download the plugin folder
+2. 📦 Unzip the folder into the `wp-content/plugins` directory of your WordPress installation
+3. ✅ Activate the plugin through the "Plugins" menu in WordPress
 
-## 📚 Utilisation
-1. 🔗 Accédez au menu "Simple Custom Fields" dans l'interface d'administration WordPress
-2. 🛠️ Créez un nouveau groupe de champs ou modifiez un groupe existant
-3. ➕ Ajoutez des champs personnalisés selon vos besoins
-4. 🔧 Configurez les règles d'affichage pour le groupe de champs
-5. 💻 Utilisez la fonction `scf_get_field($field_name, $post_id)` pour afficher les champs sur le front-end
+## 📚 Usage
+1. 🔗 Access the "Simple Custom Fields" menu in the WordPress admin interface
+2. 🛠️ Create a new field group or edit an existing one
+3. ➕ Add custom fields as needed
+4. 🔧 Configure display rules for the field group
+5. 💻 Use the `scf_get_field($field_name, $post_id)` function to display fields on the front-end
 
 ## 📜 Changelog
-- Version 1.0.0 : Version initiale du plugin 🎉
+- Version 1.0.0: Initial release of the plugin 🎉 
+ 

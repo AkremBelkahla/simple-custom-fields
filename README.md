@@ -6,11 +6,18 @@ This plugin is currently in development and should NOT be used on production sit
 ## 📝 Description
 Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types 📄.
 
+The plugin uses a dedicated database table (`wp_scf_fields`) to store all custom field values, providing better performance and scalability compared to WordPress postmeta. This table is automatically created during plugin activation and includes:
+- Optimized indexes for fast queries
+- Timestamp tracking for all changes
+- Serialized field value storage
+- Relationship tracking between posts, field groups and fields
+
 ## ✨ Features
 - 📁 Create custom field groups
 - 📝 Add various field types (text, textarea, number, email, select, radio, checkbox)
 - 🔍 Configure display rules by content type
 - 🔄 Enable/disable field groups
+- 🗃️ Store custom fields in dedicated database table for better performance
 - 🌐 Display custom fields on the front-end using a dedicated function
 
 ## 🚀 Installation

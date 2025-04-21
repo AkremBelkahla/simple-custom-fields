@@ -19,40 +19,29 @@ class SCF_Admin_Page {
     }
 
     public function enqueue_admin_scripts($hook) {
-        error_log('=== SCF DEBUG === Enqueue scripts called for hook: ' . $hook);
-        
-        // Pages où le script doit être chargé
         $allowed_pages = array(
             'toplevel_page_simple-custom-fields',
             'simple-custom-fields_page_scf-add-group',
             'admin_page_simple-custom-fields'
         );
-        
-        error_log('Allowed pages: ' . print_r($allowed_pages, true));
-        error_log('Current hook matches: ' . (in_array($hook, $allowed_pages) ? 'YES' : 'NO'));
-        
+
         if (in_array($hook, $allowed_pages)) {
-            error_log('=== Loading SCF scripts ===');
-            error_log('SCF_PLUGIN_URL: ' . SCF_PLUGIN_URL);
-            error_log('Script path: ' . SCF_PLUGIN_URL . 'assets/js/admin.js');
-            
-            // Debug de la fonction wp_enqueue_script
-            error_log('Before wp_enqueue_script');
-            error_log('Before wp_enqueue_script');
-            wp_enqueue_script('scf-admin', SCF_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), '1.0.0', true);
-            
-            $scf_vars = array(
-                'nonce' => wp_create_nonce('scf_delete_group'),
-                'ajaxurl' => admin_url('admin-ajax.php'),
-                'debug' => WP_DEBUG,
-                'isAdmin' => (current_user_can('manage_options') ? true : false),
-                'deleteGroupEndpoint' => admin_url('admin-ajax.php'),
-                'userId' => get_current_user_id()
-            );
-            error_log('Localizing script with: ' . print_r($scf_vars, true));
-            
-            wp_localize_script('scf-admin', 'scf_vars', $scf_vars);
-            error_log('After wp_localize_script');
+            wp_enqueue_script('jquery');
+            wp_enqueue_script('scf-admin', SCF_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), '1.0.1_' . time(), true);
+
+            // Create a new nonce for this request
+            $nonce = wp_create_nonce('scf_delete_group');
+            error_log('Debug - Generated nonce: ' . $nonce);
+
+            wp_localize_script('scf-admin', 'scf_vars', array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => $nonce,
+                'action' => 'scf_delete_group',
+                'isAdmin' => current_user_can('manage_options') ? '1' : '0'
+            ));
+
+            // Ajout des variables JavaScript directement dans le template groups-page.php
+            error_log('Debug - Enqueuing admin script at hook: ' . $hook);
         }
     }
 
@@ -190,25 +179,10 @@ class SCF_Admin_Page {
 
             error_log('Delete group - Permission check passed for user ID: ' . get_current_user_id());
 
-            // Vérification approfondie du nonce
-            error_log('Nonce verification details:');
-            error_log('Received nonce: ' . ($_POST['nonce'] ?? 'none'));
-            error_log('Expected action: scf_delete_group');
-            error_log('Current user ID: ' . get_current_user_id());
-            error_log('Nonce key: ' . wp_create_nonce('scf_delete_group'));
-            
-            if (!isset($_POST['nonce'])) {
-                throw new Exception('Nonce manquant');
+            if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'scf_delete_group')) {
+                error_log('Nonce verification failed');
+                throw new Exception('Session expirée - Veuillez rafraîchir la page');
             }
-            
-            if (!wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'scf_delete_group')) {
-                error_log('Nonce verification failed - Possible causes:');
-                error_log('- Nonce expiré (12h de validité)');
-                error_log('- Mauvais utilisateur');
-                error_log('- Action incorrecte');
-                throw new Exception('Vérification de sécurité échouée (nonce invalide)');
-            }
-            error_log('Nonce verification successful');
 
             // Vérification du referrer
             $referrer = wp_get_referer();

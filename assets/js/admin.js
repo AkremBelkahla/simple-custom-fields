@@ -1,6 +1,11 @@
 jQuery(document).ready(function($) {
+    if (typeof scf_vars === 'undefined') {
+        console.error('SCF: scf_vars is not defined!');
+    } else {
+        console.log('SCF Vars:', scf_vars);
+    }
+
     console.log('SCF Admin JS loaded');
-    console.log('SCF Vars:', typeof scf_vars !== 'undefined' ? scf_vars : 'undefined');
     var fieldIndex = $('.scf-field-row').length;
 
     // Fonction pour sanitizer le libellé en nom de champ
@@ -38,51 +43,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // Gestion de la suppression des groupes
-    $(document).on('click', '.scf-delete-group', function(e) {
-        e.preventDefault();
-
-        if (!confirm('Êtes-vous sûr de vouloir supprimer ce groupe de champs ?')) {
-            return;
-        }
-
-        // Utilisation directe de admin-ajax.php comme fallback
-        var ajaxurl = typeof scf_vars !== 'undefined' && scf_vars.ajaxurl 
-            ? scf_vars.ajaxurl 
-            : ajaxurl || 'https://preprod.wordifysites.com/wp-admin/admin-ajax.php';
-
-        var groupId = $(this).data('group-id');
-        var nonce = typeof scf_vars !== 'undefined' ? scf_vars.nonce : '';
-
-        $.ajax({
-            url: ajaxurl,
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                action: 'scf_delete_group',
-                group_id: groupId,
-                nonce: nonce
-            },
-            success: function(response) {
-                if (response.success) {
-                    alert(response.data.message);
-                    var row = $('[data-group-id="' + response.data.group_id + '"]').closest('tr');
-                    row.fadeOut(400, function() {
-                        row.remove();
-                        if ($('table tbody tr').length === 0) {
-                            location.reload();
-                        }
-                    });
-                } else {
-                    alert('Erreur: ' + (response.data.message || 'Erreur inconnue'));
-                }
-            },
-            error: function(xhr) {
-                console.error('Erreur AJAX:', xhr.responseText);
-                alert('Une erreur est survenue lors de la suppression');
-            }
-        });
-    });
+    // La gestion de la suppression des groupes a été déplacée dans templates/groups-page.php
 
     // ... [le reste du fichier reste inchangé]
 });

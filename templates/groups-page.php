@@ -67,17 +67,16 @@
                         <td>
                             <div class="row-actions">
                                 <span class="edit">
-                                    <a
-                                       href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>">
+                                    <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>">
                                         Modifier
-                                    </a> |
-                                </span>
-                                <span class="delete">
+                                    </a>
+                                    <?php if (current_user_can('manage_options')): ?> |
                                     <a href="#"
                                        class="scf-delete-group"
                                        data-group-id="<?php echo $group->ID; ?>">
                                         Supprimer
                                     </a>
+                                    <?php endif; ?>
                                 </span>
                             </div>
                         </td>
@@ -101,6 +100,7 @@
 </div>
 
 <script type="text/javascript">
+
 jQuery(document).ready(function($) {
     $('.scf-delete-group').on('click', function(e) {
         e.preventDefault();
@@ -109,28 +109,18 @@ jQuery(document).ready(function($) {
             return;
         }
 
-        if (typeof scf_vars === 'undefined' || !scf_vars.ajaxurl) {
-            console.error('Configuration AJAX manquante');
-            alert('Erreur de configuration');
-            return;
-        }
-
         var groupId = $(this).data('group-id');
 
-        if (typeof scf_vars.isAdmin === 'undefined' || scf_vars.isAdmin !== '1') {
-            alert('Vous n\'avez pas les permissions nécessaires.');
-            return;
-        }
-
         $.ajax({
-            url: scf_vars.ajaxurl,
+            url: scf_vars.ajax_url,
             type: 'POST',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: {
                 action: 'scf_delete_group',
                 group_id: groupId,
-                nonce: scf_vars.nonce || ''
+                nonce: scf_vars.nonce || '',
+                scf_action: scf_vars.action || ''
             },
             beforeSend: function() {
                 if (!scf_vars.nonce) {

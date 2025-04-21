@@ -106,17 +106,21 @@ class SCF_Meta_Boxes {
     public function render_meta_box($post, $meta_box) {
         $fields = $meta_box['args']['fields'];
         $group_id = $meta_box['args']['group_id'];
-        $values = get_post_meta($post->ID, '_scf_values_' . $group_id, true);
+        $db = SCF_Database::get_instance();
+        $values = array();
+        
+        foreach ($fields as $field) {
+            $db_field = $db->get_field($post->ID, $group_id, $field['name']);
+            if ($db_field) {
+                $values[$field['name']] = $db_field->field_value;
+            }
+        }
         
         error_log('Rendering meta box for post ' . $post->ID . ' and group ' . $group_id);
         error_log('Fields: ' . print_r($fields, true));
         error_log('Values: ' . print_r($values, true));
         
         wp_nonce_field('scf_meta_box', 'scf_meta_box_nonce');
-        
-        if (!is_array($values)) {
-            $values = array();
-        }
         
         require SCF_PLUGIN_DIR . 'templates/meta-box.php';
     }
@@ -146,11 +150,15 @@ class SCF_Meta_Boxes {
 
         error_log('Posted fields: ' . print_r($_POST['scf_fields'], true));
 
+        $db = SCF_Database::get_instance();
         $groups = get_posts(array(
             'post_type' => 'scf-field-group',
             'posts_per_page' => -1
         ));
 
+        // Vérifier le format des données POST
+        error_log('Full POST data: ' . print_r($_POST, true));
+        
         foreach ($_POST['scf_fields'] as $group_id => $group_fields) {
             $fields = get_post_meta($group_id, 'scf_fields', true);
             error_log('Processing group ' . $group_id . ' with fields: ' . print_r($fields, true));
@@ -158,8 +166,10 @@ class SCF_Meta_Boxes {
             if (!empty($fields)) {
                 foreach ($fields as $field) {
                     $field_name = $field['name'];
-                    if (isset($group_fields[$field_name])) {
-                        $value = $group_fields[$field_name];
+                    $post_field_name = 'scf_fields['.$group_id.']['.$field_name.']';
+                    
+                    if (isset($_POST['scf_fields'][$group_id][$field_name])) {
+                        $value = $_POST['scf_fields'][$group_id][$field_name];
                         
                         // Sanitize selon le type de champ
                         switch ($field['type']) {
@@ -187,18 +197,9 @@ class SCF_Meta_Boxes {
                                 break;
                         }
                         
-                        // Sauvegarder la valeur avec le préfixe scf_ et le meta_key spécifique au groupe
-                        $meta_key = sprintf('_scf_values_%d', $group_id);
-                        $values = get_post_meta($post_id, $meta_key, true);
-                        if (!is_array($values)) {
-                            $values = array();
-                        }
-                        $values[$field_name] = $sanitized_value;
-                        error_log('Saving value for field ' . $field_name . ': ' . print_r($sanitized_value, true));
-                        error_log('Meta key: ' . $meta_key);
-                        update_post_meta($post_id, $meta_key, $values);
-                        $saved = get_post_meta($post_id, $meta_key, true);
-                        error_log('Saved values: ' . print_r($saved, true));
+                        // Sauvegarder dans la nouvelle table
+                        $db->save_field($post_id, $group_id, $field_name, $sanitized_value);
+                        error_log('Saved field ' . $field_name . ' to database');
                     }
                 }
             }

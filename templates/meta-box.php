@@ -19,14 +19,14 @@
                 <?php switch ($field['type']):
                     case 'textarea': ?>
                         <textarea id="<?php echo esc_attr($field_id); ?>" 
-                                name="scf_fields[<?php echo esc_attr($meta_box['args']['group_id']); ?>][<?php echo esc_attr($field['name']); ?>]"
+                                name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>]"
                                 rows="5"
                                 class="scf-textarea"><?php echo esc_textarea($field_value); ?></textarea>
                         <?php break;
 
                     case 'select': ?>
                         <select id="<?php echo esc_attr($field_id); ?>" 
-                                name="scf_fields[<?php echo esc_attr($meta_box['args']['group_id']); ?>][<?php echo esc_attr($field['name']); ?>]"
+                                name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>]"
                                 class="scf-select">
                             <?php if (!empty($field['options'])): ?>
                                 <?php foreach ($field['options'] as $option): ?>
@@ -46,7 +46,7 @@
                                 <label class="scf-radio-label">
                                     <input type="radio"
                                            class="scf-radio"
-                                           name="scf_fields[<?php echo esc_attr($meta_box['args']['group_id']); ?>][<?php echo esc_attr($field['name']); ?>]" 
+                                           name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>]" 
                                            value="<?php echo esc_attr($option['value']); ?>" 
                                            <?php checked($field_value, $option['value']); ?>>
                                     <span class="scf-option-label"><?php echo esc_html($option['label']); ?></span>
@@ -63,7 +63,7 @@
                                 <label class="scf-checkbox-label">
                                     <input type="checkbox"
                                            class="scf-checkbox"
-                                           name="scf_fields[<?php echo esc_attr($meta_box['args']['group_id']); ?>][<?php echo esc_attr($field['name']); ?>][]" 
+                                           name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>][]" 
                                            value="<?php echo esc_attr($option['value']); ?>" 
                                            <?php 
                                            $checked_values = is_array($field_value) ? $field_value : array($field_value);
@@ -79,7 +79,7 @@
                     default: ?>
                         <input type="<?php echo esc_attr($field['type']); ?>" 
                                id="<?php echo esc_attr($field_id); ?>" 
-                               name="scf_fields[<?php echo esc_attr($meta_box['args']['group_id']); ?>][<?php echo esc_attr($field['name']); ?>]" 
+                               name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>]" 
                                value="<?php echo esc_attr($field_value); ?>"
                                class="scf-input">
                 <?php endswitch; ?>

@@ -20,6 +20,7 @@ define('SCF_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('SCF_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 // Chargement des fichiers de classes
+require_once SCF_PLUGIN_DIR . 'includes/class-scf-database.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-simple-custom-fields.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-admin-page.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-meta-boxes.php';
@@ -57,7 +58,15 @@ function scf_get_field($field_name, $post_id = null) {
         }
 
         $fields = get_post_meta($group->ID, 'scf_fields', true);
-        $values = get_post_meta($post_id, '_scf_values_' . $group->ID, true);
+        $db = SCF_Database::get_instance();
+        $values = array();
+        
+        foreach ($fields as $field) {
+            $db_field = $db->get_field($post_id, $group->ID, $field['name']);
+            if ($db_field) {
+                $values[$field['name']] = $db_field->field_value;
+            }
+        }
         
         error_log('Champs du groupe : ' . print_r($fields, true));
         error_log('Valeurs trouvées : ' . print_r($values, true));
@@ -139,7 +148,15 @@ function scf_display_custom_fields_shortcode($atts) {
 
         if (!empty($rules) && $rules['type'] === 'post_type' && $rules['value'] === $current_post_type) {
             $fields = get_post_meta($group->ID, 'scf_fields', true);
-            $values = get_post_meta($post_id, '_scf_values_' . $group->ID, true);
+            $db = SCF_Database::get_instance();
+            $values = array();
+            
+            foreach ($fields as $field) {
+                $db_field = $db->get_field($post_id, $group->ID, $field['name']);
+                if ($db_field) {
+                    $values[$field['name']] = $db_field->field_value;
+                }
+            }
             
             error_log('Group matches post type. Fields: ' . print_r($fields, true));
             error_log('Values: ' . print_r($values, true));
@@ -177,6 +194,11 @@ register_activation_hook(__FILE__, function() {
     // Enregistrer le type de post personnalisé
     $plugin = SCF_Simple_Custom_Fields::get_instance();
     $plugin->register_field_group_post_type();
+    
+    // Créer la table personnalisée
+    $db = SCF_Database::get_instance();
+    $db->create_table();
+    
     flush_rewrite_rules();
 });
 

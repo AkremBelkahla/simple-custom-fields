@@ -47,7 +47,44 @@ The plugin uses a dedicated database table (`wp_scf_fields`) to store all custom
 2. 🛠️ Create a new field group or edit an existing one
 3. ➕ Add custom fields as needed
 4. 🔧 Configure display rules for the field group
-5. 💻 Use the `scf_get_field($field_name, $post_id)` function to display fields on the front-end
+5. 💻 Display fields on the front-end using:
+
+### Basic Usage
+```php
+<?php 
+$value = scf_get_field('field_name'); 
+if ($value) {
+    echo $value; 
+}
+?>
+```
+
+### With Post ID
+```php 
+<?php
+$value = scf_get_field('field_name', 123); // 123 = Post ID
+echo $value ?: 'No value';
+?>
+```
+
+### In Template Files
+```php
+<div class="custom-field">
+    <h3><?php echo esc_html__('Field Label', 'text-domain'); ?></h3>
+    <p><?php echo esc_html(scf_get_field('field_name')); ?></p>
+</div>
+```
+
+### Shortcode Usage
+```
+[scf_fields] 
+```
+Displays all fields for current post in a formatted layout
+
+### Security Notes
+- Always escape output with `esc_html()` for text fields
+- Use `wp_kses_post()` for HTML content
+- For emails, use `antispambot()` function
 
 ## 📜 Changelog
 - Version 1.0.0: Initial release of the plugin 🎉

@@ -253,7 +253,7 @@ class SCF_Admin_Page {
                         if (!empty($option['label'])) {
                             $sanitized_option = array(
                                 'label' => sanitize_text_field($option['label']),
-                                'value' => !empty($option['value']) ? sanitize_key($option['value']) : sanitize_key($option['label'])
+                                'value' => !empty($option['value']) ? $option['value'] : sanitize_key($option['label'])
                             );
                             $sanitized_options[] = $sanitized_option;
                         }
@@ -271,20 +271,30 @@ class SCF_Admin_Page {
     }
 
     private function sanitize_rules($rules) {
+        error_log('Sanitizing rules: ' . print_r($rules, true));
+        
         if (!is_array($rules) || empty($rules)) {
-            return array(
-                'param' => 'post_type',
+            $default_rules = array(
+                'type' => 'post_type',
                 'operator' => '=',
-                'value' => 'post'
+                'value' => 'page'  // Changé de 'post' à 'page' par défaut
             );
+            error_log('Using default rules: ' . print_r($default_rules, true));
+            return $default_rules;
         }
 
-        return array(
-            'param' => isset($rules['type']) ? sanitize_key($rules['type']) : 'post_type',
-            'operator' => isset($rules['operator']) && in_array($rules['operator'], array('==', '!=')) ? $rules['operator'] : '==',
-            // Modification ici pour utiliser directement la valeur sans sanitize_key
-            'value' => isset($rules['value']) ? $rules['value'] : 'post'
+        // Vérifier si le type de contenu existe
+        $post_types = get_post_types(array('public' => true), 'names');
+        error_log('Available post types: ' . print_r($post_types, true));
+
+        $sanitized_rules = array(
+            'type' => 'post_type',
+            'operator' => '=',
+            'value' => isset($rules['value']) && in_array($rules['value'], $post_types) ? $rules['value'] : 'page'
         );
+
+        error_log('Sanitized rules: ' . print_r($sanitized_rules, true));
+        return $sanitized_rules;
     }
 
     private function sanitize_options($options) {
@@ -299,7 +309,7 @@ class SCF_Admin_Page {
             }
 
             $sanitized[] = array(
-                'value' => sanitize_text_field($option['value']),
+                'value' => $option['value'],
                 'label' => sanitize_text_field($option['label'])
             );
         }

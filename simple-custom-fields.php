@@ -31,39 +31,80 @@ function scf_get_field($field_name, $post_id = null) {
         $post_id = get_the_ID();
     }
 
-    // Debug: Afficher le champ recherché et l'ID du post
+    error_log("=== SCF GET FIELD START ===");
     error_log('Recherche du champ : ' . $field_name . ' pour le post ID : ' . $post_id);
 
-    // Récupérer seulement les groupes de champs actifs
+    // Récupérer seulement les groupes de champs actifs et correspondant au type de contenu actuel
+    $current_post_type = get_post_type($post_id);
+    error_log('Type de contenu actuel : ' . $current_post_type);
+
     $groups = get_posts(array(
         'post_type' => 'scf-field-group',
         'posts_per_page' => -1,
         'post_status' => 'publish'
     ));
 
-    // Debug: Afficher le nombre de groupes trouvés
     error_log('Nombre de groupes trouvés : ' . count($groups));
 
     foreach ($groups as $group) {
+        $rules = get_post_meta($group->ID, 'scf_rules', true);
+        error_log('Règles du groupe ' . $group->ID . ' : ' . print_r($rules, true));
+
+        // Vérifier si ce groupe s'applique au type de contenu actuel
+        if (empty($rules) || $rules['type'] !== 'post_type' || $rules['value'] !== $current_post_type) {
+            error_log('Groupe ' . $group->ID . ' ignoré - ne correspond pas au type de contenu');
+            continue;
+        }
+
         $fields = get_post_meta($group->ID, 'scf_fields', true);
         $values = get_post_meta($post_id, '_scf_values_' . $group->ID, true);
-
-        // Debug: Afficher les champs et valeurs trouvés
-        error_log('Champs trouvés dans le groupe ' . $group->ID . ' : ' . print_r($fields, true));
-        error_log('Valeurs trouvées pour le post : ' . print_r($values, true));
-
-        if (!empty($fields)) {
+        
+        error_log('Champs du groupe : ' . print_r($fields, true));
+        error_log('Valeurs trouvées : ' . print_r($values, true));
+        
+        if (!empty($fields) && is_array($values)) {
             foreach ($fields as $field) {
-                if ($field['name'] === $field_name) {
-                    $result = isset($values[$field_name]) ? $values[$field_name] : null;
-                    error_log('Valeur trouvée pour ' . $field_name . ' : ' . print_r($result, true));
-                    return $result;
+                if ($field['name'] === $field_name && isset($values[$field_name])) {
+                    $value = $values[$field_name];
+                    error_log('Valeur trouvée pour ' . $field_name . ' : ' . print_r($value, true));
+                    
+                    if ($value === '') {
+                        error_log("=== SCF GET FIELD END - EMPTY ===");
+                        return '—';
+                    }
+
+                    // Formater la valeur selon le type de champ
+                    switch ($field['type']) {
+                        case 'checkbox':
+                            if (!is_array($value)) {
+                                $value = array($value);
+                            }
+                            $formatted = !empty($value) ? implode(', ', array_map('esc_html', $value)) : '—';
+                            error_log('Valeur formatée (checkbox) : ' . $formatted);
+                            return $formatted;
+                            
+                        case 'email':
+                            $formatted = !empty($value) ? sprintf('<a href="mailto:%1$s">%1$s</a>', esc_attr($value)) : '—';
+                            error_log('Valeur formatée (email) : ' . $formatted);
+                            return $formatted;
+                            
+                        case 'textarea':
+                            $formatted = !empty($value) ? nl2br(esc_html($value)) : '—';
+                            error_log('Valeur formatée (textarea) : ' . $formatted);
+                            return $formatted;
+                            
+                        default:
+                            $formatted = !empty($value) ? esc_html($value) : '—';
+                            error_log('Valeur formatée (default) : ' . $formatted);
+                            return $formatted;
+                    }
                 }
             }
         }
     }
 
     error_log('Aucune valeur trouvée pour ' . $field_name);
+    error_log("=== SCF GET FIELD END - NOT FOUND ===");
     return null;
 }
 
@@ -74,8 +115,16 @@ function scf_load_textdomain() {
 add_action('plugins_loaded', 'scf_load_textdomain');
 
 // Fonction pour afficher les champs personnalisés sur le front-end via shortcode
-function scf_display_custom_fields_shortcode() {
+function scf_display_custom_fields_shortcode($atts) {
+    error_log("=== SCF SHORTCODE START ===");
+    
     $post_id = get_the_ID();
+    $current_post_type = get_post_type($post_id);
+    
+    error_log('Post ID: ' . $post_id);
+    error_log('Post Type: ' . $current_post_type);
+
+    // Récupérer les groupes actifs
     $groups = get_posts(array(
         'post_type' => 'scf-field-group',
         'posts_per_page' => -1,
@@ -86,44 +135,29 @@ function scf_display_custom_fields_shortcode() {
 
     foreach ($groups as $group) {
         $rules = get_post_meta($group->ID, 'scf_rules', true);
-        if ($rules && $rules['param'] === 'post_type' && $rules['value'] === 'page') {
+        error_log('Checking group ' . $group->ID . ' with rules: ' . print_r($rules, true));
+
+        if (!empty($rules) && $rules['type'] === 'post_type' && $rules['value'] === $current_post_type) {
             $fields = get_post_meta($group->ID, 'scf_fields', true);
             $values = get_post_meta($post_id, '_scf_values_' . $group->ID, true);
+            
+            error_log('Group matches post type. Fields: ' . print_r($fields, true));
+            error_log('Values: ' . print_r($values, true));
 
-            if (!empty($fields)) {
+            if (!empty($fields) && !empty($values)) {
                 $output .= '<div class="scf-frontend-container">';
                 $output .= '<h2>' . esc_html($group->post_title) . '</h2>';
                 $output .= '<div class="scf-fields-container">';
 
                 foreach ($fields as $field) {
-                    $field_value = isset($values[$field['name']]) ? $values[$field['name']] : '';
-                    $output .= '<div class="scf-field-row">';
-                    $output .= '<label>' . esc_html($field['label']) . '</label>';
-
-                    switch ($field['type']) {
-                        case 'text':
-                        case 'email':
-                            $output .= '<p>' . esc_html($field_value) . '</p>';
-                            break;
-                        case 'textarea':
-                            $output .= '<p>' . esc_textarea($field_value) . '</p>';
-                            break;
-                        case 'select':
-                        case 'radio':
-                            $output .= '<p>' . esc_html($field_value) . '</p>';
-                            break;
-                        case 'checkbox':
-                            if (is_array($field_value)) {
-                                $output .= '<ul>';
-                                foreach ($field_value as $value) {
-                                    $output .= '<li>' . esc_html($value) . '</li>';
-                                }
-                                $output .= '</ul>';
-                            }
-                            break;
+                    if (isset($values[$field['name']])) {
+                        $value = $values[$field['name']];
+                        $output .= '<div class="scf-field-row">';
+                        $output .= '<label>' . esc_html($field['label']) . '</label>';
+                        $output .= '<div class="scf-field-value">';
+                        $output .= scf_get_field($field['name'], $post_id);
+                        $output .= '</div></div>';
                     }
-
-                    $output .= '</div>';
                 }
 
                 $output .= '</div></div>';
@@ -131,43 +165,52 @@ function scf_display_custom_fields_shortcode() {
         }
     }
 
+    error_log('Generated output: ' . $output);
+    error_log("=== SCF SHORTCODE END ===");
     return $output;
 }
 add_shortcode('scf_fields', 'scf_display_custom_fields_shortcode');
 
-// Initialisation du plugin
-function scf_init() {
-    $plugin = SCF_Simple_Custom_Fields::get_instance();
-    $plugin->init();
-}
-add_action('plugins_loaded', 'scf_init');
-
-// Activation/Deactivation hooks
-register_activation_hook(__FILE__, 'scf_activate');
-register_deactivation_hook(__FILE__, 'scf_deactivate');
-
-function scf_activate() {
+// Hooks d'activation/désactivation
+register_activation_hook(__FILE__, function() {
+    error_log('SCF Plugin Activation');
     // Enregistrer le type de post personnalisé
     $plugin = SCF_Simple_Custom_Fields::get_instance();
     $plugin->register_field_group_post_type();
-    
-    // Vider le cache des règles de réécriture
     flush_rewrite_rules();
-}
+});
 
-function scf_deactivate() {
-    // Vider le cache des règles de réécriture
+register_deactivation_hook(__FILE__, function() {
+    error_log('SCF Plugin Deactivation');
     flush_rewrite_rules();
-}
+});
 
-// Activation des classes principales
-function scf_boot() {
-    error_log('Initializing SCF plugin');
-    $admin = SCF_Admin_Page::get_instance();
-    $fields = SCF_Fields::get_instance();
+// Initialisation séquentielle du plugin
+$scf_plugin = SCF_Simple_Custom_Fields::get_instance();
+
+// 1. Chargement des traductions
+add_action('plugins_loaded', 'scf_load_textdomain', 1);
+
+// 2. Enregistrement du type de post personnalisé
+add_action('init', function() use ($scf_plugin) {
+    error_log('=== SCF INIT START ===');
+    $scf_plugin->register_field_group_post_type();
+    error_log('Post type registration complete');
+}, 1);
+
+// 3. Initialisation des composants principaux
+add_action('init', function() {
+    error_log('SCF Component Init');
+    SCF_Admin_Page::get_instance();
+    SCF_Fields::get_instance();
+}, 5);
+
+// 4. Initialisation des meta boxes (après l'enregistrement du type de post)
+add_action('init', function() {
+    error_log('SCF Meta Boxes Init');
+    SCF_Meta_Boxes::get_instance();
     
-    // Debug hooks
-    error_log('Admin hooks registered: ' . has_action('admin_enqueue_scripts', array($admin, 'enqueue_admin_scripts')));
-    error_log('Admin menu registered: ' . has_action('admin_menu', array($admin, 'add_admin_menu')));
-}
-add_action('plugins_loaded', 'scf_boot', 1); // Priorité plus haute
+    // Vérification du type de post
+    $post_type = get_post_type_object('scf-field-group');
+    error_log('SCF post type check: ' . ($post_type ? 'registered' : 'not registered'));
+}, 10);

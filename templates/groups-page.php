@@ -22,7 +22,7 @@
                         <th scope="col" class="column-description">Description</th>
                         <th scope="col" class="column-fields">Nombre de champs</th>
                         <th scope="col" class="column-status">État</th>
-                        <th scope="col" class="column-rules">Règles</th>
+                        <th scope="col" class="column-rules">Type de contenu</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -54,15 +54,17 @@
                         </td>
                         <td class="column-rules">
                             <?php
-                                    if (is_array($rules) && !empty($rules)) {
-                                        $post_type_obj = get_post_type_object($rules['value']);
-                                        $post_type_label = $post_type_obj ? $post_type_obj->labels->singular_name : $rules['value'];
-                                        $operator_label = $rules['operator'] === '=' ? 'est' : 'n\'est pas';
-                                        echo esc_html(sprintf('Type de contenu %s %s', $operator_label, $post_type_label));
+                                if (is_array($rules) && !empty($rules['value'])) {
+                                    $post_type_obj = get_post_type_object($rules['value']);
+                                    if ($post_type_obj) {
+                                        echo esc_html($post_type_obj->labels->singular_name);
                                     } else {
-                                        echo '—';
+                                        echo esc_html($rules['value']);
                                     }
-                                    ?>
+                                } else {
+                                    echo '—';
+                                }
+                            ?>
                         </td>
                         <td>
                             <div class="row-actions">

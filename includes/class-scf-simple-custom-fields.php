@@ -16,20 +16,39 @@ class SCF_Simple_Custom_Fields {
     }
 
     private function __construct() {
-        add_action('init', array($this, 'register_field_group_post_type'));
+        error_log('SCF Simple Custom Fields construct');
+        // Ajouter les actions avec les bonnes priorités
+        add_action('init', array($this, 'register_field_group_post_type'), 1);
+        add_action('init', array($this, 'init_plugin'), 5);
+        
+        // Debug hooks
+        add_action('init', function() {
+            error_log('=== SCF POST TYPE CHECK ===');
+            error_log('Post type registered: ' . (post_type_exists('scf-field-group') ? 'yes' : 'no'));
+            if ($post_type = get_post_type_object('scf-field-group')) {
+                error_log('Post type details: ' . print_r($post_type, true));
+            }
+        }, 999);
     }
 
-    public function init() {
-        // Initialisation des composants
-        $this->admin_page = SCF_Admin_Page::get_instance();
-
-        // Hooks
+    public function init_plugin() {
+        error_log('SCF Plugin initialization');
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
         add_action('plugins_loaded', array($this, 'load_textdomain'));
     }
 
     public function enqueue_admin_assets($hook) {
-        // N'ajouter les assets que sur les pages du plugin
+        // Inclure les styles sur l'édition de page/post
+        if (strpos($hook, 'post.php') !== false || strpos($hook, 'post-new.php') !== false) {
+            wp_enqueue_style(
+                'scf-fields',
+                plugins_url('assets/css/fields.css', dirname(__FILE__)),
+                array(),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/fields.css')
+            );
+        }
+
+        // N'ajouter les autres assets que sur les pages du plugin
         if (!strpos($hook, 'simple-custom-fields') && !strpos($hook, 'scf-')) {
             return;
         }
@@ -60,6 +79,7 @@ class SCF_Simple_Custom_Fields {
     }
 
     public function register_field_group_post_type() {
+        error_log('Registering SCF field group post type');
         $labels = array(
             'name' => __('Groupes de champs', 'simple-custom-fields'),
             'singular_name' => __('Groupe de champs', 'simple-custom-fields'),

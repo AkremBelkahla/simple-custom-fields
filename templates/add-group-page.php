@@ -221,30 +221,27 @@ if ($group_id) {
                              class="postbox">
                             <div class="postbox-header">
                                 <h2 class="hndle ui-sortable-handle">
-                                    <span>Règles d'affichage</span>
+                                    <span>Type de contenu</span>
                                 </h2>
                             </div>
                             <div class="inside">
-                                <p><label>Afficher ce groupe de champs si :</label></p>
-                                <select name="rules[type]"
-                                        class="widefat">
-                                    <option value="post_type">Type de contenu</option>
-                                    <option value="page_template">Modèle de page</option>
-                                    <option value="post_format">Format d'article</option>
+                                <p><label>Sélectionnez le type de contenu :</label></p>
+                                <select name="rules[value]" class="widefat">
+                                    <?php 
+                                    $post_types = get_post_types(array('public' => true), 'objects');
+                                    foreach ($post_types as $post_type) {
+                                        $selected = '';
+                                        if (isset($rules['value']) && $rules['value'] === $post_type->name) {
+                                            $selected = 'selected';
+                                        }
+                                        echo '<option value="' . esc_attr($post_type->name) . '" ' . $selected . '>';
+                                        echo esc_html($post_type->labels->singular_name);
+                                        echo '</option>';
+                                    }
+                                    ?>
                                 </select>
-                                <p></p>
-                                <select name="rules[operator]"
-                                        class="widefat">
-                                    <option value="==">est égal à</option>
-                                    <option value="!=">n'est pas égal à</option>
-                                </select>
-                                <p></p>
-                                <select name="rules[value]"
-                                        class="widefat">
-                                    <option value="post">Article</option>
-                                    <option value="page">Page</option>
-                                    <option value="product">Produit</option>
-                                </select>
+                                <input type="hidden" name="rules[type]" value="post_type">
+                                <input type="hidden" name="rules[operator]" value="=">
                             </div>
                         </div>
 
@@ -341,8 +338,14 @@ if ($group_id) {
 <!-- Template pour une option -->
 <script type="text/template" id="option-template">
     <div class="option-row">
-        <input type="text" class="option-label" placeholder="Libellé" value="{label}">
-        <input type="text" class="option-value" placeholder="Valeur" value="{value}">
+        <div class="option-field">
+            <label>Libellé</label>
+            <input type="text" class="option-label" placeholder="Libellé" value="{label}">
+        </div>
+        <div class="option-field">
+            <label>Valeur</label>
+            <input type="text" class="option-value" placeholder="Valeur" value="{value}">
+        </div>
         <button type="button" class="button remove-option">
             <span class="dashicons dashicons-trash"></span>
         </button>
@@ -399,7 +402,22 @@ if ($group_id) {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
-    align-items: center;
+    align-items: flex-end;
+}
+
+.option-field {
+    flex: 1;
+}
+
+.option-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.option-field input {
+    width: 100%;
 }
 
 .option-row input {

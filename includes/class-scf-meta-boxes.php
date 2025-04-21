@@ -2,12 +2,56 @@
 if (!defined('ABSPATH')) exit;
 
 class SCF_Meta_Boxes {
-    public function __construct() {
-        add_action('add_meta_boxes', array($this, 'add_custom_fields_meta_box'));
-        add_action('save_post', array($this, 'save_custom_fields'));
+    private static $instance = null;
+
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
-    public function add_custom_fields_meta_box() {
+    private function __construct() {
+        error_log('SCF Meta Boxes construct');
+        // S'assurer que nos meta boxes sont ajoutées au bon moment
+        add_action('admin_init', function() {
+            if (!post_type_exists('scf-field-group')) {
+                error_log('SCF Error: Post type not registered at admin_init');
+                return;
+            }
+            error_log('SCF: Adding meta boxes hook');
+            add_action('add_meta_boxes', array($this, 'add_custom_fields_meta_box'), 20, 2);
+        });
+
+        add_action('save_post', array($this, 'save_custom_fields'));
+
+        // Debug
+        add_action('admin_notices', function() {
+            if (isset($_GET['post_type']) && $_GET['post_type'] === 'page') {
+                $screen = get_current_screen();
+                error_log('Current screen: ' . print_r($screen, true));
+                error_log('Meta boxes status: ' . (has_action('add_meta_boxes') ? 'registered' : 'not registered'));
+            }
+        });
+
+        // Debug
+        add_action('admin_init', function() {
+            error_log('SCF Meta Boxes hooks registered');
+            error_log('add_meta_boxes action exists: ' . (has_action('add_meta_boxes') ? 'yes' : 'no'));
+            error_log('save_post action exists: ' . (has_action('save_post') ? 'yes' : 'no'));
+        });
+    }
+
+    public function add_custom_fields_meta_box($post_type, $post) {
+        error_log('=== ADD META BOXES START ===');
+        error_log('Post type: ' . $post_type);
+        error_log('Post ID: ' . ($post ? $post->ID : 'No post'));
+
+        // Vérifier si nous sommes dans le bon contexte
+        if (!in_array($post_type, array('post', 'page'))) {
+            error_log('Post type non pris en charge: ' . $post_type);
+            return;
+        }
         // Récupérer tous les groupes de champs
         $groups = get_posts(array(
             'post_type' => 'scf-field-group',
@@ -20,57 +64,141 @@ class SCF_Meta_Boxes {
             $rules = get_post_meta($group->ID, 'scf_rules', true);
             $fields = get_post_meta($group->ID, 'scf_fields', true);
 
-            if (!empty($rules)) {
-                $post_types = array('post', 'page');
-                foreach ($post_types as $post_type) {
-                    add_meta_box(
-                        'scf-' . $group->ID,
-                        $group->post_title,
-                        array($this, 'render_meta_box'),
-                        $post_type,
-                        'normal',
-                        'high',
-                        array('fields' => $fields)
-                    );
-                }
+            // On s'assure d'avoir des règles valides
+            if (empty($rules) || !isset($rules['type']) || !isset($rules['value'])) {
+                $rules = array(
+                    'type' => 'post_type',
+                    'value' => 'page'
+                );
+            }
+
+            error_log(sprintf(
+                'Checking group %d for post_type "%s" against rule value "%s"',
+                $group->ID,
+                $post_type,
+                $rules['value']
+            ));
+            
+            if ($rules['type'] === 'post_type' && $rules['value'] === $post_type) {
+                error_log(sprintf('Adding meta box for group %d - Fields count: %d',
+                    $group->ID,
+                    count($fields)
+                ));
+                
+                add_meta_box(
+                    'scf-' . $group->ID,
+                    $group->post_title,
+                    array($this, 'render_meta_box'),
+                    $post_type,
+                    'normal',
+                    'high',
+                    array(
+                        'fields' => $fields,
+                        'group_id' => $group->ID
+                    )
+                );
+            } else {
+                error_log('Group ' . $group->ID . ' does not apply to post type ' . $post_type);
             }
         }
     }
 
     public function render_meta_box($post, $meta_box) {
         $fields = $meta_box['args']['fields'];
+        $group_id = $meta_box['args']['group_id'];
+        $values = get_post_meta($post->ID, '_scf_values_' . $group_id, true);
+        
+        error_log('Rendering meta box for post ' . $post->ID . ' and group ' . $group_id);
+        error_log('Fields: ' . print_r($fields, true));
+        error_log('Values: ' . print_r($values, true));
+        
         wp_nonce_field('scf_meta_box', 'scf_meta_box_nonce');
+        
+        if (!is_array($values)) {
+            $values = array();
+        }
+        
         require SCF_PLUGIN_DIR . 'templates/meta-box.php';
     }
 
     public function save_custom_fields($post_id) {
+        error_log('Starting save_custom_fields for post ' . $post_id);
+
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            error_log('Skipping autosave');
             return;
         }
 
         if (!isset($_POST['scf_meta_box_nonce']) || !wp_verify_nonce($_POST['scf_meta_box_nonce'], 'scf_meta_box')) {
+            error_log('Invalid nonce');
             return;
         }
 
         if (!current_user_can('edit_post', $post_id)) {
+            error_log('User cannot edit post');
             return;
         }
+
+        if (!isset($_POST['scf_fields']) || !is_array($_POST['scf_fields'])) {
+            error_log('No fields to save');
+            return;
+        }
+
+        error_log('Posted fields: ' . print_r($_POST['scf_fields'], true));
 
         $groups = get_posts(array(
             'post_type' => 'scf-field-group',
             'posts_per_page' => -1
         ));
 
-        foreach ($groups as $group) {
-            $fields = get_post_meta($group->ID, 'scf_fields', true);
+        foreach ($_POST['scf_fields'] as $group_id => $group_fields) {
+            $fields = get_post_meta($group_id, 'scf_fields', true);
+            error_log('Processing group ' . $group_id . ' with fields: ' . print_r($fields, true));
+            
             if (!empty($fields)) {
                 foreach ($fields as $field) {
-                    if (isset($_POST['scf_fields'][$field['name']])) {
-                        update_post_meta(
-                            $post_id,
-                            'scf_' . $field['name'],
-                            sanitize_text_field($_POST['scf_fields'][$field['name']])
-                        );
+                    $field_name = $field['name'];
+                    if (isset($group_fields[$field_name])) {
+                        $value = $group_fields[$field_name];
+                        
+                        // Sanitize selon le type de champ
+                        switch ($field['type']) {
+                            case 'checkbox':
+                                $sanitized_value = array();
+                                if (is_array($value)) {
+                                    foreach ($value as $val) {
+                                        $sanitized_value[] = sanitize_text_field($val);
+                                    }
+                                } else {
+                                    $sanitized_value = array(sanitize_text_field($value));
+                                }
+                                break;
+                                
+                            case 'email':
+                                $sanitized_value = sanitize_email($value);
+                                break;
+                                
+                            case 'textarea':
+                                $sanitized_value = sanitize_textarea_field($value);
+                                break;
+                                
+                            default:
+                                $sanitized_value = sanitize_text_field($value);
+                                break;
+                        }
+                        
+                        // Sauvegarder la valeur avec le préfixe scf_ et le meta_key spécifique au groupe
+                        $meta_key = sprintf('_scf_values_%d', $group_id);
+                        $values = get_post_meta($post_id, $meta_key, true);
+                        if (!is_array($values)) {
+                            $values = array();
+                        }
+                        $values[$field_name] = $sanitized_value;
+                        error_log('Saving value for field ' . $field_name . ': ' . print_r($sanitized_value, true));
+                        error_log('Meta key: ' . $meta_key);
+                        update_post_meta($post_id, $meta_key, $values);
+                        $saved = get_post_meta($post_id, $meta_key, true);
+                        error_log('Saved values: ' . print_r($saved, true));
                     }
                 }
             }

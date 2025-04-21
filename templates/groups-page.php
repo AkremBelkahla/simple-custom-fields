@@ -122,11 +122,13 @@ jQuery(document).ready(function($) {
                 nonce: scf_vars.nonce || '',
                 scf_action: scf_vars.action || ''
             },
-            beforeSend: function() {
+            beforeSend: function(xhr) {
+                console.log('Sending AJAX request with nonce:', scf_vars.nonce);
                 if (!scf_vars.nonce) {
                     console.error('Nonce de sécurité manquant');
                     return false;
                 }
+                xhr.setRequestHeader('X-WP-Nonce', scf_vars.nonce);
                 return true;
             },
             success: function(response) {
@@ -144,6 +146,9 @@ jQuery(document).ready(function($) {
                     var errorMessage = response.data ? response.data.message : 'Erreur inconnue';
                     if (scf_vars.debug && response.data && response.data.trace) {
                         console.error('Delete group trace:', response.data.trace);
+                    }
+                    if (response.data && response.data.debug_info) {
+                        console.log('Debug info:', response.data.debug_info);
                     }
                     alert('Une erreur est survenue : ' + errorMessage);
                 }

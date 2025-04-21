@@ -179,8 +179,16 @@ class SCF_Admin_Page {
 
             error_log('Delete group - Permission check passed for user ID: ' . get_current_user_id());
 
-            if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field($_POST['nonce']), 'scf_delete_group')) {
-                error_log('Nonce verification failed');
+            if (!isset($_POST['nonce'])) {
+                error_log('Nonce is not set in POST data');
+                throw new Exception('Nonce manquant');
+            }
+
+            $nonce = sanitize_text_field($_POST['nonce']);
+            error_log('Received nonce: ' . $nonce);
+
+            if (!wp_verify_nonce($nonce, 'scf_delete_group')) {
+                error_log('Nonce verification failed. Expected nonce: ' . wp_create_nonce('scf_delete_group'));
                 throw new Exception('Session expirée - Veuillez rafraîchir la page');
             }
 
@@ -218,10 +226,15 @@ class SCF_Admin_Page {
             ));
 
         } catch (Exception $e) {
-            error_log('Delete group error: ' . $e->getMessage());
+            error_log('Delete group error: ' . $e->getMessage() . ' | Trace: ' . $e->getTraceAsString());
             wp_send_json_error(array(
                 'message' => $e->getMessage(),
-                'trace' => WP_DEBUG ? $e->getTraceAsString() : null
+                'trace' => WP_DEBUG ? $e->getTraceAsString() : null,
+                'debug_info' => array(
+                    'nonce' => isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : 'not set',
+                    'user_can_manage' => current_user_can('manage_options'),
+                    'request_method' => $_SERVER['REQUEST_METHOD']
+                )
             ));
         }
 

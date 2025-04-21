@@ -1,6 +1,6 @@
 # 🔧 Simple Custom Fields
 
-⚠️ **WARNING**  
+## ⚠️ WARNING
 This plugin is currently in development and should NOT be used on production sites.
 
 ## 📝 Description

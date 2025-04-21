@@ -14,7 +14,18 @@ The plugin uses a dedicated database table (`wp_scf_fields`) to store all custom
 
 ## ✨ Features
 - 📁 Create custom field groups
-- 📝 Add various field types (text, textarea, number, email, select, radio, checkbox)
+- 📝 Supported field types:
+  - ✅ Text
+  - ✅ Textarea 
+  - ✅ Number
+  - ✅ Email
+  - ✅ Select dropdown
+  - ✅ Radio buttons
+  - ✅ Checkbox
+  - 🔜 Image upload
+  - 🔜 WYSIWYG editor
+  - 🔜 Tabs
+  - 🔜 Repeater fields
 - 🔍 Configure display rules by content type
 - 🔄 Enable/disable field groups
 - 🗃️ Store custom fields in dedicated database table for better performance

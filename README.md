@@ -23,9 +23,15 @@ The plugin uses a dedicated database table (`wp_scf_fields`) to store all custom
   - ✅ Radio buttons
   - ✅ Checkbox
   - 🔜 Image upload
-  - 🔜 WYSIWYG editor
+  - 🔜 WYSIWYG editor  
   - 🔜 Tabs
   - 🔜 Repeater fields
+  - 🔜 URL field
+  - 🔜 File upload
+  - 🔜 True/False toggle
+  - 🔜 Link field
+  - 🔜 Post object relationship
+  - 🔜 Taxonomy selector
 - 🔍 Configure display rules by content type
 - 🔄 Enable/disable field groups
 - 🗃️ Store custom fields in dedicated database table for better performance

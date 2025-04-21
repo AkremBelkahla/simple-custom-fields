@@ -1,5 +1,10 @@
 # 🔧 Simple Custom Fields
 
+⚠️ **WARNING**  
+THIS IS EXPERIMENTAL SOFTWARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+
+This plugin is currently in development and should NOT be used on production sites.
+
 ## 📝 Description
 Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types 📄.
 
@@ -23,5 +28,4 @@ Simple Custom Fields is a WordPress plugin that allows you to create and manage 
 5. 💻 Use the `scf_get_field($field_name, $post_id)` function to display fields on the front-end
 
 ## 📜 Changelog
-- Version 1.0.0: Initial release of the plugin 🎉 
- 
+- Version 1.0.0: Initial release of the plugin 🎉

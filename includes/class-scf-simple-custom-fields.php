@@ -1,10 +1,4 @@
 <?php
-/**
- * Plugin Name: Simple Custom Fields
- * Description: Un plugin simple pour créer et gérer des champs personnalisés dans WordPress.
- * Version: 1.0.0
- * Author: Votre Nom
- */
 
 if (!defined('ABSPATH')) {
     exit;
@@ -83,9 +77,13 @@ class SCF_Simple_Custom_Fields {
         $args = array(
             'labels' => $labels,
             'public' => false,
-            'show_ui' => false,
+            'show_ui' => true,
             'show_in_menu' => false,
             'capability_type' => 'post',
+            'capabilities' => array(
+                'delete_post' => 'manage_options',
+                'delete_posts' => 'manage_options'
+            ),
             'hierarchical' => false,
             'supports' => array('title'),
             'rewrite' => false

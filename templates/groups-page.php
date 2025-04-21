@@ -105,7 +105,8 @@ jQuery(document).ready(function($) {
     $('.scf-delete-group').on('click', function(e) {
         e.preventDefault();
 
-        if (!confirm('Êtes-vous sûr de vouloir supprimer ce groupe de champs ?')) {
+                const message = 'Êtes-vous sûr de vouloir supprimer ce groupe de champs ? Cette action est irréversible.';
+                if (!confirm(message)) {
             return;
         }
 
@@ -119,17 +120,14 @@ jQuery(document).ready(function($) {
             data: {
                 action: 'scf_delete_group',
                 group_id: groupId,
-                nonce: scf_vars.nonce || '',
-                scf_action: scf_vars.action || ''
+                nonce: scf_vars.nonce
             },
             beforeSend: function(xhr) {
-                console.log('Sending AJAX request with nonce:', scf_vars.nonce);
-                if (!scf_vars.nonce) {
-                    console.error('Nonce de sécurité manquant');
+                if (!scf_vars || !scf_vars.nonce) {
+                    console.error('Erreur : Variables de sécurité manquantes');
+                    alert('Erreur de sécurité. Veuillez rafraîchir la page.');
                     return false;
                 }
-                xhr.setRequestHeader('X-WP-Nonce', scf_vars.nonce);
-                return true;
             },
             success: function(response) {
                 console.log('Delete group response:', response);

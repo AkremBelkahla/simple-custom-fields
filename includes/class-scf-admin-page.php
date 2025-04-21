@@ -29,19 +29,14 @@ class SCF_Admin_Page {
             wp_enqueue_script('jquery');
             wp_enqueue_script('scf-admin', SCF_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), '1.0.1_' . time(), true);
 
-            // Create a new nonce for this request
-            $nonce = wp_create_nonce('scf_delete_group');
-            error_log('Debug - Generated nonce: ' . $nonce);
-
             wp_localize_script('scf-admin', 'scf_vars', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce' => $nonce,
+                'nonce' => wp_create_nonce('scf_nonce'),
                 'action' => 'scf_delete_group',
                 'isAdmin' => current_user_can('manage_options') ? '1' : '0'
             ));
 
             // Ajout des variables JavaScript directement dans le template groups-page.php
-            error_log('Debug - Enqueuing admin script at hook: ' . $hook);
         }
     }
 
@@ -103,21 +98,10 @@ class SCF_Admin_Page {
             wp_die(__('Nonce de sécurité invalide.'));
         }
 
-        // Débogage
-        error_log('POST Data: ' . print_r($_POST, true));
-
         $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
         $title = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
         $fields = isset($_POST['fields']) ? $_POST['fields'] : array();
-        
-        // Débogage des champs avant sanitization
-        error_log('Fields before sanitization: ' . print_r($fields, true));
-        
         $fields = $this->sanitize_fields($fields);
-        
-        // Débogage des champs après sanitization
-        error_log('Fields after sanitization: ' . print_r($fields, true));
-
         $rules = isset($_POST['rules']) ? $this->sanitize_rules($_POST['rules']) : array();
 
         if (empty($title)) {
@@ -145,9 +129,6 @@ class SCF_Admin_Page {
             wp_die($group_id->get_error_message());
         }
 
-        // Débogage avant la sauvegarde
-        error_log('Saving fields for group ' . $group_id . ': ' . print_r($fields, true));
-        
         update_post_meta($group_id, 'scf_fields', $fields);
         update_post_meta($group_id, 'scf_rules', $rules);
 
@@ -157,10 +138,6 @@ class SCF_Admin_Page {
 
     public function delete_group() {
         try {
-            error_log('Starting delete_group - Request method: ' . $_SERVER['REQUEST_METHOD']);
-            error_log('Starting delete_group - Request: ' . print_r($_REQUEST, true));
-            error_log('Starting delete_group - Post: ' . print_r($_POST, true));
-
             // Vérification de la méthode HTTP
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
                 throw new Exception('Méthode non autorisée');
@@ -173,22 +150,16 @@ class SCF_Admin_Page {
 
             // Vérification des permissions
             if (!current_user_can('manage_options')) {
-                error_log('Delete group - Permission denied for user ID: ' . get_current_user_id());
                 throw new Exception('Permissions insuffisantes');
             }
 
-            error_log('Delete group - Permission check passed for user ID: ' . get_current_user_id());
-
             if (!isset($_POST['nonce'])) {
-                error_log('Nonce is not set in POST data');
                 throw new Exception('Nonce manquant');
             }
 
             $nonce = sanitize_text_field($_POST['nonce']);
-            error_log('Received nonce: ' . $nonce);
 
-            if (!wp_verify_nonce($nonce, 'scf_delete_group')) {
-                error_log('Nonce verification failed. Expected nonce: ' . wp_create_nonce('scf_delete_group'));
+            if (!wp_verify_nonce($nonce, 'scf_nonce')) {
                 throw new Exception('Session expirée - Veuillez rafraîchir la page');
             }
 
@@ -206,18 +177,20 @@ class SCF_Admin_Page {
 
             // Vérification du groupe
             $group = get_post($group_id);
+            error_log('Group object: ' . print_r($group, true));
             if (!$group || $group->post_type !== 'scf-field-group') {
                 throw new Exception('Groupe non trouvé ou type invalide');
             }
 
             // Suppression des meta données
-            delete_post_meta($group_id, 'scf_fields');
-            delete_post_meta($group_id, 'scf_rules');
+            $fields_deleted = delete_post_meta($group_id, 'scf_fields');
+            $rules_deleted = delete_post_meta($group_id, 'scf_rules');
+            error_log('Metadata deletion result - fields: ' . $fields_deleted . ', rules: ' . $rules_deleted);
 
             // Suppression du post
             $result = wp_delete_post($group_id, true);
             if (!$result) {
-                throw new Exception('Échec de la suppression du groupe');
+                throw new Exception(__('Échec de la suppression du groupe', 'simple-custom-fields'));
             }
 
             wp_send_json_success(array(
@@ -243,16 +216,12 @@ class SCF_Admin_Page {
 
     private function sanitize_fields($fields) {
         if (!is_array($fields)) {
-            error_log('Les champs ne sont pas un tableau');
             return array();
         }
-
-        error_log('Champs reçus: ' . print_r($fields, true));
 
         $sanitized = array();
         foreach ($fields as $field) {
             if (empty($field['name']) || empty($field['type'])) {
-                error_log('Champ ignoré car nom ou type manquant: ' . print_r($field, true));
                 continue;
             }
 
@@ -262,27 +231,17 @@ class SCF_Admin_Page {
                 'type' => sanitize_key($field['type'])
             );
 
-            error_log('Traitement du champ: ' . print_r($sanitized_field, true));
-
             // Gestion des options pour les champs select, radio et checkbox
             if (in_array($field['type'], array('select', 'radio', 'checkbox'))) {
-                error_log('Champ avec options détecté: ' . $field['type']);
-                
                 $options = isset($field['options']) ? $field['options'] : '';
-                error_log('Options brutes: ' . print_r($options, true));
-                
+
                 // Si les options sont une chaîne JSON, on les décode
                 if (is_string($options)) {
-                    // Suppression des backslashes en trop
                     $options = stripslashes($options);
-                    error_log('Options après stripslashes: ' . $options);
-                    
                     $decoded = json_decode($options, true);
                     if (json_last_error() === JSON_ERROR_NONE) {
                         $options = $decoded;
-                        error_log('JSON décodé avec succès: ' . print_r($options, true));
                     } else {
-                        error_log('Erreur JSON: ' . json_last_error_msg());
                         $options = array();
                     }
                 }
@@ -297,22 +256,17 @@ class SCF_Admin_Page {
                                 'value' => !empty($option['value']) ? sanitize_key($option['value']) : sanitize_key($option['label'])
                             );
                             $sanitized_options[] = $sanitized_option;
-                            error_log('Option sanitizée: ' . print_r($sanitized_option, true));
                         }
                     }
                     $sanitized_field['options'] = $sanitized_options;
                 } else {
-                    error_log('Les options ne sont pas un tableau');
                     $sanitized_field['options'] = array();
                 }
-
-                error_log('Options finales: ' . print_r($sanitized_field['options'], true));
             }
 
             $sanitized[] = $sanitized_field;
         }
 
-        error_log('Champs sanitizés: ' . print_r($sanitized, true));
         return $sanitized;
     }
 

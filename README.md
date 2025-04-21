@@ -75,12 +75,6 @@ echo $value ?: 'No value';
 </div>
 ```
 
-### Shortcode Usage
-```
-[scf_fields] 
-```
-Displays all fields for current post in a formatted layout
-
 ### Security Notes
 - Always escape output with `esc_html()` for text fields
 - Use `wp_kses_post()` for HTML content

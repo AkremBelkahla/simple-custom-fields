@@ -46,10 +46,14 @@ class SCF_Fields {
                     foreach ($fields as &$field) {
                         if (!empty($field['options'])) {
                             foreach ($field['options'] as &$option) {
-                                // Forcer une valeur non vide et valide
-                                $option['value'] = !empty(trim($option['value'] ?? '')) 
-                                    ? sanitize_key($option['value'])
-                                    : sanitize_key($option['label']);
+                                // Synchronisation label/valeur
+                                if (empty($option['value']) || $option['value'] === sanitize_key($option['label'])) {
+                                    // Si valeur vide ou égale au label sanitizé, on synchronise
+                                    $option['value'] = sanitize_key($option['label']);
+                                } else {
+                                    // Si valeur modifiée manuellement, on la conserve
+                                    $option['value'] = sanitize_key($option['value']);
+                                }
                                 
                                 // Garantir que la valeur n'est jamais vide
                                 if (empty($option['value'])) {

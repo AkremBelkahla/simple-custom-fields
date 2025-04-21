@@ -30,8 +30,12 @@
                                 class="scf-select">
                             <?php if (!empty($field['options'])): ?>
                                 <?php foreach ($field['options'] as $option): ?>
-                                    <option value="<?php echo esc_attr($option['value']); ?>" 
-                                            <?php selected($field_value, $option['value']); ?>>
+                                    <?php 
+                                    // Forcer une valeur non vide
+                                    $option_value = !empty($option['value']) ? $option['value'] : $option['label'];
+                                    ?>
+                                    <option value="<?php echo esc_attr($option_value); ?>" 
+                                            <?php selected($field_value, $option_value); ?>>
                                         <?php echo esc_html($option['label']); ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -47,8 +51,8 @@
                                     <input type="radio"
                                            class="scf-radio"
                                            name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>]" 
-                                           value="<?php echo esc_attr($option['value']); ?>" 
-                                           <?php checked($field_value, $option['value']); ?>>
+                                           value="<?php echo esc_attr(!empty($option['value']) ? $option['value'] : sanitize_title($option['label'])); ?>" 
+                                           <?php checked($field_value, !empty($option['value']) ? $option['value'] : sanitize_title($option['label'])); ?>>
                                     <span class="scf-option-label"><?php echo esc_html($option['label']); ?></span>
                                 </label>
                             <?php endforeach; ?>
@@ -64,10 +68,10 @@
                                     <input type="checkbox"
                                            class="scf-checkbox"
                                            name="scf_fields[<?php echo esc_attr($group_id); ?>][<?php echo esc_attr($field['name']); ?>][]" 
-                                           value="<?php echo esc_attr($option['value']); ?>" 
+                                           value="<?php echo esc_attr(!empty($option['value']) ? $option['value'] : sanitize_title($option['label'])); ?>" 
                                            <?php 
                                            $checked_values = is_array($field_value) ? $field_value : array($field_value);
-                                           checked(in_array($option['value'], $checked_values)); 
+                                           checked(in_array(!empty($option['value']) ? $option['value'] : sanitize_title($option['label']), $checked_values)); 
                                            ?>>
                                     <span class="scf-option-label"><?php echo esc_html($option['label']); ?></span>
                                 </label>
@@ -87,4 +91,5 @@
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
+    
 </div>

@@ -42,6 +42,23 @@ class SCF_Fields {
                 
                 // Debug: Afficher les champs du groupe
                 $fields = get_post_meta($group->ID, 'scf_fields', true);
+                if (!empty($fields)) {
+                    foreach ($fields as &$field) {
+                        if (!empty($field['options'])) {
+                            foreach ($field['options'] as &$option) {
+                                // Forcer une valeur non vide et valide
+                                $option['value'] = !empty(trim($option['value'] ?? '')) 
+                                    ? sanitize_key($option['value'])
+                                    : sanitize_key($option['label']);
+                                
+                                // Garantir que la valeur n'est jamais vide
+                                if (empty($option['value'])) {
+                                    $option['value'] = 'val-' . md5($option['label']);
+                                }
+                            }
+                        }
+                    }
+                }
                 error_log('Champs trouvés pour le groupe ' . $group->ID . ' : ' . print_r($fields, true));
                 
                 add_meta_box(

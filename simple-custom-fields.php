@@ -190,15 +190,24 @@ add_shortcode('scf_fields', 'scf_display_custom_fields_shortcode');
 
 // Hooks d'activation/désactivation
 register_activation_hook(__FILE__, function() {
-    error_log('SCF Plugin Activation');
+    error_log('=== SCF PLUGIN ACTIVATION START ===');
+    
     // Enregistrer le type de post personnalisé
     $plugin = SCF_Simple_Custom_Fields::get_instance();
     $plugin->register_field_group_post_type();
+    error_log('Post type registered');
     
     // Créer la table personnalisée
     $db = SCF_Database::get_instance();
-    $db->create_table();
+    $result = $db->create_table();
+    error_log('Table creation result: ' . ($result ? 'success' : 'failed'));
     
+    // Vérifier si la table existe
+    global $wpdb;
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$wpdb->prefix}scf_fields'") == "{$wpdb->prefix}scf_fields";
+    error_log('Table verification: ' . ($table_exists ? 'exists' : 'missing'));
+    
+    error_log('=== SCF PLUGIN ACTIVATION END ===');
     flush_rewrite_rules();
 });
 

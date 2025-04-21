@@ -19,15 +19,25 @@ class SCF_Database {
 
     public function create_table() {
         global $wpdb;
-
+        
+        error_log('SCF Database: Tentative de création de table ' . $this->table_name);
+        
+        // Vérifier si la table existe déjà
+        if ($wpdb->get_var("SHOW TABLES LIKE '{$this->table_name}'") == $this->table_name) {
+            error_log('SCF Database: La table existe déjà');
+            return true;
+        }
+        
         $charset_collate = $wpdb->get_charset_collate();
-
+        
         $sql = "CREATE TABLE {$this->table_name} (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             post_id bigint(20) NOT NULL,
             group_id bigint(20) NOT NULL,
             field_name varchar(255) NOT NULL,
             field_value longtext,
+            created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY  (id),
             KEY post_id (post_id),
             KEY group_id (group_id),
@@ -40,10 +50,10 @@ class SCF_Database {
 
     public function save_field($post_id, $group_id, $field_name, $field_value) {
         global $wpdb;
-
-        // Vérifier si l'entrée existe déjà
+        
+        // Vérifier si le champ existe déjà
         $existing = $this->get_field($post_id, $group_id, $field_name);
-
+        
         if ($existing) {
             // Mise à jour
             return $wpdb->update(
@@ -53,7 +63,9 @@ class SCF_Database {
                     'post_id' => $post_id,
                     'group_id' => $group_id,
                     'field_name' => $field_name
-                )
+                ),
+                array('%s'),
+                array('%d', '%d', '%s')
             );
         } else {
             // Insertion
@@ -64,62 +76,42 @@ class SCF_Database {
                     'group_id' => $group_id,
                     'field_name' => $field_name,
                     'field_value' => maybe_serialize($field_value)
-                )
+                ),
+                array('%d', '%d', '%s', '%s')
             );
         }
     }
 
     public function get_field($post_id, $group_id, $field_name) {
         global $wpdb;
-
-        $result = $wpdb->get_row(
-            $wpdb->prepare(
-                "SELECT * FROM {$this->table_name} 
-                WHERE post_id = %d AND group_id = %d AND field_name = %s",
-                $post_id, $group_id, $field_name
-            )
-        );
-
-        if ($result) {
-            $result->field_value = maybe_unserialize($result->field_value);
-        }
-
-        return $result;
+        
+        return $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM {$this->table_name} 
+             WHERE post_id = %d AND group_id = %d AND field_name = %s",
+            $post_id, $group_id, $field_name
+        ));
     }
 
     public function get_fields_by_post($post_id) {
         global $wpdb;
-
-        $results = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT * FROM {$this->table_name} WHERE post_id = %d",
-                $post_id
-            )
-        );
-
-        foreach ($results as $result) {
-            $result->field_value = maybe_unserialize($result->field_value);
-        }
-
-        return $results;
+        
+        return $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$this->table_name} WHERE post_id = %d",
+            $post_id
+        ));
     }
 
-    public function delete_fields($post_id, $group_id = null) {
+    public function delete_field($post_id, $group_id, $field_name) {
         global $wpdb;
-
-        if ($group_id) {
-            return $wpdb->delete(
-                $this->table_name,
-                array(
-                    'post_id' => $post_id,
-                    'group_id' => $group_id
-                )
-            );
-        } else {
-            return $wpdb->delete(
-                $this->table_name,
-                array('post_id' => $post_id)
-            );
-        }
+        
+        return $wpdb->delete(
+            $this->table_name,
+            array(
+                'post_id' => $post_id,
+                'group_id' => $group_id,
+                'field_name' => $field_name
+            ),
+            array('%d', '%d', '%s')
+        );
     }
 }

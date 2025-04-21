@@ -1,8 +1,6 @@
 # 🔧 Simple Custom Fields
 
 ⚠️ **WARNING**  
-THIS IS EXPERIMENTAL SOFTWARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
-
 This plugin is currently in development and should NOT be used on production sites.
 
 ## 📝 Description

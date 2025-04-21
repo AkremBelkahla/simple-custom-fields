@@ -71,12 +71,17 @@ jQuery(document).ready(function($) {
         var $newOption = $(template);
         $(this).siblings('.options-list').append($newOption);
         
-        // Copie automatique du libellé dans la valeur (seulement si la valeur est vide)
+        // Synchronisation automatique label -> valeur
         $newOption.find('.option-label').on('input', function() {
             var $valueField = $(this).closest('.option-row').find('.option-value');
-            if ($valueField.val() === '') {
-                $valueField.val($(this).val());
+            var currentValue = $valueField.val();
+            var sanitizedLabel = sanitizeFieldName($(this).val());
+            
+            // Si valeur vide ou égale au label précédent, on synchronise
+            if (currentValue === '' || currentValue === $(this).data('prev-label')) {
+                $valueField.val(sanitizedLabel);
             }
+            $(this).data('prev-label', sanitizedLabel);
         });
     });
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple Custom Fields
  * Description: Un plugin simple pour créer et gérer des champs personnalisés dans WordPress.
- * Version: 1.0.0
+ * Version: 1.3.0
  * Author: Akrem Belkahla
  * Author URI: https://infintyweb.tn
  * Author Agency: Infinity Web

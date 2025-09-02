@@ -1,0 +1,16 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "10.0",
+        "brain/monkey": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "SCF\\Fields\\": "includes/Fields/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-unit": "vendor/bin/phpunit --testsuite Unit",
+        "test-integration": "vendor/bin/phpunit --testsuite Integration"
+    }
+}

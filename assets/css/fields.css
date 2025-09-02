@@ -1,0 +1,38 @@
+/* Styles pour les champs */
+.scf-field-input input[type="text"],
+.scf-field-input input[type="email"],
+.scf-field-input input[type="url"],
+.scf-field-input input[type="password"],
+.scf-field-input input[type="number"],
+.scf-field-input textarea,
+.scf-field-input select {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.scf-field-label {
+    font-weight: 500;
+	margin: 5px 0px;
+}
+.scf-field-row .column-order {
+	width: 50px;
+	cursor: move;
+}
+
+.scf-field-row .column-type {
+	width: 150px;
+}
+
+.scf-field-row .column-actions {
+	width: 200px;
+	text-align: right;
+}
+
+.scf-field-row .column-actions button {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.scf-field-row .column-actions .dashicons {
+	margin-top: 3px;
+}

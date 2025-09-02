@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: Simple Custom Fields 1.0.0\n"
+"POT-Creation-Date: 2025-04-19 12:30+0100\n"
+"PO-Revision-Date: 2025-04-19 12:30+0100\n"
+"Last-Translator: Akrem Belkahla <akrem.belkahla@infinityweb.tn>\n"
+"Language-Team: Infinity Web\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+
+#: includes/class-scf-admin-page.php:23
+msgid "Simple Custom Fields"
+msgstr "Simple Custom Fields"
+
+#: includes/class-scf-admin-page.php:30
+msgid "Ajouter un groupe"
+msgstr "Add a group"
+
+#: templates/add-group-page.php:3
+msgid "Modifier le groupe"
+msgstr "Edit group"
+
+#: templates/add-group-page.php:3
+msgid "Ajouter un groupe"
+msgstr "Add a group"
+
+#: templates/groups-page.php:3
+msgid "Groupes de champs"
+msgstr "Field Groups"
+
+#: templates/add-group-page.php:134
+msgid "Règles d'affichage"
+msgstr "Display Rules"
+
+#: templates/add-group-page.php:163
+msgid "Activation du groupe"
+msgstr "Group Activation"
+
+#: includes/class-scf-admin-page.php:104
+msgid "Le titre du groupe est obligatoire."
+msgstr "The group title is required."

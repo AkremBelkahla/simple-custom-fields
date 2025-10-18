@@ -1,14 +1,5 @@
 /* ============================================
-   Boutons - Style ACF
-   
-   Système de boutons inspiré d'ACF :
-   - Couleur primaire : Bleu ACF (#0783BE)
-   - États : Default, Hover, Active, Disabled
-   - Variantes : Primary, Secondary, Success, Danger
-   - Transitions fluides sur tous les états
-   - Icônes intégrées avec gap
-   
-   Référence : Boutons d'action ACF Pro
+   Boutons
    ============================================ */
 
 .scf-btn {

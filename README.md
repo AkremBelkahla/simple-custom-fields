@@ -1,23 +1,20 @@
 # 🔧 Simple Custom Fields
 
-**Design inspiré d'Advanced Custom Fields (ACF)**
-
 [![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com)
-[![ACF Inspired](https://img.shields.io/badge/design-ACF%20inspired-0783BE.svg)](https://www.advancedcustomfields.com/)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org)
 
 ## ⚠️ WARNING
 This plugin is currently in development and should NOT be used on production sites.
 
 ## 📝 Description
-Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types.
+Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types 📄.
 
-**Interface moderne inspirée d'Advanced Custom Fields (ACF)** avec :
-- 🎨 Palette de couleurs ACF (#0783BE)
-- 📦 Layout en cards moderne
+**Interface moderne et professionnelle** avec :
+- 🎨 Palette de couleurs moderne
+- 📦 Layout en cards
 - ✨ Animations fluides
 - 📱 Design responsive
-- 🎯 Focus states bleus
+- 🎯 Focus states intuitifs
 
 The plugin uses a dedicated database table (`wp_scf_fields`) to store all custom field values, providing better performance and scalability compared to WordPress postmeta. This table is automatically created during plugin activation and includes:
 - Optimized indexes for fast queries.
@@ -94,33 +91,10 @@ echo $value ?: 'No value';
 - Use `wp_kses_post()` for HTML content
 - For emails, use `antispambot()` function
 
-## 🎨 Design inspiré d'ACF
-
-Ce plugin s'inspire fortement du design d'**Advanced Custom Fields (ACF)** pour offrir une expérience utilisateur familière et professionnelle.
-
-### Références ACF
-- **Couleur primaire** : `#0783BE` (Bleu signature ACF)
-- **Layout** : Cards inspirées de la page "Field Groups" d'ACF
-- **Animations** : Transitions fluides comme dans ACF Pro
-- **Typography** : Hiérarchie similaire à l'interface ACF
-
-### Documentation complète
-- 📖 [ACF-REFERENCES.md](ACF-REFERENCES.md) - Guide complet des références ACF
-- 📊 [ACF-COMPARISON.md](ACF-COMPARISON.md) - Comparaison détaillée ACF vs SCF
-- 🎨 [DESIGN-IMPROVEMENTS.md](DESIGN-IMPROVEMENTS.md) - Améliorations du design
-- 📝 [CHANGELOG-DESIGN.md](CHANGELOG-DESIGN.md) - Historique des changements
-
-### Crédits
-**Simple Custom Fields** est un plugin indépendant créé par **Akrem Belkahla** (Infinity Web).
-
-Le design s'inspire d'**Advanced Custom Fields (ACF)** développé par **Delicious Brains**, avec respect et admiration pour leur travail exceptionnel.
-
-**Note** : ACF est une marque déposée de Delicious Brains. Simple Custom Fields n'est pas affilié, approuvé ou sponsorisé par Delicious Brains.
-
 ## 📜 Changelog
-- **Version 1.4.0** : Refonte complète du design inspiré d'ACF 🎨
-  - Nouvelle palette de couleurs ACF (#0783BE)
-  - Layout en cards moderne
+- **Version 1.4.0** : Refonte complète du design 🎨
+  - Nouvelle palette de couleurs moderne
+  - Layout en cards
   - Animations fluides partout
   - Design responsive complet
   - Modales avec backdrop blur

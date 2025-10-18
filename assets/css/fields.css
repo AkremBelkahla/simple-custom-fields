@@ -1,14 +1,5 @@
 /* ============================================
-   Champs personnalisés - Style ACF
-   
-   Rendu des champs inspiré d'ACF :
-   - Inputs avec bordures et focus states
-   - Labels en gras avec spacing cohérent
-   - Hover effects sur les wrappers
-   - Messages d'erreur/succès avec bordures colorées
-   - Support de tous les types de champs ACF
-   
-   Référence : Affichage des champs dans les posts ACF
+   Champs personnalisés
    ============================================ */
 
 /* Meta box des champs dans les posts */

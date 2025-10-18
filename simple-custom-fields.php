@@ -1,16 +1,13 @@
 <?php
 /**
  * Plugin Name: Simple Custom Fields
- * Description: Un plugin simple pour créer et gérer des champs personnalisés dans WordPress. Design inspiré d'Advanced Custom Fields (ACF).
+ * Description: Un plugin simple pour créer et gérer des champs personnalisés dans WordPress.
  * Version: 1.4.0
  * Author: Akrem Belkahla
  * Author URI: https://infinityweb.tn
  * Author Agency: Infinity Web
  * Text Domain: simple-custom-fields
  * Domain Path: /languages
- * 
- * Design inspiré d'Advanced Custom Fields (ACF)
- * Interface moderne avec palette de couleurs ACF (#0783BE)
  */
 
 if (!defined('ABSPATH')) {

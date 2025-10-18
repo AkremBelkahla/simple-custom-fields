@@ -1,0 +1,462 @@
+/* ============================================
+   Page d'édition de groupe - Style ACF
+   ============================================ */
+
+/* Layout principal */
+#poststuff {
+	padding-top: var(--scf-spacing-md);
+}
+
+#post-body.columns-2 {
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	gap: var(--scf-spacing-lg);
+	margin-right: 0;
+}
+
+#post-body-content {
+	min-width: 0;
+}
+
+#postbox-container-1,
+#postbox-container-2 {
+	float: none;
+	width: 100%;
+	min-width: 0;
+}
+
+/* Titre du groupe */
+#titlediv {
+	margin-bottom: var(--scf-spacing-lg);
+	position: relative;
+}
+
+#titlewrap {
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius-lg);
+	padding: 0;
+	background: var(--scf-bg-primary);
+	box-shadow: var(--scf-shadow-sm);
+	transition: all 0.2s ease;
+}
+
+#titlewrap:focus-within {
+	border-color: var(--scf-primary);
+	box-shadow: 0 0 0 1px var(--scf-primary);
+}
+
+#title {
+	width: 100%;
+	padding: 16px 20px;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1.4;
+	border: none;
+	outline: none;
+	background: transparent;
+	color: var(--scf-text-primary);
+	box-shadow: none;
+}
+
+#title::placeholder {
+	color: var(--scf-text-light);
+	opacity: 0.6;
+}
+
+/* Postbox moderne */
+.postbox {
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius-lg);
+	box-shadow: var(--scf-shadow-sm);
+	margin-bottom: var(--scf-spacing-lg);
+	background: var(--scf-bg-primary);
+	transition: all 0.2s ease;
+}
+
+.postbox:hover {
+	box-shadow: var(--scf-shadow);
+}
+
+.postbox-header {
+	border-bottom: 1px solid var(--scf-border-light);
+	background: linear-gradient(to bottom, #fafafa, #fff);
+	border-radius: var(--scf-border-radius-lg) var(--scf-border-radius-lg) 0 0;
+	padding: 0;
+}
+
+.postbox-header .hndle {
+	padding: 16px 20px;
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+	cursor: default;
+	border: none;
+}
+
+.postbox .inside {
+	padding: 20px;
+	margin: 0;
+}
+
+/* Table des champs - Style moderne */
+.wp-list-table {
+	border: none;
+	border-radius: var(--scf-border-radius);
+	overflow: hidden;
+	background: var(--scf-bg-primary);
+}
+
+.wp-list-table thead th {
+	background: linear-gradient(to bottom, #f8f9fa, #f0f0f1);
+	border-bottom: 2px solid var(--scf-border-color);
+	padding: 12px 16px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+}
+
+.wp-list-table tbody {
+	background: var(--scf-bg-primary);
+}
+
+.scf-field-row {
+	transition: all 0.2s ease;
+	border-bottom: 1px solid var(--scf-border-light);
+}
+
+.scf-field-row:last-child {
+	border-bottom: none;
+}
+
+.scf-field-row:hover {
+	background: var(--scf-primary-light);
+}
+
+.scf-field-row td {
+	padding: 16px;
+	vertical-align: middle;
+}
+
+/* Colonne de drag */
+.scf-field-row .column-order {
+	width: 40px;
+	text-align: center;
+	cursor: move;
+	color: var(--scf-text-light);
+	transition: color 0.2s ease;
+}
+
+.scf-field-row .column-order:hover {
+	color: var(--scf-primary);
+}
+
+.scf-field-row .column-order .dashicons {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+}
+
+/* Colonnes */
+.scf-field-row .column-type {
+	width: 180px;
+}
+
+.scf-field-row .column-label {
+	width: 30%;
+}
+
+.scf-field-row .column-name {
+	width: 30%;
+}
+
+.scf-field-row .column-actions {
+	width: 140px;
+	text-align: right;
+	white-space: nowrap;
+}
+
+/* Inputs dans le tableau */
+.scf-field-row input[type="text"],
+.scf-field-row select {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
+	font-size: 13px;
+	line-height: 1.4;
+	transition: all 0.2s ease;
+	background: var(--scf-bg-primary);
+}
+
+.scf-field-row input[type="text"]:focus,
+.scf-field-row select:focus {
+	border-color: var(--scf-primary);
+	outline: none;
+	box-shadow: 0 0 0 1px var(--scf-primary);
+}
+
+.scf-field-row input[type="text"]::placeholder {
+	color: var(--scf-text-light);
+	opacity: 0.6;
+}
+
+/* Boutons d'action dans le tableau */
+.scf-field-row .button {
+	padding: 6px 10px;
+	min-height: 32px;
+	border-radius: var(--scf-border-radius);
+	font-size: 13px;
+	transition: all 0.2s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--scf-border-color);
+	background: var(--scf-bg-primary);
+	color: var(--scf-text-primary);
+	cursor: pointer;
+	margin-left: 4px;
+}
+
+.scf-field-row .button:hover {
+	background: var(--scf-bg-hover);
+	border-color: var(--scf-primary);
+	color: var(--scf-primary);
+	transform: translateY(-1px);
+}
+
+.scf-field-row .button-primary {
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
+	color: #fff;
+}
+
+.scf-field-row .button-primary:hover {
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
+	color: #fff;
+}
+
+.scf-field-row .remove-field:hover {
+	background: var(--scf-danger);
+	border-color: var(--scf-danger);
+	color: #fff;
+}
+
+.scf-field-row .button .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	margin: 0;
+}
+
+/* Wrapper pour le bouton d'ajout */
+.scf-add-field-wrapper {
+	padding: 20px;
+	text-align: center;
+	border-top: 2px dashed var(--scf-border-light);
+	background: var(--scf-bg-secondary);
+}
+
+.scf-add-field {
+	background: var(--scf-primary) !important;
+	border-color: var(--scf-primary) !important;
+	color: #fff !important;
+	padding: 10px 20px !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	border-radius: var(--scf-border-radius) !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+	transition: all 0.2s ease !important;
+	box-shadow: var(--scf-shadow-sm) !important;
+}
+
+.scf-add-field:hover {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: var(--scf-shadow) !important;
+}
+
+.scf-add-field .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+}
+
+/* Description du groupe */
+#scf-description textarea {
+	width: 100%;
+	padding: 12px 16px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
+	font-size: 13px;
+	line-height: 1.6;
+	resize: vertical;
+	transition: all 0.2s ease;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+#scf-description textarea:focus {
+	border-color: var(--scf-primary);
+	outline: none;
+	box-shadow: 0 0 0 1px var(--scf-primary);
+}
+
+#scf-description textarea::placeholder {
+	color: var(--scf-text-light);
+	opacity: 0.6;
+}
+
+/* Sidebar - Postbox */
+#postbox-container-1 .postbox {
+	position: sticky;
+	top: 32px;
+}
+
+/* Bouton de publication */
+#submitdiv .inside {
+	padding: 0;
+}
+
+#submitpost {
+	padding: 0;
+}
+
+#major-publishing-actions {
+	padding: 20px;
+	background: var(--scf-bg-secondary);
+	border-radius: 0 0 var(--scf-border-radius-lg) var(--scf-border-radius-lg);
+}
+
+#publishing-action {
+	text-align: center;
+	float: none;
+	line-height: 1;
+}
+
+#publish {
+	width: 100%;
+	padding: 12px 24px !important;
+	font-size: 14px !important;
+	font-weight: 600 !important;
+	background: var(--scf-primary) !important;
+	border-color: var(--scf-primary) !important;
+	color: #fff !important;
+	border-radius: var(--scf-border-radius) !important;
+	transition: all 0.2s ease !important;
+	box-shadow: var(--scf-shadow-sm) !important;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+#publish:hover {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	transform: translateY(-2px) !important;
+	box-shadow: var(--scf-shadow) !important;
+}
+
+/* Règles et activation */
+#scf-rules .inside,
+#scf-activation .inside {
+	padding: 20px;
+}
+
+#scf-rules label,
+#scf-activation label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 500;
+	font-size: 13px;
+	color: var(--scf-text-primary);
+}
+
+#scf-rules select,
+#scf-activation select {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
+	font-size: 13px;
+	transition: all 0.2s ease;
+	background: var(--scf-bg-primary);
+}
+
+#scf-rules select:focus,
+#scf-activation select:focus {
+	border-color: var(--scf-primary);
+	outline: none;
+	box-shadow: 0 0 0 1px var(--scf-primary);
+}
+
+/* Drag and drop visuel */
+.scf-field-row.ui-sortable-helper {
+	background: var(--scf-bg-primary);
+	box-shadow: var(--scf-shadow-lg);
+	border: 2px solid var(--scf-primary);
+	opacity: 0.9;
+}
+
+.scf-field-row.ui-sortable-placeholder {
+	background: var(--scf-primary-light);
+	border: 2px dashed var(--scf-primary);
+	visibility: visible !important;
+	height: 60px !important;
+}
+
+/* Animation de chargement */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.scf-field-row {
+	animation: fadeIn 0.3s ease;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+	#post-body.columns-2 {
+		grid-template-columns: 1fr;
+	}
+	
+	#postbox-container-1 {
+		order: 2;
+	}
+	
+	#postbox-container-2 {
+		order: 1;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.scf-field-row .column-type {
+		width: 140px;
+	}
+	
+	.scf-field-row .column-label,
+	.scf-field-row .column-name {
+		width: auto;
+	}
+	
+	.wp-list-table thead th {
+		padding: 8px 12px;
+		font-size: 12px;
+	}
+	
+	.scf-field-row td {
+		padding: 12px;
+	}
+}

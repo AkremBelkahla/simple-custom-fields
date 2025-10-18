@@ -1,4 +1,7 @@
-/* Styles pour le modal */
+/* ============================================
+   Modales - Style ACF
+   ============================================ */
+
 .scf-modal {
     display: none;
     position: fixed;
@@ -7,42 +10,274 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .scf-modal-content {
     position: relative;
-    background-color: #fefefe;
-    margin: 10% auto;
+    background-color: var(--scf-bg-primary);
+    margin: 5% auto;
     padding: 0;
-    width: 500px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 600px;
+    border-radius: var(--scf-border-radius-lg);
+    box-shadow: var(--scf-shadow-lg);
+    animation: slideUp 0.3s ease;
+    overflow: hidden;
 }
 
 .scf-modal-header {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--scf-border-light);
+    background: linear-gradient(to bottom, #fafafa, #fff);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .scf-modal-header h2 {
     margin: 0;
-    font-size: 1.3em;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 1.4;
+    color: var(--scf-text-primary);
 }
 
 .scf-modal-body {
-    padding: 15px;
-    max-height: 500px;
+    padding: 24px;
+    max-height: 60vh;
     overflow-y: auto;
 }
 
+/* Scrollbar personnalisée */
+.scf-modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scf-modal-body::-webkit-scrollbar-track {
+    background: var(--scf-bg-secondary);
+    border-radius: 4px;
+}
+
+.scf-modal-body::-webkit-scrollbar-thumb {
+    background: var(--scf-border-color);
+    border-radius: 4px;
+}
+
+.scf-modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--scf-text-light);
+}
+
 .scf-modal-footer {
-    padding: 15px;
-    border-top: 1px solid #ddd;
+    padding: 16px 24px;
+    border-top: 1px solid var(--scf-border-light);
+    background: var(--scf-bg-secondary);
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
 }
 
 .close-modal {
-    float: right;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--scf-text-light);
     cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--scf-border-radius);
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background: var(--scf-bg-hover);
+    color: var(--scf-text-primary);
+}
+
+/* Boutons de la modale */
+.scf-modal-footer .button {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--scf-border-radius);
+    transition: all 0.2s ease;
+    border: 1px solid var(--scf-border-color);
+    cursor: pointer;
+}
+
+.scf-modal-footer .button-secondary {
+    background: var(--scf-bg-primary);
+    color: var(--scf-text-primary);
+}
+
+.scf-modal-footer .button-secondary:hover {
+    background: var(--scf-bg-hover);
+    border-color: var(--scf-primary);
+    color: var(--scf-primary);
+}
+
+.scf-modal-footer .button-primary {
+    background: var(--scf-primary);
+    border-color: var(--scf-primary);
+    color: #fff;
+}
+
+.scf-modal-footer .button-primary:hover {
+    background: var(--scf-primary-hover);
+    border-color: var(--scf-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--scf-shadow);
+}
+
+/* Liste des options dans la modale */
+.options-list {
+    margin-bottom: 20px;
+}
+
+.option-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-end;
+    padding: 12px;
+    background: var(--scf-bg-secondary);
+    border-radius: var(--scf-border-radius);
+    border: 1px solid var(--scf-border-light);
+    transition: all 0.2s ease;
+}
+
+.option-row:hover {
+    background: var(--scf-bg-hover);
+    border-color: var(--scf-border-color);
+}
+
+.option-field {
+    flex: 1;
+}
+
+.option-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--scf-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.option-field input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--scf-border-color);
+    border-radius: var(--scf-border-radius);
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.option-field input:focus {
+    border-color: var(--scf-primary);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--scf-primary);
+}
+
+.option-row .remove-option {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--scf-bg-primary);
+    border: 1px solid var(--scf-border-color);
+    border-radius: var(--scf-border-radius);
+    color: var(--scf-danger);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.option-row .remove-option:hover {
+    background: var(--scf-danger);
+    border-color: var(--scf-danger);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.option-row .remove-option .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.add-option {
+    background: var(--scf-primary) !important;
+    border-color: var(--scf-primary) !important;
+    color: #fff !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    border-radius: var(--scf-border-radius) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer;
+}
+
+.add-option:hover {
+    background: var(--scf-primary-hover) !important;
+    border-color: var(--scf-primary-hover) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: var(--scf-shadow) !important;
+}
+
+.add-option .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Animation pour les nouvelles options */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.option-row {
+    animation: slideIn 0.3s ease;
 }

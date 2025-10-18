@@ -1,7 +1,287 @@
-/* Styles responsifs */
+/* ============================================
+   Responsive Design - Style ACF
+   ============================================ */
+
+/* Tablettes et petits écrans */
+@media screen and (max-width: 1024px) {
+	/* Grille des groupes */
+	.scf-groups-grid {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: var(--scf-spacing-md);
+	}
+	
+	/* Layout de la page d'édition */
+	#post-body.columns-2 {
+		grid-template-columns: 1fr;
+		gap: var(--scf-spacing-md);
+	}
+	
+	#postbox-container-1 {
+		order: 2;
+	}
+	
+	#postbox-container-2 {
+		order: 1;
+	}
+	
+	/* Sidebar non sticky sur tablette */
+	#postbox-container-1 .postbox {
+		position: static;
+	}
+}
+
+/* Mobiles et petits écrans */
 @media screen and (max-width: 782px) {
-    .scf-modal-content {
-        width: 90%;
-        margin: 30px auto;
-    }
+	/* En-tête */
+	.wrap h1.wp-heading-inline {
+		font-size: 20px;
+		padding: 6px 0;
+	}
+	
+	.page-title-action {
+		display: block;
+		margin: var(--scf-spacing-sm) 0;
+		text-align: center;
+	}
+	
+	/* Grille des groupes */
+	.scf-groups-grid {
+		grid-template-columns: 1fr;
+		gap: var(--scf-spacing-md);
+	}
+	
+	/* Cards des groupes */
+	.scf-group-card-header {
+		padding: var(--scf-spacing-sm) var(--scf-spacing-md);
+	}
+	
+	.scf-group-card-title {
+		font-size: 15px;
+	}
+	
+	.scf-group-card-description {
+		font-size: 12px;
+	}
+	
+	.scf-group-card-body {
+		padding: var(--scf-spacing-sm) var(--scf-spacing-md);
+	}
+	
+	.scf-group-card-footer {
+		padding: var(--scf-spacing-sm) var(--scf-spacing-md);
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--scf-spacing-sm);
+	}
+	
+	.scf-group-card-actions {
+		width: 100%;
+		justify-content: space-between;
+	}
+	
+	/* Modale */
+	.scf-modal-content {
+		width: 95%;
+		margin: 5% auto;
+		max-width: none;
+	}
+	
+	.scf-modal-header {
+		padding: var(--scf-spacing-md);
+	}
+	
+	.scf-modal-header h2 {
+		font-size: 16px;
+	}
+	
+	.scf-modal-body {
+		padding: var(--scf-spacing-md);
+		max-height: 50vh;
+	}
+	
+	.scf-modal-footer {
+		padding: var(--scf-spacing-md);
+		flex-direction: column-reverse;
+		gap: var(--scf-spacing-sm);
+	}
+	
+	.scf-modal-footer .button {
+		width: 100%;
+		justify-content: center;
+	}
+	
+	/* Options dans la modale */
+	.option-row {
+		flex-direction: column;
+		align-items: stretch;
+		gap: var(--scf-spacing-sm);
+	}
+	
+	.option-row .remove-option {
+		width: 100%;
+		height: 40px;
+	}
+	
+	/* Tableau des champs */
+	.wp-list-table {
+		font-size: 12px;
+	}
+	
+	.wp-list-table thead th {
+		padding: 8px;
+		font-size: 11px;
+	}
+	
+	.scf-field-row td {
+		padding: 8px;
+	}
+	
+	.scf-field-row .column-type {
+		width: 120px;
+	}
+	
+	.scf-field-row .column-actions {
+		width: 100px;
+	}
+	
+	.scf-field-row input[type="text"],
+	.scf-field-row select {
+		font-size: 12px;
+		padding: 6px 8px;
+	}
+	
+	/* Boutons */
+	.scf-field-row .button {
+		padding: 4px 8px;
+		min-height: 28px;
+		font-size: 12px;
+	}
+	
+	.scf-add-field {
+		width: 100% !important;
+		justify-content: center !important;
+	}
+	
+	/* Titre du groupe */
+	#title {
+		padding: 12px 16px;
+		font-size: 18px;
+	}
+	
+	/* Postbox */
+	.postbox-header .hndle {
+		padding: 12px 16px;
+		font-size: 14px;
+	}
+	
+	.postbox .inside {
+		padding: var(--scf-spacing-md);
+	}
+	
+	/* Bouton de publication */
+	#publish {
+		padding: 10px 20px !important;
+		font-size: 13px !important;
+	}
+}
+
+/* Très petits écrans */
+@media screen and (max-width: 480px) {
+	/* En-tête */
+	.wrap h1.wp-heading-inline {
+		font-size: 18px;
+	}
+	
+	/* État vide */
+	.scf-no-items {
+		padding: var(--scf-spacing-lg) var(--scf-spacing-md);
+	}
+	
+	.scf-no-items .dashicons {
+		font-size: 48px !important;
+	}
+	
+	/* Cards */
+	.scf-group-card-meta {
+		flex-direction: column;
+		gap: var(--scf-spacing-xs);
+	}
+	
+	/* Modale */
+	.scf-modal-content {
+		width: 100%;
+		margin: 0;
+		border-radius: 0;
+		height: 100vh;
+		max-height: 100vh;
+	}
+	
+	.scf-modal-body {
+		max-height: calc(100vh - 180px);
+	}
+	
+	/* Tableau - mode empilé */
+	.wp-list-table thead {
+		display: none;
+	}
+	
+	.scf-field-row {
+		display: block;
+		padding: var(--scf-spacing-md);
+		border: 1px solid var(--scf-border-light);
+		border-radius: var(--scf-border-radius);
+		margin-bottom: var(--scf-spacing-sm);
+	}
+	
+	.scf-field-row td {
+		display: block;
+		width: 100% !important;
+		padding: var(--scf-spacing-xs) 0;
+		border: none;
+	}
+	
+	.scf-field-row .column-order {
+		display: none;
+	}
+	
+	.scf-field-row .column-actions {
+		text-align: left;
+		margin-top: var(--scf-spacing-sm);
+	}
+	
+	.scf-field-row .column-actions button {
+		width: 48%;
+		margin: 0 1% var(--scf-spacing-xs) 0;
+	}
+	
+	/* Champs */
+	.scf-field-wrapper {
+		padding: var(--scf-spacing-md);
+	}
+}
+
+/* Mode paysage mobile */
+@media screen and (max-width: 782px) and (orientation: landscape) {
+	.scf-modal-content {
+		margin: 2% auto;
+	}
+	
+	.scf-modal-body {
+		max-height: 60vh;
+	}
+}
+
+/* Print */
+@media print {
+	.scf-group-card-actions,
+	.scf-add-field,
+	.page-title-action,
+	.scf-field-row .column-actions {
+		display: none !important;
+	}
+	
+	.scf-group-card {
+		break-inside: avoid;
+		page-break-inside: avoid;
+	}
 }

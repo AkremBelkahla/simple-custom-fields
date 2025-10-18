@@ -1,38 +1,230 @@
-/* Styles pour les champs */
+/* ============================================
+   Champs personnalisés - Style ACF
+   ============================================ */
+
+/* Meta box des champs dans les posts */
+.scf-meta-box {
+	padding: 0;
+}
+
+.scf-field-wrapper {
+	padding: 16px 20px;
+	border-bottom: 1px solid var(--scf-border-light);
+	transition: background-color 0.2s ease;
+}
+
+.scf-field-wrapper:last-child {
+	border-bottom: none;
+}
+
+.scf-field-wrapper:hover {
+	background-color: var(--scf-bg-secondary);
+}
+
+.scf-field-label {
+	display: block;
+	font-weight: 600;
+	font-size: 13px;
+	color: var(--scf-text-primary);
+	margin-bottom: 8px;
+	line-height: 1.4;
+}
+
+.scf-field-description {
+	font-size: 12px;
+	color: var(--scf-text-secondary);
+	margin-top: 6px;
+	line-height: 1.5;
+}
+
+/* Inputs */
 .scf-field-input input[type="text"],
 .scf-field-input input[type="email"],
 .scf-field-input input[type="url"],
 .scf-field-input input[type="password"],
 .scf-field-input input[type="number"],
+.scf-field-input input[type="date"],
 .scf-field-input textarea,
 .scf-field-input select {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: 8px 12px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
+	font-size: 13px;
+	line-height: 1.5;
+	transition: all 0.2s ease;
+	background: var(--scf-bg-primary);
+	color: var(--scf-text-primary);
 }
-.scf-field-label {
-    font-weight: 500;
-	margin: 5px 0px;
+
+.scf-field-input input:focus,
+.scf-field-input textarea:focus,
+.scf-field-input select:focus {
+	border-color: var(--scf-primary);
+	outline: none;
+	box-shadow: 0 0 0 1px var(--scf-primary);
 }
+
+.scf-field-input input::placeholder,
+.scf-field-input textarea::placeholder {
+	color: var(--scf-text-light);
+	opacity: 0.6;
+}
+
+.scf-field-input textarea {
+	resize: vertical;
+	min-height: 100px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Checkboxes et radios */
+.scf-field-input input[type="checkbox"],
+.scf-field-input input[type="radio"] {
+	margin-right: 8px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.scf-field-input label {
+	display: flex;
+	align-items: center;
+	margin-bottom: 8px;
+	font-size: 13px;
+	color: var(--scf-text-primary);
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.scf-field-input label:hover {
+	color: var(--scf-primary);
+}
+
+/* Select multiple */
+.scf-field-input select[multiple] {
+	min-height: 120px;
+}
+
+/* File input */
+.scf-field-input input[type="file"] {
+	padding: 8px;
+	border: 2px dashed var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
+	background: var(--scf-bg-secondary);
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.scf-field-input input[type="file"]:hover {
+	border-color: var(--scf-primary);
+	background: var(--scf-primary-light);
+}
+
+.scf-file-preview {
+	margin-top: 12px;
+	padding: 12px;
+	background: var(--scf-bg-secondary);
+	border-radius: var(--scf-border-radius);
+	border: 1px solid var(--scf-border-light);
+}
+
+.scf-file-preview p {
+	margin: 0;
+	font-size: 13px;
+	color: var(--scf-text-secondary);
+}
+
+/* Colonnes du tableau d'édition */
 .scf-field-row .column-order {
-	width: 50px;
+	width: 40px;
 	cursor: move;
+	text-align: center;
 }
 
 .scf-field-row .column-type {
-	width: 150px;
+	width: 180px;
+}
+
+.scf-field-row .column-label {
+	width: 30%;
+}
+
+.scf-field-row .column-name {
+	width: 30%;
 }
 
 .scf-field-row .column-actions {
-	width: 200px;
+	width: 140px;
 	text-align: right;
+	white-space: nowrap;
 }
 
 .scf-field-row .column-actions button {
-	display: inline-block;
-	margin-left: 5px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 4px;
 }
 
 .scf-field-row .column-actions .dashicons {
-	margin-top: 3px;
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	margin: 0;
+}
+
+/* Animation de chargement */
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+.scf-field-loading {
+	background: linear-gradient(
+		to right,
+		var(--scf-bg-secondary) 0%,
+		var(--scf-bg-hover) 50%,
+		var(--scf-bg-secondary) 100%
+	);
+	background-size: 1000px 100%;
+	animation: shimmer 2s infinite;
+	height: 40px;
+	border-radius: var(--scf-border-radius);
+}
+
+/* Style pour les champs requis */
+.scf-field-required .scf-field-label::after {
+	content: ' *';
+	color: var(--scf-danger);
+	font-weight: bold;
+}
+
+/* Messages d'erreur */
+.scf-field-error {
+	margin-top: 8px;
+	padding: 8px 12px;
+	background: #fef2f2;
+	border-left: 3px solid var(--scf-danger);
+	border-radius: var(--scf-border-radius);
+	color: var(--scf-danger);
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+/* Messages de succès */
+.scf-field-success {
+	margin-top: 8px;
+	padding: 8px 12px;
+	background: #e7f5ec;
+	border-left: 3px solid var(--scf-success);
+	border-radius: var(--scf-border-radius);
+	color: var(--scf-success);
+	font-size: 12px;
+	line-height: 1.5;
 }

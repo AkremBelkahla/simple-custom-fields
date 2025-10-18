@@ -1,83 +1,139 @@
+/* ============================================
+   Boutons - Style ACF
+   ============================================ */
+
 .scf-btn {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
 	font-size: 13px;
-	line-height: 2.15384615;
-	min-height: 30px;
+	font-weight: 500;
+	line-height: 1.4;
+	min-height: 32px;
 	margin: 0;
-	padding: 0 10px;
+	padding: 8px 16px;
 	cursor: pointer;
-	border-width: 1px;
-	border-style: solid;
-	-webkit-appearance: none;
-	border-radius: 3px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
 	white-space: nowrap;
 	box-sizing: border-box;
-	color: #2c3338;
-	border-color: #2c3338;
-	background: #f6f7f7;
-	vertical-align: top;
+	color: var(--scf-text-primary);
+	background: var(--scf-bg-primary);
+	vertical-align: middle;
+	transition: all 0.2s ease;
+	text-decoration: none;
 }
 
 .scf-btn:hover {
-	background: #f0f0f1;
-	border-color: #0a4b78;
-	color: #0a4b78;
+	background: var(--scf-bg-hover);
+	border-color: var(--scf-primary);
+	color: var(--scf-primary);
+	transform: translateY(-1px);
+	box-shadow: var(--scf-shadow-sm);
+}
+
+.scf-btn:active {
+	transform: translateY(0);
+	box-shadow: none;
 }
 
 .scf-btn-primary {
-	background: #2271b1;
-	border-color: #2271b1;
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
 	color: #fff;
-	text-decoration: none;
 	text-shadow: none;
+	box-shadow: var(--scf-shadow-sm);
 }
 
 .scf-btn-primary:hover {
-	background: #135e96;
-	border-color: #135e96;
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
+	color: #fff;
+	box-shadow: var(--scf-shadow);
+}
+
+.scf-btn-secondary {
+	background: var(--scf-bg-secondary);
+	border-color: var(--scf-border-color);
+	color: var(--scf-text-primary);
+}
+
+.scf-btn-secondary:hover {
+	background: var(--scf-bg-hover);
+	border-color: var(--scf-primary);
+	color: var(--scf-primary);
+}
+
+.scf-btn-success {
+	background: var(--scf-success);
+	border-color: var(--scf-success);
+	color: #fff;
+}
+
+.scf-btn-success:hover {
+	background: #3ea842;
+	border-color: #3ea842;
 	color: #fff;
 }
 
 .scf-btn-danger {
-	color: #d63638;
-	border-color: #d63638;
+	background: transparent;
+	color: var(--scf-danger);
+	border-color: var(--scf-danger);
 }
 
 .scf-btn-danger:hover {
-	background: #d63638;
-	border-color: #d63638;
+	background: var(--scf-danger);
+	border-color: var(--scf-danger);
 	color: #fff;
 }
 
 .scf-btn-icon {
 	padding: 0;
-	width: 30px;
-	height: 30px;
+	width: 32px;
+	height: 32px;
+	min-height: 32px;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 3px;
+	border-radius: var(--scf-border-radius);
 	line-height: 1;
 }
 
+.scf-btn-icon .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+}
+
 .scf-btn-add {
-	background: #2271b1;
-	border-color: #2271b1;
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
 	color: #fff;
-	padding: 0 12px;
-	font-size: 13px;
-	line-height: 2.15384615;
-	min-height: 30px;
+	padding: 10px 20px;
+	font-size: 14px;
+	font-weight: 600;
+	min-height: 36px;
 	display: inline-flex;
 	align-items: center;
 	gap: 8px;
 	margin: 16px 0;
+	box-shadow: var(--scf-shadow-sm);
 }
 
 .scf-btn-add:hover {
-	background: #135e96;
-	border-color: #135e96;
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
 	color: #fff;
+	box-shadow: var(--scf-shadow);
+}
+
+.scf-btn-add .dashicons {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
 }
 
 .scf-field-list {

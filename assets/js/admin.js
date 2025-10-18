@@ -7,6 +7,29 @@ jQuery(document).ready(function($) {
 
     console.log('SCF Admin JS loaded');
     var fieldIndex = $('.scf-field-row').length;
+    
+    // Initialiser le drag and drop avec animation
+    if ($('#the-list').length) {
+        $('#the-list').sortable({
+            handle: '.column-order',
+            placeholder: 'ui-sortable-placeholder',
+            helper: function(e, tr) {
+                var $originals = tr.children();
+                var $helper = tr.clone();
+                $helper.children().each(function(index) {
+                    $(this).width($originals.eq(index).width());
+                });
+                return $helper;
+            },
+            start: function(e, ui) {
+                ui.placeholder.height(ui.item.height());
+                ui.item.addClass('dragging');
+            },
+            stop: function(e, ui) {
+                ui.item.removeClass('dragging');
+            }
+        });
+    }
 
     // Fonction pour sanitizer le libellé en nom de champ
     function sanitizeFieldName(label) {
@@ -40,7 +63,7 @@ jQuery(document).ready(function($) {
         });
     }
 
-    // Gestion de l'ouverture de la modal d'options
+    // Gestion de l'ouverture de la modal d'options avec animation
     $(document).on('click', '.edit-options', function() {
         var $row = $(this).closest('.scf-field-row');
         var options = JSON.parse($row.find('.field-options').val() || '[]');
@@ -56,8 +79,8 @@ jQuery(document).ready(function($) {
             $optionsList.append(template);
         });
         
-        // Ouvrir la modal
-        $modal.show();
+        // Ouvrir la modal avec animation
+        $modal.css('display', 'flex').hide().fadeIn(200);
         
         // Sauvegarder la référence à la ligne courante
         $modal.data('currentRow', $row);
@@ -85,12 +108,21 @@ jQuery(document).ready(function($) {
         });
     });
 
-    // Gestion de la suppression d'une option
+    // Gestion de la suppression d'une option avec animation
     $(document).on('click', '.remove-option', function() {
-        $(this).closest('.option-row').remove();
+        var $optionRow = $(this).closest('.option-row');
+        $optionRow.css('background', '#fef2f2');
+        $optionRow.animate({
+            opacity: 0,
+            marginBottom: 0,
+            height: 0,
+            padding: 0
+        }, 300, function() {
+            $optionRow.remove();
+        });
     });
 
-    // Sauvegarde des options
+    // Sauvegarde des options avec animation
     $(document).on('click', '.save-options', function() {
         var $modal = $('#optionsModal');
         var $row = $modal.data('currentRow');
@@ -110,23 +142,45 @@ jQuery(document).ready(function($) {
         
         // Sauvegarde brute sans modification
         $row.find('.field-options').val(JSON.stringify(options));
-        $modal.hide();
+        
+        // Animation de succès
+        $row.css('background', '#e7f5ec');
+        setTimeout(function() {
+            $row.css('background', '');
+        }, 600);
+        
+        $modal.fadeOut(200);
     });
 
-    // Fermeture de la modal
+    // Fermeture de la modal avec animation
     $(document).on('click', '.close-modal', function() {
-        $('#optionsModal').hide();
+        $('#optionsModal').fadeOut(200);
+    });
+    
+    // Fermer la modal en cliquant sur le fond
+    $(document).on('click', '.scf-modal', function(e) {
+        if ($(e.target).hasClass('scf-modal')) {
+            $(this).fadeOut(200);
+        }
     });
 
     // Mettre à jour la visibilité au chargement
     updateFieldTypeVisibility();
 
-    // Ajout d'un nouveau champ
+    // Ajout d'un nouveau champ avec animation
     $('.scf-add-field').on('click', function() {
         var template = $('#field-template').html();
         template = template.replace(/{index}/g, fieldIndex++);
-        $('#the-list').append(template);
+        var $newRow = $(template);
+        $newRow.css('opacity', '0');
+        $('#the-list').append($newRow);
+        $newRow.animate({opacity: 1}, 300);
         updateFieldTypeVisibility();
+        
+        // Scroll vers le nouveau champ
+        $('html, body').animate({
+            scrollTop: $newRow.offset().top - 100
+        }, 400);
     });
 
     // Mettre à jour la visibilité quand le type change
@@ -134,10 +188,18 @@ jQuery(document).ready(function($) {
         updateFieldTypeVisibility();
     });
 
-    // Suppression d'un champ
+    // Suppression d'un champ avec animation
     $(document).on('click', '.remove-field', function() {
         if (confirm('Êtes-vous sûr de vouloir supprimer ce champ ?')) {
-            $(this).closest('tr').remove();
+            var $row = $(this).closest('tr');
+            $row.css('background', '#fef2f2');
+            $row.animate({
+                opacity: 0,
+                height: 0,
+                padding: 0
+            }, 300, function() {
+                $row.remove();
+            });
         }
     });
 

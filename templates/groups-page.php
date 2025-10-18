@@ -14,85 +14,85 @@
 
     <div class="scf-wrap">
         <?php if (!empty($groups)): ?>
-        <div class="scf-box">
-            <table class="wp-list-table widefat fixed striped">
-                <thead>
-                    <tr>
-                        <th scope="col" class="column-title">Titre</th>
-                        <th scope="col" class="column-description">Description</th>
-                        <th scope="col" class="column-fields">Nombre de champs</th>
-                        <th scope="col" class="column-status">État</th>
-                        <th scope="col" class="column-rules">Type de contenu</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($groups as $group): 
-                            $fields = get_post_meta($group->ID, 'scf_fields', true);
-                            $rules = get_post_meta($group->ID, 'scf_rules', true);
-                            $fields_count = is_array($fields) ? count($fields) : 0;
-                        ?>
-                    <tr>
-                        <td class="column-title">
-                            <strong>
-                                <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>"
-                                   class="row-title">
-                                    <?php echo esc_html($group->post_title); ?>
-                                </a>
-                            </strong>
-                        </td>
-                        <td class="column-description">
-                            <?php echo !empty($group->post_content) ? esc_html($group->post_content) : '—'; ?>
-                        </td>
-                        <td class="column-fields">
-                            <?php echo $fields_count; ?> champ(s)
-                        </td>
-                        <td class="column-status">
-                            <span class="status-indicator <?php echo $group->post_status === 'publish' ? 'active' : 'inactive'; ?>">
-                                <?php echo $group->post_status === 'publish' ? 'Activé' : 'Désactivé'; ?>
-                            </span>
-                        </td>
-                        <td class="column-rules">
-                            <?php
-                                if (is_array($rules) && !empty($rules['value'])) {
-                                    $post_type_obj = get_post_type_object($rules['value']);
-                                    if ($post_type_obj) {
-                                        echo esc_html($post_type_obj->labels->singular_name);
-                                    } else {
-                                        echo esc_html($rules['value']);
-                                    }
-                                } else {
-                                    echo '—';
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <div class="row-actions">
-                                <span class="edit">
-                                    <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>">
-                                        Modifier
-                                    </a>
-                                    <?php if (current_user_can('manage_options')): ?> |
-                                    <a href="#"
-                                       class="scf-delete-group"
-                                       data-group-id="<?php echo $group->ID; ?>">
-                                        Supprimer
-                                    </a>
-                                    <?php endif; ?>
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+        <div class="scf-groups-grid">
+            <?php foreach ($groups as $group): 
+                    $fields = get_post_meta($group->ID, 'scf_fields', true);
+                    $rules = get_post_meta($group->ID, 'scf_rules', true);
+                    $fields_count = is_array($fields) ? count($fields) : 0;
+                    
+                    // Récupérer le type de contenu
+                    $content_type = '—';
+                    if (is_array($rules) && !empty($rules['value'])) {
+                        $post_type_obj = get_post_type_object($rules['value']);
+                        if ($post_type_obj) {
+                            $content_type = esc_html($post_type_obj->labels->singular_name);
+                        } else {
+                            $content_type = esc_html($rules['value']);
+                        }
+                    }
+                ?>
+            <div class="scf-group-card" data-group-id="<?php echo $group->ID; ?>">
+                <div class="scf-group-card-header">
+                    <h3 class="scf-group-card-title">
+                        <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>">
+                            <?php echo esc_html($group->post_title); ?>
+                        </a>
+                    </h3>
+                    <?php if (!empty($group->post_content)): ?>
+                    <p class="scf-group-card-description">
+                        <?php echo esc_html($group->post_content); ?>
+                    </p>
+                    <?php endif; ?>
+                </div>
+                
+                <div class="scf-group-card-body">
+                    <div class="scf-group-card-meta">
+                        <div class="scf-group-card-meta-item">
+                            <span class="dashicons dashicons-admin-settings"></span>
+                            <span><?php echo $fields_count; ?> champ<?php echo $fields_count > 1 ? 's' : ''; ?></span>
+                        </div>
+                        <div class="scf-group-card-meta-item">
+                            <span class="dashicons dashicons-admin-post"></span>
+                            <span><?php echo $content_type; ?></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scf-group-card-footer">
+                    <span class="status-indicator <?php echo $group->post_status === 'publish' ? 'active' : 'inactive'; ?>">
+                        <?php echo $group->post_status === 'publish' ? 'Activé' : 'Désactivé'; ?>
+                    </span>
+                    
+                    <div class="scf-group-card-actions">
+                        <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>" 
+                           class="scf-edit-group" 
+                           title="Modifier">
+                            <span class="dashicons dashicons-edit"></span>
+                            Modifier
+                        </a>
+                        <?php if (current_user_can('manage_options')): ?>
+                        <button type="button" 
+                                class="scf-delete-group" 
+                                data-group-id="<?php echo $group->ID; ?>"
+                                title="Supprimer">
+                            <span class="dashicons dashicons-trash"></span>
+                            Supprimer
+                        </button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
         </div>
         <?php else: ?>
         <div class="scf-no-items">
-            <p>Aucun groupe de champs n'a été créé pour le moment.</p>
+            <span class="dashicons dashicons-admin-generic" style="font-size: 64px; color: var(--scf-text-light); margin-bottom: 16px;"></span>
+            <p style="font-size: 18px; font-weight: 500; color: var(--scf-text-primary);">Aucun groupe de champs</p>
+            <p>Commencez par créer votre premier groupe de champs personnalisés.</p>
             <p>
                 <a href="<?php echo admin_url('admin.php?page=scf-add-group'); ?>"
-                   class="button button-primary">
+                   class="button button-primary button-large">
+                    <span class="dashicons dashicons-plus-alt2" style="margin-top: 3px;"></span>
                     Créer un groupe de champs
                 </a>
             </p>

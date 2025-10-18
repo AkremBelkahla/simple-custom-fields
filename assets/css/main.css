@@ -1,40 +1,336 @@
-/* Import des différents fichiers CSS */
+/* ============================================
+   Simple Custom Fields - Style ACF
+   Palette de couleurs inspirée d'ACF
+   ============================================ */
+
+:root {
+	/* Couleurs principales ACF */
+	--scf-primary: #0783BE;
+	--scf-primary-hover: #066a9c;
+	--scf-primary-light: #e7f5fb;
+	--scf-secondary: #00A0D2;
+	--scf-success: #46B450;
+	--scf-danger: #DC3232;
+	--scf-warning: #FFB900;
+	
+	/* Couleurs de texte */
+	--scf-text-primary: #23282d;
+	--scf-text-secondary: #646970;
+	--scf-text-light: #8c8f94;
+	
+	/* Couleurs de fond */
+	--scf-bg-primary: #ffffff;
+	--scf-bg-secondary: #f6f7f7;
+	--scf-bg-hover: #f0f0f1;
+	--scf-bg-dark: #1d2327;
+	
+	/* Bordures */
+	--scf-border-color: #dcdcde;
+	--scf-border-light: #e5e7eb;
+	--scf-border-radius: 4px;
+	--scf-border-radius-lg: 8px;
+	
+	/* Ombres */
+	--scf-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+	--scf-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	--scf-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+	
+	/* Espacements */
+	--scf-spacing-xs: 4px;
+	--scf-spacing-sm: 8px;
+	--scf-spacing-md: 16px;
+	--scf-spacing-lg: 24px;
+	--scf-spacing-xl: 32px;
+}
+
+/* Import des fichiers CSS */
 @import url("./fields.css");
 @import url("./modal.css");
 @import url("./options.css");
 @import url("./responsive.css");
 @import url("./buttons.css");
+@import url("./edit-group.css");
 
-/* Styles pour la liste des groupes */
-.row-description {
-	color: #666;
-	margin-top: 4px;
+/* ============================================
+   Styles généraux
+   ============================================ */
+
+.scf-wrap {
+	margin-top: var(--scf-spacing-lg);
+}
+
+/* ============================================
+   En-tête de page
+   ============================================ */
+
+.wrap h1.wp-heading-inline {
+	color: var(--scf-text-primary);
+	font-size: 23px;
+	font-weight: 400;
+	margin: 0;
+	padding: 9px 0;
+	line-height: 1.3;
+}
+
+.page-title-action {
+	background: var(--scf-primary) !important;
+	border-color: var(--scf-primary) !important;
+	color: #fff !important;
+	text-decoration: none;
+	text-shadow: none;
+	border-radius: var(--scf-border-radius);
+	padding: 6px 12px;
 	font-size: 13px;
-	padding: 4px 0;
+	line-height: 2;
+	margin-left: 4px;
+	transition: all 0.2s ease;
 }
 
-.row-status {
-	margin-top: 4px;
-	padding: 4px 0;
+.page-title-action:hover {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	color: #fff !important;
+	transform: translateY(-1px);
+	box-shadow: var(--scf-shadow);
 }
 
+/* ============================================
+   Liste des groupes - Style Cards
+   ============================================ */
+
+.scf-groups-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: var(--scf-spacing-lg);
+	margin-top: var(--scf-spacing-lg);
+}
+
+.scf-group-card {
+	background: var(--scf-bg-primary);
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius-lg);
+	box-shadow: var(--scf-shadow-sm);
+	transition: all 0.3s ease;
+	overflow: hidden;
+	position: relative;
+}
+
+.scf-group-card:hover {
+	box-shadow: var(--scf-shadow-lg);
+	transform: translateY(-2px);
+	border-color: var(--scf-primary);
+}
+
+.scf-group-card-header {
+	padding: var(--scf-spacing-md);
+	border-bottom: 1px solid var(--scf-border-light);
+	background: linear-gradient(to bottom, #fafafa, #fff);
+}
+
+.scf-group-card-title {
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+	margin: 0 0 var(--scf-spacing-xs);
+	line-height: 1.4;
+}
+
+.scf-group-card-title a {
+	color: var(--scf-text-primary);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.scf-group-card-title a:hover {
+	color: var(--scf-primary);
+}
+
+.scf-group-card-description {
+	font-size: 13px;
+	color: var(--scf-text-secondary);
+	margin: 0;
+	line-height: 1.5;
+}
+
+.scf-group-card-body {
+	padding: var(--scf-spacing-md);
+}
+
+.scf-group-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--scf-spacing-md);
+	margin-bottom: var(--scf-spacing-md);
+}
+
+.scf-group-card-meta-item {
+	display: flex;
+	align-items: center;
+	gap: var(--scf-spacing-xs);
+	font-size: 13px;
+	color: var(--scf-text-secondary);
+}
+
+.scf-group-card-meta-item .dashicons {
+	color: var(--scf-text-light);
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.scf-group-card-footer {
+	padding: var(--scf-spacing-md);
+	border-top: 1px solid var(--scf-border-light);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: var(--scf-bg-secondary);
+}
+
+/* Indicateur de statut */
 .status-indicator {
-	display: inline-block;
-	padding: 4px 12px;
-	border-radius: 16px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border-radius: 12px;
 	font-size: 12px;
 	line-height: 1.4;
 	font-weight: 500;
+	transition: all 0.2s ease;
+}
+
+.status-indicator::before {
+	content: '';
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	animation: pulse 2s ease-in-out infinite;
 }
 
 .status-indicator.active {
-	background-color: #dff0d8;
-	color: #3c763d;
+	background-color: #e7f5ec;
+	color: var(--scf-success);
+	border: 1px solid rgba(70, 180, 80, 0.2);
+}
+
+.status-indicator.active::before {
+	background-color: var(--scf-success);
 }
 
 .status-indicator.inactive {
-	background-color: #f2dede;
-	color: #a94442;
+	background-color: #fef2f2;
+	color: var(--scf-danger);
+	border: 1px solid rgba(220, 50, 50, 0.2);
+}
+
+.status-indicator.inactive::before {
+	background-color: var(--scf-danger);
+}
+
+@keyframes pulse {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}
+
+/* Actions de la carte */
+.scf-group-card-actions {
+	display: flex;
+	gap: var(--scf-spacing-sm);
+}
+
+.scf-group-card-actions a,
+.scf-group-card-actions button {
+	padding: 6px 12px;
+	font-size: 13px;
+	border-radius: var(--scf-border-radius);
+	transition: all 0.2s ease;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	border: 1px solid var(--scf-border-color);
+	background: var(--scf-bg-primary);
+	color: var(--scf-text-primary);
+	cursor: pointer;
+}
+
+.scf-group-card-actions a:hover,
+.scf-group-card-actions button:hover {
+	background: var(--scf-bg-hover);
+	border-color: var(--scf-primary);
+	color: var(--scf-primary);
+}
+
+.scf-group-card-actions .scf-delete-group {
+	color: var(--scf-danger);
+}
+
+.scf-group-card-actions .scf-delete-group:hover {
+	background: var(--scf-danger);
+	border-color: var(--scf-danger);
+	color: #fff;
+}
+
+/* ============================================
+   État vide
+   ============================================ */
+
+.scf-no-items {
+	text-align: center;
+	padding: var(--scf-spacing-xl) var(--scf-spacing-lg);
+	background: var(--scf-bg-primary);
+	border: 2px dashed var(--scf-border-color);
+	border-radius: var(--scf-border-radius-lg);
+	margin-top: var(--scf-spacing-lg);
+}
+
+.scf-no-items p {
+	color: var(--scf-text-secondary);
+	font-size: 15px;
+	margin: var(--scf-spacing-md) 0;
+}
+
+.scf-no-items .button-primary {
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
+	margin-top: var(--scf-spacing-md);
+}
+
+.scf-no-items .button-primary:hover {
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
+}
+
+/* ============================================
+   Compatibilité avec l'ancien style (table)
+   ============================================ */
+
+.scf-box .wp-list-table {
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius-lg);
+	overflow: hidden;
+	box-shadow: var(--scf-shadow-sm);
+}
+
+.scf-box .wp-list-table thead th {
+	background: linear-gradient(to bottom, #fafafa, #f0f0f1);
+	border-bottom: 2px solid var(--scf-border-color);
+	color: var(--scf-text-primary);
+	font-weight: 600;
+}
+
+.scf-box .wp-list-table tbody tr {
+	transition: background-color 0.2s ease;
+}
+
+.scf-box .wp-list-table tbody tr:hover {
+	background-color: var(--scf-primary-light);
 }
 
 .scf-box .wp-list-table .row-actions {
@@ -44,10 +340,19 @@
 	position: static;
 }
 
+.scf-box .wp-list-table .row-actions a {
+	color: var(--scf-primary);
+	transition: color 0.2s ease;
+}
+
+.scf-box .wp-list-table .row-actions a:hover {
+	color: var(--scf-primary-hover);
+}
+
 /* Styles pour le toggle d'état */
 .components-toggle-control__label {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: var(--scf-spacing-sm);
 	cursor: pointer;
 }

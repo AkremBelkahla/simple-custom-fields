@@ -39,6 +39,11 @@ class SCF_Admin_Page {
                 'action' => 'scf_delete_group',
                 'isAdmin' => current_user_can('manage_options') ? '1' : '0'
             ));
+            
+            // Charger le CSS spécifique pour la page d'édition
+            if ($hook === 'simple-custom-fields_page_scf-add-group') {
+                wp_enqueue_style('scf-edit-page', SCF_PLUGIN_URL . 'assets/css/edit-page.css', array(), '1.4.1');
+            }
 
             // Ajout des variables JavaScript directement dans le template groups-page.php
         }

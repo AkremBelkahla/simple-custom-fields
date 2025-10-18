@@ -29,7 +29,7 @@
 	/* Layout de la page d'édition */
 	#post-body.columns-2 {
 		grid-template-columns: 1fr;
-		gap: var(--scf-spacing-md);
+		gap: 20px;
 	}
 	
 	#postbox-container-1 {
@@ -41,8 +41,29 @@
 	}
 	
 	/* Sidebar non sticky sur tablette */
-	#postbox-container-1 .postbox {
+	#postbox-container-1 .postbox,
+	#postbox-container-1 .meta-box-sortables {
 		position: static;
+	}
+	
+	/* Card de titre */
+	.scf-title-card {
+		padding: 20px;
+	}
+	
+	.scf-card-icon {
+		width: 40px;
+		height: 40px;
+	}
+	
+	.scf-card-icon .dashicons {
+		font-size: 20px;
+		width: 20px;
+		height: 20px;
+	}
+	
+	.scf-title-input {
+		font-size: 18px;
 	}
 }
 
@@ -77,6 +98,86 @@
 	.scf-groups-grid {
 		grid-template-columns: 1fr;
 		gap: var(--scf-spacing-md);
+	}
+	
+	/* Page d'édition mobile */
+	.scf-title-card {
+		flex-direction: column;
+		padding: 16px;
+		gap: 12px;
+	}
+	
+	.scf-card-icon {
+		width: 36px;
+		height: 36px;
+	}
+	
+	.scf-card-icon .dashicons {
+		font-size: 18px;
+		width: 18px;
+		height: 18px;
+	}
+	
+	.scf-title-input {
+		font-size: 16px;
+		padding: 10px 14px;
+	}
+	
+	.scf-modern-card .inside {
+		padding: 16px;
+	}
+	
+	.scf-card-header {
+		padding: 12px 16px;
+		flex-wrap: wrap;
+	}
+	
+	.scf-card-header h2 {
+		font-size: 15px;
+	}
+	
+	/* Table responsive */
+	.scf-modern-card table {
+		font-size: 13px;
+	}
+	
+	.scf-modern-card table thead {
+		display: none;
+	}
+	
+	.scf-modern-card table tbody tr {
+		display: block;
+		margin-bottom: 16px;
+		padding: 12px;
+		border: 1px solid var(--scf-border-light);
+		border-radius: 8px;
+		background: white;
+	}
+	
+	.scf-modern-card table tbody td {
+		display: block;
+		padding: 8px 0;
+		border: none;
+		text-align: left !important;
+	}
+	
+	.scf-modern-card table tbody td::before {
+		content: attr(data-label);
+		font-weight: 600;
+		display: block;
+		margin-bottom: 4px;
+		color: var(--scf-text-secondary);
+		font-size: 12px;
+	}
+	
+	.column-order {
+		display: none;
+	}
+	
+	.column-actions {
+		display: flex;
+		gap: 8px;
+		justify-content: flex-start;
 	}
 	
 	/* Cards des groupes */

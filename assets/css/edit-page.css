@@ -1,0 +1,474 @@
+/* ============================================
+   Page d'édition de groupe - Design moderne
+   ============================================ */
+
+.scf-edit-group-page {
+	background: #f5f7fa;
+}
+
+/* Header de la page d'édition */
+.scf-edit-group-page .scf-page-header {
+	margin-bottom: 24px;
+}
+
+.scf-btn-back {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 6px;
+	padding: 10px 20px !important;
+	background: white !important;
+	border: 1px solid var(--scf-border-color) !important;
+	color: var(--scf-text-primary) !important;
+	font-weight: 500;
+	border-radius: 8px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	transition: all 0.2s ease;
+}
+
+.scf-btn-back:hover {
+	background: var(--scf-bg-hover) !important;
+	border-color: var(--scf-primary) !important;
+	color: var(--scf-primary) !important;
+	transform: translateX(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.scf-btn-back .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+/* Card de titre */
+.scf-title-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 24px;
+	background: white;
+	border: 1px solid var(--scf-border-color);
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	margin-bottom: 24px;
+	transition: all 0.3s ease;
+}
+
+.scf-title-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	border-color: var(--scf-primary);
+}
+
+.scf-card-icon {
+	flex-shrink: 0;
+	width: 48px;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, var(--scf-primary-light) 0%, #e3f2fd 100%);
+	border-radius: 10px;
+	border: 1px solid rgba(7, 131, 190, 0.1);
+}
+
+.scf-card-icon .dashicons {
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+	color: var(--scf-primary);
+}
+
+.scf-card-content {
+	flex: 1;
+}
+
+.scf-card-label {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--scf-text-secondary);
+	margin-bottom: 8px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.scf-title-input {
+	width: 100%;
+	padding: 12px 16px;
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+	border: 2px solid var(--scf-border-light);
+	border-radius: 8px;
+	background: white;
+	transition: all 0.2s ease;
+}
+
+.scf-title-input:focus {
+	outline: none;
+	border-color: var(--scf-primary);
+	box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1);
+}
+
+.scf-title-input::placeholder {
+	color: var(--scf-text-light);
+	font-weight: 400;
+}
+
+/* Cards modernes */
+.scf-modern-card {
+	background: white;
+	border: 1px solid var(--scf-border-color);
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	margin-bottom: 20px;
+	overflow: hidden;
+	transition: all 0.3s ease;
+}
+
+.scf-modern-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	border-color: var(--scf-primary);
+}
+
+/* Header des cards */
+.scf-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 16px 20px;
+	background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+	border-bottom: 1px solid var(--scf-border-light);
+}
+
+.scf-card-header-left {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.scf-card-header-left .dashicons {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	color: var(--scf-primary);
+}
+
+.scf-card-header h2 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+}
+
+.scf-card-header-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	background: var(--scf-primary-light);
+	color: var(--scf-primary);
+	border-radius: 12px;
+	font-size: 12px;
+	font-weight: 600;
+	border: 1px solid rgba(7, 131, 190, 0.2);
+}
+
+.scf-fields-count {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+/* Inside content */
+.scf-modern-card .inside {
+	padding: 20px;
+}
+
+/* Card de publication */
+.scf-publish-card .inside {
+	padding: 16px 20px;
+}
+
+.scf-publish-card #major-publishing-actions {
+	background: transparent;
+	border: none;
+	padding: 0;
+}
+
+.scf-publish-card #publishing-action {
+	float: none;
+	text-align: left;
+}
+
+.scf-publish-card .button-primary {
+	width: 100%;
+	padding: 12px 20px;
+	font-size: 15px;
+	font-weight: 600;
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2);
+	transition: all 0.2s ease;
+}
+
+.scf-publish-card .button-primary:hover {
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3);
+}
+
+/* Bouton ajouter un champ */
+.scf-add-field-wrapper {
+	padding: 16px 20px;
+	background: #fafbfc;
+	border-top: 1px solid var(--scf-border-light);
+}
+
+.scf-add-field {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 10px 20px;
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
+	color: white;
+	font-weight: 500;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2);
+	transition: all 0.2s ease;
+}
+
+.scf-add-field:hover {
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3);
+}
+
+.scf-add-field .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+/* Table des champs */
+.scf-modern-card table {
+	border: none;
+	background: white;
+}
+
+.scf-modern-card table thead th {
+	background: #f8f9fa;
+	color: var(--scf-text-secondary);
+	font-weight: 600;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 12px;
+	border-bottom: 2px solid var(--scf-border-light);
+}
+
+.scf-modern-card table tbody tr {
+	transition: all 0.2s ease;
+}
+
+.scf-modern-card table tbody tr:hover {
+	background: var(--scf-primary-light);
+}
+
+.scf-modern-card table tbody td {
+	padding: 12px;
+	vertical-align: middle;
+	border-bottom: 1px solid var(--scf-border-light);
+}
+
+/* Inputs dans la table */
+.scf-modern-card table input[type="text"],
+.scf-modern-card table select {
+	padding: 8px 12px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: 6px;
+	font-size: 14px;
+	transition: all 0.2s ease;
+}
+
+.scf-modern-card table input[type="text"]:focus,
+.scf-modern-card table select:focus {
+	outline: none;
+	border-color: var(--scf-primary);
+	box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1);
+}
+
+/* Colonne ordre */
+.column-order {
+	width: 40px;
+	text-align: center;
+	cursor: move;
+}
+
+.column-order .dashicons {
+	color: var(--scf-text-light);
+	transition: color 0.2s ease;
+}
+
+.scf-field-row:hover .column-order .dashicons {
+	color: var(--scf-primary);
+}
+
+/* Colonne type */
+.column-type {
+	width: 150px;
+}
+
+/* Colonne actions */
+.column-actions {
+	width: 100px;
+	text-align: right;
+}
+
+.column-actions button {
+	padding: 6px 10px;
+	margin-left: 4px;
+	border-radius: 6px;
+	transition: all 0.2s ease;
+}
+
+.column-actions .edit-options {
+	background: var(--scf-primary);
+	border-color: var(--scf-primary);
+}
+
+.column-actions .edit-options:hover {
+	background: var(--scf-primary-hover);
+	border-color: var(--scf-primary-hover);
+	transform: translateY(-1px);
+}
+
+.column-actions .remove-field {
+	background: var(--scf-danger);
+	border-color: var(--scf-danger);
+}
+
+.column-actions .remove-field:hover {
+	background: #c62828;
+	border-color: #c62828;
+	transform: translateY(-1px);
+}
+
+/* Textarea description */
+.scf-modern-card textarea {
+	padding: 12px 16px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: 8px;
+	font-size: 14px;
+	line-height: 1.6;
+	transition: all 0.2s ease;
+	resize: vertical;
+}
+
+.scf-modern-card textarea:focus {
+	outline: none;
+	border-color: var(--scf-primary);
+	box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1);
+}
+
+/* Select dans les cards */
+.scf-modern-card select {
+	padding: 10px 12px;
+	border: 1px solid var(--scf-border-color);
+	border-radius: 8px;
+	font-size: 14px;
+	transition: all 0.2s ease;
+	background: white;
+}
+
+.scf-modern-card select:focus {
+	outline: none;
+	border-color: var(--scf-primary);
+	box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1);
+}
+
+/* Labels dans les cards */
+.scf-modern-card label {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--scf-text-secondary);
+	margin-bottom: 8px;
+}
+
+/* Layout responsive */
+#post-body.columns-2 {
+	display: grid;
+	grid-template-columns: 1fr 320px;
+	gap: 24px;
+}
+
+#postbox-container-1 {
+	order: 2;
+}
+
+#postbox-container-2 {
+	order: 1;
+}
+
+/* Sidebar sticky */
+#postbox-container-1 .meta-box-sortables {
+	position: sticky;
+	top: 32px;
+}
+
+/* Animation d'entrée */
+@keyframes slideInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.scf-modern-card {
+	animation: slideInUp 0.4s ease-out;
+}
+
+.scf-modern-card:nth-child(1) {
+	animation-delay: 0.1s;
+}
+
+.scf-modern-card:nth-child(2) {
+	animation-delay: 0.2s;
+}
+
+.scf-modern-card:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+/* États de chargement */
+.scf-modern-card.loading {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.scf-modern-card.loading::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 24px;
+	height: 24px;
+	margin: -12px 0 0 -12px;
+	border: 3px solid var(--scf-border-light);
+	border-top-color: var(--scf-primary);
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}

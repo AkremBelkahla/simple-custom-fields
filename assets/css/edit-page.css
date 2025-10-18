@@ -310,9 +310,9 @@
 
 /* Colonne ordre */
 .column-order {
-	width: 40px;
-	text-align: center;
-	cursor: move;
+	width: 40px !important;
+	text-align: center !important;
+	cursor: move !important;
 }
 
 .column-order .dashicons {
@@ -326,13 +326,21 @@
 
 /* Colonne type */
 .column-type {
-	width: 150px;
+	width: 150px !important;
+}
+
+.column-label {
+	width: 250px !important;
+}
+
+.column-name {
+	width: 200px !important;
 }
 
 /* Colonne actions */
 .column-actions {
-	width: 100px;
-	text-align: right;
+	width: 120px !important;
+	text-align: right !important;
 }
 
 .column-actions button {

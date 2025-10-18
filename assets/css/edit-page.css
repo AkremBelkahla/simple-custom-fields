@@ -285,9 +285,10 @@
 }
 
 .scf-modern-card table tbody td {
-	padding: 12px;
-	vertical-align: middle;
-	border-bottom: 1px solid var(--scf-border-light);
+	padding: 12px !important;
+	vertical-align: middle !important;
+	border-bottom: 1px solid var(--scf-border-light) !important;
+	border-top: none !important;
 }
 
 /* Inputs dans la table */

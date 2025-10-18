@@ -452,11 +452,4 @@ if ($group_id) {
     justify-content: center;
 }
 
-.options-list {
-    margin-bottom: 15px;
-}
-
-.add-option {
-    margin-bottom: 15px;
-}
 </style>

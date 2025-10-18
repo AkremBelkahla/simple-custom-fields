@@ -60,6 +60,16 @@ class SCF_Simple_Custom_Fields {
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/main.css')
         );
         
+        // Charger table.css sur la page principale
+        if (strpos($hook, 'toplevel_page_simple-custom-fields') !== false) {
+            wp_enqueue_style(
+                'scf-table',
+                plugins_url('assets/css/table.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/table.css')
+            );
+        }
+        
         // Charger edit-page.css sur la page d'édition de groupe
         if (strpos($hook, 'scf-add-group') !== false) {
             wp_enqueue_style(

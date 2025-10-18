@@ -124,37 +124,72 @@
 
 /* Boutons de la modale */
 .scf-modal-footer .button {
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: var(--scf-border-radius);
-    transition: all 0.2s ease;
-    border: 1px solid var(--scf-border-color);
-    cursor: pointer;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    border: none !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 .scf-modal-footer .button-secondary {
-    background: var(--scf-bg-primary);
-    color: var(--scf-text-primary);
+    background: white !important;
+    color: var(--scf-text-primary) !important;
+    border: 2px solid var(--scf-border-color) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
 .scf-modal-footer .button-secondary:hover {
-    background: var(--scf-bg-hover);
-    border-color: var(--scf-primary);
-    color: var(--scf-primary);
+    background: var(--scf-bg-hover) !important;
+    border-color: var(--scf-primary) !important;
+    color: var(--scf-primary) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 .scf-modal-footer .button-primary {
-    background: var(--scf-primary);
-    border-color: var(--scf-primary);
-    color: #fff;
+    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
-.scf-modal-footer .button-primary:hover {
-    background: var(--scf-primary-hover);
-    border-color: var(--scf-primary-hover);
-    transform: translateY(-1px);
-    box-shadow: var(--scf-shadow);
+.scf-modal-footer .button-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.scf-modal-footer .button-primary:hover::before {
+    left: 100%;
+}
+
+.scf-modal-footer .button-primary:hover,
+.scf-modal-footer .button-primary:focus {
+    background: linear-gradient(135deg, var(--scf-primary-hover) 0%, #088ab8 100%) !important;
+    border-color: transparent !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+}
+
+.scf-modal-footer .button-primary:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: 0 1px 4px rgba(7, 131, 190, 0.2) !important;
 }
 
 /* Liste des options dans la modale */
@@ -239,31 +274,60 @@
 }
 
 .add-option {
-    background: var(--scf-primary) !important;
-    border-color: var(--scf-primary) !important;
-    color: #fff !important;
-    padding: 10px 16px !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    border-radius: var(--scf-border-radius) !important;
+    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
     display: inline-flex !important;
     align-items: center !important;
-    gap: 6px !important;
-    transition: all 0.2s ease !important;
-    cursor: pointer;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
-.add-option:hover {
-    background: var(--scf-primary-hover) !important;
-    border-color: var(--scf-primary-hover) !important;
-    transform: translateY(-1px) !important;
-    box-shadow: var(--scf-shadow) !important;
+.add-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.add-option:hover::before {
+    left: 100%;
+}
+
+.add-option:hover,
+.add-option:focus {
+    background: linear-gradient(135deg, var(--scf-primary-hover) 0%, #088ab8 100%) !important;
+    border-color: transparent !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    color: white !important;
+}
+
+.add-option:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: 0 1px 4px rgba(7, 131, 190, 0.2) !important;
 }
 
 .add-option .dashicons {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
 }
 
 /* Animation pour les nouvelles options */

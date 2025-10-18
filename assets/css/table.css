@@ -1,0 +1,171 @@
+/* ============================================
+   Tableau des groupes
+   ============================================ */
+
+.scf-groups-table {
+	margin-top: 24px;
+	background: white;
+	border: 1px solid var(--scf-border-color);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.scf-groups-table thead th {
+	background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%) !important;
+	color: var(--scf-text-secondary) !important;
+	font-weight: 600 !important;
+	font-size: 12px !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.5px !important;
+	padding: 16px !important;
+	border-bottom: 2px solid var(--scf-border-light) !important;
+}
+
+.scf-groups-table tbody tr {
+	transition: all 0.2s ease;
+}
+
+.scf-groups-table tbody tr:hover {
+	background: var(--scf-primary-light) !important;
+}
+
+.scf-groups-table tbody td {
+	padding: 16px !important;
+	vertical-align: middle !important;
+	border-bottom: 1px solid var(--scf-border-light) !important;
+}
+
+.scf-groups-table .column-title {
+	width: 35%;
+}
+
+.scf-groups-table .column-title strong a {
+	color: var(--scf-primary);
+	font-weight: 600;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+.scf-groups-table .column-title strong a:hover {
+	color: var(--scf-primary-hover);
+	text-decoration: underline;
+}
+
+.scf-groups-table .column-title .description {
+	margin: 4px 0 0 0;
+	color: var(--scf-text-secondary);
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.scf-groups-table .column-fields {
+	width: 15%;
+}
+
+.scf-groups-table .column-type {
+	width: 20%;
+}
+
+.scf-groups-table .column-status {
+	width: 12%;
+}
+
+.scf-groups-table .column-actions {
+	width: 18%;
+	text-align: right;
+}
+
+/* ============================================
+   Badges
+   ============================================ */
+
+.scf-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+.scf-badge .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.scf-badge-info {
+	background: #e7f5fb;
+	color: var(--scf-primary);
+	border: 1px solid rgba(7, 131, 190, 0.2);
+}
+
+.scf-badge-secondary {
+	background: #f8f9fa;
+	color: #6c757d;
+	border: 1px solid #e9ecef;
+}
+
+.scf-badge-success {
+	background: #d4edda;
+	color: #155724;
+	border: 1px solid #c3e6cb;
+}
+
+.scf-badge-warning {
+	background: #fff3cd;
+	color: #856404;
+	border: 1px solid #ffeaa7;
+}
+
+/* ============================================
+   Boutons dans le tableau
+   ============================================ */
+
+.scf-groups-table .button-small {
+	padding: 6px 12px !important;
+	font-size: 13px !important;
+	height: auto !important;
+	line-height: 1.4 !important;
+	margin-left: 4px !important;
+	border-radius: 6px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	gap: 4px !important;
+}
+
+.scf-groups-table .scf-btn-edit {
+	background: var(--scf-primary) !important;
+	border-color: var(--scf-primary) !important;
+	color: white !important;
+}
+
+.scf-groups-table .scf-btn-edit:hover {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	color: white !important;
+	transform: translateY(-1px);
+}
+
+.scf-groups-table .scf-btn-delete {
+	background: var(--scf-danger) !important;
+	border-color: var(--scf-danger) !important;
+	color: white !important;
+}
+
+.scf-groups-table .scf-btn-delete:hover {
+	background: #c62828 !important;
+	border-color: #c62828 !important;
+	color: white !important;
+	transform: translateY(-1px);
+}
+
+.scf-groups-table .button .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	margin-top: 0;
+}

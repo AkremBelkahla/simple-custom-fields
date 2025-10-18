@@ -6,6 +6,99 @@
 	background: #f5f7fa;
 }
 
+/* ============================================
+   Styles de boutons uniformes
+   ============================================ */
+
+/* Style de base pour tous les boutons */
+.scf-btn,
+.scf-edit-group-page .button,
+.scf-edit-group-page button {
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 8px !important;
+	padding: 12px 20px !important;
+	font-size: 15px !important;
+	font-weight: 600 !important;
+	border-radius: 8px !important;
+	border: none !important;
+	transition: all 0.2s ease !important;
+	cursor: pointer !important;
+	text-decoration: none !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Bouton primaire (bleu) */
+.scf-btn-primary,
+.scf-edit-group-page .button-primary {
+	background: var(--scf-primary) !important;
+	color: white !important;
+	border-color: var(--scf-primary) !important;
+}
+
+.scf-btn-primary:hover,
+.scf-btn-primary:focus,
+.scf-edit-group-page .button-primary:hover,
+.scf-edit-group-page .button-primary:focus {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3) !important;
+	color: white !important;
+}
+
+/* Bouton secondaire (gris) */
+.scf-btn-secondary,
+.scf-edit-group-page .button-secondary {
+	background: #6c757d !important;
+	color: white !important;
+	border-color: #6c757d !important;
+}
+
+.scf-btn-secondary:hover,
+.scf-btn-secondary:focus,
+.scf-edit-group-page .button-secondary:hover,
+.scf-edit-group-page .button-secondary:focus {
+	background: #5a6268 !important;
+	border-color: #5a6268 !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3) !important;
+	color: white !important;
+}
+
+/* Bouton danger (rouge) */
+.scf-btn-danger {
+	background: var(--scf-danger) !important;
+	color: white !important;
+	border-color: var(--scf-danger) !important;
+}
+
+.scf-btn-danger:hover,
+.scf-btn-danger:focus {
+	background: #c62828 !important;
+	border-color: #c62828 !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3) !important;
+	color: white !important;
+}
+
+/* Bouton succès (vert) */
+.scf-btn-success {
+	background: #28a745 !important;
+	color: white !important;
+	border-color: #28a745 !important;
+}
+
+.scf-btn-success:hover,
+.scf-btn-success:focus {
+	background: #218838 !important;
+	border-color: #218838 !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3) !important;
+	color: white !important;
+}
+
 /* Header de la page d'édition */
 .scf-edit-group-page .scf-page-header {
 	margin-bottom: 24px;
@@ -115,7 +208,12 @@
 }
 
 /* Cards modernes */
-.scf-modern-card {
+.scf-modern-card,
+#scf-fields.scf-modern-card,
+#scf-description.scf-modern-card,
+#submitdiv.scf-modern-card,
+#scf-rules.scf-modern-card,
+#scf-activation.scf-modern-card {
 	background: white !important;
 	border: 1px solid var(--scf-border-color) !important;
 	border-radius: 12px !important;
@@ -125,13 +223,21 @@
 	transition: all 0.3s ease;
 }
 
-.scf-modern-card:hover {
+.scf-modern-card:hover,
+#scf-fields.scf-modern-card:hover,
+#scf-description.scf-modern-card:hover {
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 	border-color: var(--scf-primary);
 }
 
+/* Masquer les anciens headers WordPress */
+.scf-modern-card .postbox-header {
+	display: none !important;
+}
+
 /* Header des cards */
-.scf-card-header {
+.scf-card-header,
+.scf-modern-card .scf-card-header {
 	display: flex !important;
 	justify-content: space-between;
 	align-items: center;
@@ -179,13 +285,20 @@
 }
 
 /* Inside content */
-.scf-modern-card .inside {
+.scf-modern-card .inside,
+#scf-fields.scf-modern-card .inside,
+#scf-description.scf-modern-card .inside,
+#scf-rules.scf-modern-card .inside,
+#scf-activation.scf-modern-card .inside {
 	padding: 20px !important;
+	background: white !important;
 }
 
 /* Card de publication */
-.scf-publish-card .inside {
-	padding: 16px 20px;
+.scf-publish-card .inside,
+#submitdiv.scf-publish-card .inside {
+	padding: 16px 20px !important;
+	background: white !important;
 }
 
 .scf-publish-card #major-publishing-actions {
@@ -199,23 +312,32 @@
 	text-align: left;
 }
 
-.scf-publish-card .button-primary {
-	width: 100%;
-	padding: 12px 20px;
-	font-size: 15px;
-	font-weight: 600;
-	background: var(--scf-primary);
-	border-color: var(--scf-primary);
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2);
-	transition: all 0.2s ease;
+.scf-publish-card .button-primary,
+.scf-publish-card #publish {
+	width: 100% !important;
+	padding: 12px 20px !important;
+	font-size: 15px !important;
+	font-weight: 600 !important;
+	background: var(--scf-primary) !important;
+	border: none !important;
+	border-color: var(--scf-primary) !important;
+	border-radius: 8px !important;
+	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2) !important;
+	transition: all 0.2s ease !important;
+	color: white !important;
+	text-shadow: none !important;
+	cursor: pointer !important;
 }
 
-.scf-publish-card .button-primary:hover {
-	background: var(--scf-primary-hover);
-	border-color: var(--scf-primary-hover);
-	transform: translateY(-1px);
-	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3);
+.scf-publish-card .button-primary:hover,
+.scf-publish-card .button-primary:focus,
+.scf-publish-card #publish:hover,
+.scf-publish-card #publish:focus {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3) !important;
+	color: white !important;
 }
 
 /* Bouton ajouter un champ */
@@ -226,30 +348,61 @@
 }
 
 .scf-add-field {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	padding: 10px 20px;
-	background: var(--scf-primary);
-	border-color: var(--scf-primary);
-	color: white;
-	font-weight: 500;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2);
-	transition: all 0.2s ease;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 8px !important;
+	padding: 12px 24px !important;
+	background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+	border: none !important;
+	border-color: transparent !important;
+	color: white !important;
+	font-size: 15px !important;
+	font-weight: 600 !important;
+	border-radius: 10px !important;
+	box-shadow: 0 4px 12px rgba(7, 131, 190, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	cursor: pointer !important;
+	text-decoration: none !important;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+	position: relative !important;
+	overflow: hidden !important;
 }
 
-.scf-add-field:hover {
-	background: var(--scf-primary-hover);
-	border-color: var(--scf-primary-hover);
-	transform: translateY(-1px);
-	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3);
+.scf-add-field::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	transition: left 0.5s ease;
+}
+
+.scf-add-field:hover::before {
+	left: 100%;
+}
+
+.scf-add-field:hover,
+.scf-add-field:focus {
+	background: linear-gradient(135deg, var(--scf-primary-hover) 0%, #088ab8 100%) !important;
+	border-color: transparent !important;
+	transform: translateY(-2px) scale(1.02) !important;
+	box-shadow: 0 6px 20px rgba(7, 131, 190, 0.35), 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+	color: white !important;
+}
+
+.scf-add-field:active {
+	transform: translateY(0) scale(0.98) !important;
+	box-shadow: 0 2px 8px rgba(7, 131, 190, 0.2) !important;
 }
 
 .scf-add-field .dashicons {
-	font-size: 18px;
-	width: 18px;
-	height: 18px;
+	font-size: 18px !important;
+	width: 18px !important;
+	height: 18px !important;
+	margin-top: 0 !important;
 }
 
 /* Table des champs */
@@ -438,47 +591,87 @@
 }
 
 /* Select dans les cards */
-.scf-modern-card select {
-	padding: 10px 12px;
-	border: 1px solid var(--scf-border-color);
-	border-radius: 8px;
-	font-size: 14px;
-	transition: all 0.2s ease;
-	background: white;
+.scf-modern-card select,
+#scf-rules.scf-modern-card select,
+#scf-activation.scf-modern-card select {
+	width: 100% !important;
+	padding: 10px 12px !important;
+	border: 1px solid var(--scf-border-color) !important;
+	border-radius: 8px !important;
+	font-size: 14px !important;
+	transition: all 0.2s ease !important;
+	background: white !important;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
-.scf-modern-card select:focus {
-	outline: none;
-	border-color: var(--scf-primary);
-	box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1);
+.scf-modern-card select:focus,
+#scf-rules.scf-modern-card select:focus,
+#scf-activation.scf-modern-card select:focus {
+	outline: none !important;
+	border-color: var(--scf-primary) !important;
+	box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1) !important;
 }
 
 /* Labels dans les cards */
-.scf-modern-card label {
-	display: block;
-	font-size: 13px;
-	font-weight: 600;
-	color: var(--scf-text-secondary);
-	margin-bottom: 8px;
+.scf-modern-card label,
+#scf-rules.scf-modern-card label,
+#scf-activation.scf-modern-card label {
+	display: block !important;
+	font-size: 13px !important;
+	font-weight: 600 !important;
+	color: var(--scf-text-secondary) !important;
+	margin-bottom: 8px !important;
+}
+
+/* Paragraphes dans les cards */
+.scf-modern-card p,
+#scf-rules.scf-modern-card p,
+#scf-activation.scf-modern-card p {
+	margin: 0 0 12px 0 !important;
 }
 
 /* Layout responsive */
-#post-body.columns-2 {
+.scf-edit-group-page #poststuff {
+	padding-top: 0 !important;
+}
+
+.scf-edit-group-page #post-body.columns-2 {
 	display: grid !important;
 	grid-template-columns: 1fr 320px !important;
+	grid-template-rows: auto auto !important;
 	gap: 24px !important;
+	margin: 0 !important;
 }
 
-#postbox-container-1 {
-	order: 2;
+/* Titre en haut à gauche */
+.scf-edit-group-page #post-body-content {
+	grid-column: 1 !important;
+	grid-row: 1 !important;
+	width: 100% !important;
+	float: none !important;
+	margin: 0 !important;
 }
 
-#postbox-container-2 {
-	order: 1;
+/* Sidebar en haut à droite (sur toute la hauteur) */
+.scf-edit-group-page #postbox-container-1 {
+	grid-column: 2 !important;
+	grid-row: 1 / 3 !important;
+	width: 100% !important;
+	float: none !important;
+	margin: 0 !important;
+}
+
+/* Champs et description juste sous le titre */
+.scf-edit-group-page #postbox-container-2 {
+	grid-column: 1 !important;
+	grid-row: 2 !important;
+	width: 100% !important;
+	float: none !important;
+	margin: 0 !important;
 }
 
 /* Sidebar sticky */
-#postbox-container-1 .meta-box-sortables {
+.scf-edit-group-page #postbox-container-1 .meta-box-sortables {
 	position: sticky;
 	top: 32px;
 }

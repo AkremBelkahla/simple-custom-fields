@@ -53,7 +53,17 @@
 
     <div class="scf-wrap">
         <?php if (!empty($groups)): ?>
-        <div class="scf-groups-grid">
+        <table class="wp-list-table widefat fixed striped scf-groups-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="column-title">Titre</th>
+                    <th scope="col" class="column-fields">Champs</th>
+                    <th scope="col" class="column-type">Type de contenu</th>
+                    <th scope="col" class="column-status">Statut</th>
+                    <th scope="col" class="column-actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
             <?php foreach ($groups as $group): 
                     $fields = get_post_meta($group->ID, 'scf_fields', true);
                     $rules = get_post_meta($group->ID, 'scf_rules', true);
@@ -70,59 +80,61 @@
                         }
                     }
                 ?>
-            <div class="scf-group-card" data-group-id="<?php echo $group->ID; ?>">
-                <div class="scf-group-card-header">
-                    <h3 class="scf-group-card-title">
+            <tr data-group-id="<?php echo $group->ID; ?>">
+                <td class="column-title">
+                    <strong>
                         <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>">
                             <?php echo esc_html($group->post_title); ?>
                         </a>
-                    </h3>
+                    </strong>
                     <?php if (!empty($group->post_content)): ?>
-                    <p class="scf-group-card-description">
+                    <p class="description">
                         <?php echo esc_html($group->post_content); ?>
                     </p>
                     <?php endif; ?>
-                </div>
+                </td>
                 
-                <div class="scf-group-card-body">
-                    <div class="scf-group-card-meta">
-                        <div class="scf-group-card-meta-item">
-                            <span class="dashicons dashicons-admin-settings"></span>
-                            <span><?php echo $fields_count; ?> champ<?php echo $fields_count > 1 ? 's' : ''; ?></span>
-                        </div>
-                        <div class="scf-group-card-meta-item">
-                            <span class="dashicons dashicons-admin-post"></span>
-                            <span><?php echo $content_type; ?></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="scf-group-card-footer">
-                    <span class="status-indicator <?php echo $group->post_status === 'publish' ? 'active' : 'inactive'; ?>">
-                        <?php echo $group->post_status === 'publish' ? 'Activé' : 'Désactivé'; ?>
+                <td class="column-fields">
+                    <span class="scf-badge scf-badge-info">
+                        <span class="dashicons dashicons-admin-settings"></span>
+                        <?php echo $fields_count; ?> champ<?php echo $fields_count > 1 ? 's' : ''; ?>
                     </span>
-                    
-                    <div class="scf-group-card-actions">
-                        <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>" 
-                           class="scf-edit-group" 
-                           title="Modifier">
-                            <span class="dashicons dashicons-edit"></span>
-                            Modifier
-                        </a>
-                        <?php if (current_user_can('manage_options')): ?>
-                        <button type="button" 
-                                class="scf-delete-group" 
-                                data-group-id="<?php echo $group->ID; ?>"
-                                title="Supprimer">
-                            <span class="dashicons dashicons-trash"></span>
-                            Supprimer
-                        </button>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
+                </td>
+                
+                <td class="column-type">
+                    <span class="scf-badge scf-badge-secondary">
+                        <span class="dashicons dashicons-admin-post"></span>
+                        <?php echo $content_type; ?>
+                    </span>
+                </td>
+                
+                <td class="column-status">
+                    <span class="scf-badge <?php echo $group->post_status === 'publish' ? 'scf-badge-success' : 'scf-badge-warning'; ?>">
+                        <?php echo $group->post_status === 'publish' ? '● Activé' : '○ Désactivé'; ?>
+                    </span>
+                </td>
+                
+                <td class="column-actions">
+                    <a href="<?php echo admin_url('admin.php?page=scf-add-group&group_id=' . $group->ID); ?>" 
+                       class="button button-small scf-btn-edit" 
+                       title="Modifier">
+                        <span class="dashicons dashicons-edit"></span>
+                        Modifier
+                    </a>
+                    <?php if (current_user_can('manage_options')): ?>
+                    <button type="button" 
+                            class="button button-small scf-btn-delete scf-delete-group" 
+                            data-group-id="<?php echo $group->ID; ?>"
+                            title="Supprimer">
+                        <span class="dashicons dashicons-trash"></span>
+                        Supprimer
+                    </button>
+                    <?php endif; ?>
+                </td>
+            </tr>
             <?php endforeach; ?>
-        </div>
+            </tbody>
+        </table>
         <?php else: ?>
         <div class="scf-no-items">
             <span class="dashicons dashicons-admin-generic" style="font-size: 64px; color: var(--scf-text-light); margin-bottom: 16px;"></span>

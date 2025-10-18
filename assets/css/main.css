@@ -170,29 +170,68 @@
 
 .scf-btn-add {
 	display: inline-flex !important;
-	align-items: center;
-	gap: 6px;
-	padding: 10px 20px !important;
-	background: var(--scf-primary) !important;
-	border-color: var(--scf-primary) !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 8px !important;
+	padding: 12px 24px !important;
+	background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+	border: none !important;
+	border-color: transparent !important;
 	color: white !important;
-	font-weight: 500;
-	border-radius: 8px;
-	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2);
-	transition: all 0.2s ease;
+	font-size: 15px !important;
+	font-weight: 600 !important;
+	border-radius: 10px !important;
+	box-shadow: 0 4px 12px rgba(7, 131, 190, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	text-decoration: none !important;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+	position: relative !important;
+	overflow: hidden !important;
 }
 
-.scf-btn-add:hover {
-	background: var(--scf-primary-hover) !important;
-	border-color: var(--scf-primary-hover) !important;
-	transform: translateY(-1px);
-	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3);
+.scf-btn-add::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	transition: left 0.5s ease;
+}
+
+.scf-btn-add:hover::before {
+	left: 100%;
+}
+
+.scf-btn-add:hover,
+.scf-btn-add:focus {
+	background: linear-gradient(135deg, var(--scf-primary-hover) 0%, #088ab8 100%) !important;
+	border-color: transparent !important;
+	transform: translateY(-2px) scale(1.02) !important;
+	box-shadow: 0 6px 20px rgba(7, 131, 190, 0.35), 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+	color: white !important;
+}
+
+.scf-btn-add:active {
+	transform: translateY(0) scale(0.98) !important;
+	box-shadow: 0 2px 8px rgba(7, 131, 190, 0.2) !important;
 }
 
 .scf-btn-add .dashicons {
-	font-size: 18px;
-	width: 18px;
-	height: 18px;
+	font-size: 20px !important;
+	width: 20px !important;
+	height: 20px !important;
+	animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+	0%, 100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
 }
 
 /* ============================================

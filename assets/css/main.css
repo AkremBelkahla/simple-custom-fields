@@ -101,13 +101,7 @@
 }
 
 /* ============================================
-   Liste des groupes - Style Cards (inspiré ACF)
-   
-   Design inspiré de la page "Field Groups" d'ACF :
-   - Cards avec hover effect
-   - Métadonnées visuelles (nombre de champs, type)
-   - Indicateurs de statut colorés
-   - Actions intégrées dans chaque card
+   Liste des groupes - Style Cards
    ============================================ */
 
 .scf-groups-grid {
@@ -199,7 +193,7 @@
 	background: var(--scf-bg-secondary);
 }
 
-/* Indicateur de statut (style ACF) */
+/* Indicateur de statut */
 .status-indicator {
 	display: inline-flex;
 	align-items: center;
@@ -250,7 +244,7 @@
 	}
 }
 
-/* Actions de la carte (inspiré des actions ACF) */
+/* Actions de la carte */
 .scf-group-card-actions {
 	display: flex;
 	gap: var(--scf-spacing-sm);

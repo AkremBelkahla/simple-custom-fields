@@ -14,10 +14,25 @@ if ($group_id) {
     }
 }
 ?>
-<div class="wrap">
-    <h1 class="wp-heading-inline"><?php echo $group_id ? 'Modifier le groupe' : 'Ajouter un groupe'; ?></h1>
-    <a href="<?php echo admin_url('admin.php?page=simple-custom-fields'); ?>"
-       class="page-title-action">Retour à la liste</a>
+<div class="wrap scf-edit-group-page">
+    <div class="scf-page-header">
+        <div class="scf-page-header-left">
+            <h1 class="wp-heading-inline">
+                <span class="dashicons dashicons-edit"></span>
+                <?php echo $group_id ? 'Modifier le groupe' : 'Ajouter un groupe'; ?>
+            </h1>
+            <p class="scf-page-subtitle">
+                <?php echo $group_id ? 'Modifiez les paramètres de votre groupe de champs' : 'Créez un nouveau groupe de champs personnalisés'; ?>
+            </p>
+        </div>
+        <div class="scf-page-header-right">
+            <a href="<?php echo admin_url('admin.php?page=simple-custom-fields'); ?>"
+               class="page-title-action scf-btn-back">
+                <span class="dashicons dashicons-arrow-left-alt2"></span>
+                Retour à la liste
+            </a>
+        </div>
+    </div>
     <hr class="wp-header-end">
 
     <form id="scf-form"
@@ -37,16 +52,21 @@ if ($group_id) {
             <div id="post-body"
                  class="metabox-holder columns-2">
                 <div id="post-body-content">
-                    <div id="titlediv">
-                        <div id="titlewrap">
+                    <div class="scf-title-card">
+                        <div class="scf-card-icon">
+                            <span class="dashicons dashicons-category"></span>
+                        </div>
+                        <div class="scf-card-content">
+                            <label for="title" class="scf-card-label">Titre du groupe</label>
                             <input type="text"
                                    name="title"
-                                   size="30"
                                    id="title"
+                                   class="scf-title-input"
                                    value="<?php echo $group ? esc_attr($group->post_title) : ''; ?>"
-                                   placeholder="Titre du groupe de champs"
+                                   placeholder="Ex: Informations produit, Détails événement..."
                                    spellcheck="true"
-                                   autocomplete="off">
+                                   autocomplete="off"
+                                   required>
                         </div>
                     </div>
                 </div>
@@ -56,19 +76,14 @@ if ($group_id) {
                     <div id="normal-sortables"
                          class="meta-box-sortables ui-sortable">
                         <div id="scf-fields"
-                             class="postbox">
-                            <div class="postbox-header">
-                                <h2 class="hndle ui-sortable-handle">
-                                    <span>Champs</span>
-                                </h2>
-                                <div class="handle-actions hide-if-no-js">
-                                    <button type="button"
-                                            class="handlediv"
-                                            aria-expanded="true">
-                                        <span class="screen-reader-text">Afficher/Masquer le panneau</span>
-                                        <span class="toggle-indicator"
-                                              aria-hidden="true"></span>
-                                    </button>
+                             class="scf-modern-card">
+                            <div class="scf-card-header">
+                                <div class="scf-card-header-left">
+                                    <span class="dashicons dashicons-admin-settings"></span>
+                                    <h2>Champs personnalisés</h2>
+                                </div>
+                                <div class="scf-card-header-badge">
+                                    <span class="scf-fields-count"><?php echo count($fields); ?></span> champ<?php echo count($fields) > 1 ? 's' : ''; ?>
                                 </div>
                             </div>
                             <div class="inside">
@@ -172,11 +187,12 @@ if ($group_id) {
                         </div>
 
                         <div id="scf-description"
-                             class="postbox">
-                            <div class="postbox-header">
-                                <h2 class="hndle ui-sortable-handle">
-                                    <span>Description du groupe</span>
-                                </h2>
+                             class="scf-modern-card">
+                            <div class="scf-card-header">
+                                <div class="scf-card-header-left">
+                                    <span class="dashicons dashicons-text-page"></span>
+                                    <h2>Description du groupe</h2>
+                                </div>
                             </div>
                             <div class="inside">
                                 <textarea name="description"
@@ -193,11 +209,12 @@ if ($group_id) {
                     <div id="side-sortables"
                          class="meta-box-sortables ui-sortable">
                         <div id="submitdiv"
-                             class="postbox">
-                            <div class="postbox-header">
-                                <h2 class="hndle ui-sortable-handle">
-                                    <span>Publier</span>
-                                </h2>
+                             class="scf-modern-card scf-publish-card">
+                            <div class="scf-card-header">
+                                <div class="scf-card-header-left">
+                                    <span class="dashicons dashicons-yes-alt"></span>
+                                    <h2>Publication</h2>
+                                </div>
                             </div>
                             <div class="inside">
                                 <div class="submitbox"
@@ -218,11 +235,12 @@ if ($group_id) {
                         </div>
 
                         <div id="scf-rules"
-                             class="postbox">
-                            <div class="postbox-header">
-                                <h2 class="hndle ui-sortable-handle">
-                                    <span>Type de contenu</span>
-                                </h2>
+                             class="scf-modern-card">
+                            <div class="scf-card-header">
+                                <div class="scf-card-header-left">
+                                    <span class="dashicons dashicons-admin-post"></span>
+                                    <h2>Type de contenu</h2>
+                                </div>
                             </div>
                             <div class="inside">
                                 <p><label>Sélectionnez le type de contenu :</label></p>
@@ -246,11 +264,12 @@ if ($group_id) {
                         </div>
 
                         <div id="scf-activation"
-                             class="postbox">
-                            <div class="postbox-header">
-                                <h2 class="hndle ui-sortable-handle">
-                                    <span>Activation du groupe</span>
-                                </h2>
+                             class="scf-modern-card">
+                            <div class="scf-card-header">
+                                <div class="scf-card-header-left">
+                                    <span class="dashicons dashicons-admin-plugins"></span>
+                                    <h2>Activation</h2>
+                                </div>
                             </div>
                             <div class="inside">
                                 <div class="">

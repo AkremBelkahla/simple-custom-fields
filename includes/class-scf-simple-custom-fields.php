@@ -59,6 +59,24 @@ class SCF_Simple_Custom_Fields {
             array(),
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/main.css')
         );
+        
+        // Charger edit-page.css sur la page d'édition de groupe
+        if (strpos($hook, 'scf-add-group') !== false) {
+            wp_enqueue_style(
+                'scf-edit-page',
+                plugins_url('assets/css/edit-page.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/edit-page.css')
+            );
+        }
+        
+        // Charger responsive.css
+        wp_enqueue_style(
+            'scf-responsive',
+            plugins_url('assets/css/responsive.css', dirname(__FILE__)),
+            array('scf-admin'),
+            filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/responsive.css')
+        );
 
         wp_enqueue_script(
             'scf-admin',

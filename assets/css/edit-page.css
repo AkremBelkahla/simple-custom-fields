@@ -41,15 +41,15 @@
 
 /* Card de titre */
 .scf-title-card {
-	display: flex;
+	display: flex !important;
 	align-items: flex-start;
 	gap: 16px;
-	padding: 24px;
-	background: white;
-	border: 1px solid var(--scf-border-color);
-	border-radius: 12px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	margin-bottom: 24px;
+	padding: 24px !important;
+	background: white !important;
+	border: 1px solid var(--scf-border-color) !important;
+	border-radius: 12px !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+	margin-bottom: 24px !important;
 	transition: all 0.3s ease;
 }
 
@@ -116,12 +116,12 @@
 
 /* Cards modernes */
 .scf-modern-card {
-	background: white;
-	border: 1px solid var(--scf-border-color);
-	border-radius: 12px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	margin-bottom: 20px;
-	overflow: hidden;
+	background: white !important;
+	border: 1px solid var(--scf-border-color) !important;
+	border-radius: 12px !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+	margin-bottom: 20px !important;
+	overflow: hidden !important;
 	transition: all 0.3s ease;
 }
 
@@ -132,12 +132,12 @@
 
 /* Header des cards */
 .scf-card-header {
-	display: flex;
+	display: flex !important;
 	justify-content: space-between;
 	align-items: center;
-	padding: 16px 20px;
-	background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
-	border-bottom: 1px solid var(--scf-border-light);
+	padding: 16px 20px !important;
+	background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%) !important;
+	border-bottom: 1px solid var(--scf-border-light) !important;
 }
 
 .scf-card-header-left {
@@ -180,7 +180,7 @@
 
 /* Inside content */
 .scf-modern-card .inside {
-	padding: 20px;
+	padding: 20px !important;
 }
 
 /* Card de publication */
@@ -254,19 +254,26 @@
 
 /* Table des champs */
 .scf-modern-card table {
-	border: none;
-	background: white;
+	border: none !important;
+	background: white !important;
+	width: 100% !important;
+	border-collapse: collapse !important;
+}
+
+.scf-modern-card table thead {
+	background: #f8f9fa !important;
 }
 
 .scf-modern-card table thead th {
-	background: #f8f9fa;
-	color: var(--scf-text-secondary);
-	font-weight: 600;
-	font-size: 12px;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
-	padding: 12px;
-	border-bottom: 2px solid var(--scf-border-light);
+	background: #f8f9fa !important;
+	color: var(--scf-text-secondary) !important;
+	font-weight: 600 !important;
+	font-size: 12px !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.5px !important;
+	padding: 12px !important;
+	border-bottom: 2px solid var(--scf-border-light) !important;
+	text-align: left !important;
 }
 
 .scf-modern-card table tbody tr {
@@ -400,9 +407,9 @@
 
 /* Layout responsive */
 #post-body.columns-2 {
-	display: grid;
-	grid-template-columns: 1fr 320px;
-	gap: 24px;
+	display: grid !important;
+	grid-template-columns: 1fr 320px !important;
+	gap: 24px !important;
 }
 
 #postbox-container-1 {

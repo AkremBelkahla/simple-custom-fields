@@ -4,6 +4,22 @@
 
 /* Tablettes et petits écrans */
 @media screen and (max-width: 1024px) {
+	/* Header de page */
+	.scf-page-header {
+		flex-direction: column;
+		gap: 16px;
+		padding: 20px;
+	}
+	
+	.scf-page-header-left,
+	.scf-page-header-right {
+		width: 100%;
+	}
+	
+	.scf-page-header-right {
+		justify-content: flex-start;
+	}
+	
 	/* Grille des groupes */
 	.scf-groups-grid {
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -32,16 +48,29 @@
 
 /* Mobiles et petits écrans */
 @media screen and (max-width: 782px) {
-	/* En-tête */
-	.wrap h1.wp-heading-inline {
-		font-size: 20px;
-		padding: 6px 0;
+	/* Header de page */
+	.scf-page-header {
+		padding: 16px;
 	}
 	
-	.page-title-action {
-		display: block;
-		margin: var(--scf-spacing-sm) 0;
-		text-align: center;
+	.scf-page-header-left h1 {
+		font-size: 20px;
+	}
+	
+	.scf-page-header-left h1 .dashicons {
+		font-size: 24px;
+		width: 24px;
+		height: 24px;
+	}
+	
+	.scf-page-subtitle {
+		font-size: 13px;
+	}
+	
+	.scf-btn-add {
+		width: 100%;
+		justify-content: center;
+		padding: 12px 20px !important;
 	}
 	
 	/* Grille des groupes */

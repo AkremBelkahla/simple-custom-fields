@@ -101,44 +101,203 @@
 }
 
 /* ============================================
+   Header de page
+   ============================================ */
+
+.scf-page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 24px;
+	margin-bottom: 24px;
+	padding: 24px;
+	background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+	border: 1px solid var(--scf-border-color);
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.scf-page-header-left h1 {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 8px 0;
+	font-size: 24px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+}
+
+.scf-page-header-left h1 .dashicons {
+	color: var(--scf-primary);
+	font-size: 28px;
+	width: 28px;
+	height: 28px;
+}
+
+.scf-page-subtitle {
+	margin: 0;
+	font-size: 14px;
+	color: var(--scf-text-secondary);
+	font-weight: 400;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.scf-stat {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.scf-stat strong {
+	color: var(--scf-primary);
+	font-weight: 600;
+	font-size: 15px;
+}
+
+.scf-stat-separator {
+	color: var(--scf-border-color);
+	margin: 0 4px;
+}
+
+.scf-page-header-right {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.scf-btn-add {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 6px;
+	padding: 10px 20px !important;
+	background: var(--scf-primary) !important;
+	border-color: var(--scf-primary) !important;
+	color: white !important;
+	font-weight: 500;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2);
+	transition: all 0.2s ease;
+}
+
+.scf-btn-add:hover {
+	background: var(--scf-primary-hover) !important;
+	border-color: var(--scf-primary-hover) !important;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.3);
+}
+
+.scf-btn-add .dashicons {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+/* ============================================
    Liste des groupes - Style Cards
    ============================================ */
 
 .scf-groups-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-	gap: var(--scf-spacing-lg);
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	gap: 24px;
 	margin-top: var(--scf-spacing-lg);
+	animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .scf-group-card {
 	background: var(--scf-bg-primary);
 	border: 1px solid var(--scf-border-color);
-	border-radius: var(--scf-border-radius-lg);
-	box-shadow: var(--scf-shadow-sm);
-	transition: all 0.3s ease;
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	overflow: hidden;
 	position: relative;
+	cursor: pointer;
+}
+
+.scf-group-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 4px;
+	height: 100%;
+	background: var(--scf-primary);
+	opacity: 0;
+	transition: opacity 0.3s ease;
 }
 
 .scf-group-card:hover {
-	box-shadow: var(--scf-shadow-lg);
-	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(7, 131, 190, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+	transform: translateY(-4px);
 	border-color: var(--scf-primary);
 }
 
+.scf-group-card:hover::before {
+	opacity: 1;
+}
+
 .scf-group-card-header {
-	padding: var(--scf-spacing-md);
+	padding: 20px;
 	border-bottom: 1px solid var(--scf-border-light);
-	background: linear-gradient(to bottom, #fafafa, #fff);
+	background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+	position: relative;
+}
+
+.scf-group-card-header::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 20px;
+	right: 20px;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--scf-primary), transparent);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.scf-group-card:hover .scf-group-card-header::after {
+	opacity: 0.3;
 }
 
 .scf-group-card-title {
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: 600;
 	color: var(--scf-text-primary);
-	margin: 0 0 var(--scf-spacing-xs);
+	margin: 0 0 8px;
 	line-height: 1.4;
+	letter-spacing: -0.01em;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.scf-group-card-title::before {
+	content: '\f318';
+	font-family: 'dashicons';
+	font-size: 20px;
+	color: var(--scf-primary);
+	opacity: 0.7;
+	transition: all 0.3s ease;
+}
+
+.scf-group-card:hover .scf-group-card-title::before {
+	opacity: 1;
+	transform: scale(1.1);
 }
 
 .scf-group-card-title a {
@@ -155,42 +314,69 @@
 	font-size: 13px;
 	color: var(--scf-text-secondary);
 	margin: 0;
-	line-height: 1.5;
+	line-height: 1.6;
+	max-height: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
 .scf-group-card-body {
-	padding: var(--scf-spacing-md);
+	padding: 16px 20px;
+	background: #fafbfc;
+	min-height: 60px;
 }
 
 .scf-group-card-meta {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--scf-spacing-md);
-	margin-bottom: var(--scf-spacing-md);
+	gap: 16px;
+	margin: 0;
 }
 
 .scf-group-card-meta-item {
 	display: flex;
 	align-items: center;
-	gap: var(--scf-spacing-xs);
+	gap: 6px;
 	font-size: 13px;
 	color: var(--scf-text-secondary);
+	padding: 6px 12px;
+	background: white;
+	border-radius: 6px;
+	border: 1px solid var(--scf-border-light);
+	transition: all 0.2s ease;
+}
+
+.scf-group-card-meta-item:hover {
+	border-color: var(--scf-primary);
+	background: var(--scf-primary-light);
+	color: var(--scf-primary);
+}
+
+.scf-group-card-meta-item:hover .dashicons {
+	color: var(--scf-primary);
 }
 
 .scf-group-card-meta-item .dashicons {
-	color: var(--scf-text-light);
+	color: var(--scf-primary);
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
+	opacity: 0.7;
+	transition: all 0.2s ease;
 }
 
 .scf-group-card-footer {
-	padding: var(--scf-spacing-md);
+	padding: 16px 20px;
 	border-top: 1px solid var(--scf-border-light);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: var(--scf-bg-secondary);
+	background: white;
+	gap: 12px;
 }
 
 /* Indicateur de statut */
@@ -252,25 +438,34 @@
 
 .scf-group-card-actions a,
 .scf-group-card-actions button {
-	padding: 6px 12px;
+	padding: 8px 14px;
 	font-size: 13px;
-	border-radius: var(--scf-border-radius);
-	transition: all 0.2s ease;
+	font-weight: 500;
+	border-radius: 6px;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 	text-decoration: none;
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
+	gap: 5px;
 	border: 1px solid var(--scf-border-color);
-	background: var(--scf-bg-primary);
+	background: white;
 	color: var(--scf-text-primary);
 	cursor: pointer;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .scf-group-card-actions a:hover,
 .scf-group-card-actions button:hover {
-	background: var(--scf-bg-hover);
+	background: var(--scf-primary);
 	border-color: var(--scf-primary);
-	color: var(--scf-primary);
+	color: white;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(7, 131, 190, 0.2);
+}
+
+.scf-group-card-actions a:hover .dashicons,
+.scf-group-card-actions button:hover .dashicons {
+	color: white;
 }
 
 .scf-group-card-actions .scf-delete-group {
@@ -281,6 +476,11 @@
 	background: var(--scf-danger);
 	border-color: var(--scf-danger);
 	color: #fff;
+	box-shadow: 0 4px 8px rgba(220, 50, 50, 0.2);
+}
+
+.scf-group-card-actions .scf-delete-group:hover .dashicons {
+	color: white;
 }
 
 /* ============================================
@@ -289,17 +489,34 @@
 
 .scf-no-items {
 	text-align: center;
-	padding: var(--scf-spacing-xl) var(--scf-spacing-lg);
-	background: var(--scf-bg-primary);
+	padding: 60px 40px;
+	background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
 	border: 2px dashed var(--scf-border-color);
-	border-radius: var(--scf-border-radius-lg);
+	border-radius: 16px;
 	margin-top: var(--scf-spacing-lg);
+	animation: fadeIn 0.5s ease-out;
+}
+
+.scf-no-items .dashicons {
+	animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
 }
 
 .scf-no-items p {
 	color: var(--scf-text-secondary);
 	font-size: 15px;
-	margin: var(--scf-spacing-md) 0;
+	margin: 12px 0;
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .scf-no-items .button-primary {

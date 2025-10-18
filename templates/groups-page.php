@@ -1,9 +1,48 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 
-<div class="wrap">
-    <h1 class="wp-heading-inline">Groupes de champs</h1>
-    <a href="<?php echo admin_url('admin.php?page=scf-add-group'); ?>"
-       class="page-title-action">Ajouter un groupe</a>
+<div class="wrap scf-groups-page">
+    <div class="scf-page-header">
+        <div class="scf-page-header-left">
+            <h1 class="wp-heading-inline">
+                <span class="dashicons dashicons-admin-settings"></span>
+                Groupes de champs
+            </h1>
+            <p class="scf-page-subtitle">
+                <?php 
+                $total_groups = count($groups);
+                $active_groups = 0;
+                $total_fields = 0;
+                foreach ($groups as $group) {
+                    if ($group->post_status === 'publish') $active_groups++;
+                    $fields = get_post_meta($group->ID, 'scf_fields', true);
+                    $total_fields += is_array($fields) ? count($fields) : 0;
+                }
+                ?>
+                <?php if ($total_groups > 0): ?>
+                    <span class="scf-stat">
+                        <strong><?php echo $total_groups; ?></strong> groupe<?php echo $total_groups > 1 ? 's' : ''; ?>
+                    </span>
+                    <span class="scf-stat-separator">•</span>
+                    <span class="scf-stat">
+                        <strong><?php echo $active_groups; ?></strong> actif<?php echo $active_groups > 1 ? 's' : ''; ?>
+                    </span>
+                    <span class="scf-stat-separator">•</span>
+                    <span class="scf-stat">
+                        <strong><?php echo $total_fields; ?></strong> champ<?php echo $total_fields > 1 ? 's' : ''; ?> au total
+                    </span>
+                <?php else: ?>
+                    Gérez vos groupes de champs personnalisés
+                <?php endif; ?>
+            </p>
+        </div>
+        <div class="scf-page-header-right">
+            <a href="<?php echo admin_url('admin.php?page=scf-add-group'); ?>"
+               class="page-title-action scf-btn-add">
+                <span class="dashicons dashicons-plus-alt2"></span>
+                Ajouter un groupe
+            </a>
+        </div>
+    </div>
     <hr class="wp-header-end">
 
     <?php if (isset($_GET['message']) && $_GET['message'] === 'success'): ?>

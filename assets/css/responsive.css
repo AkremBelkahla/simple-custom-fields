@@ -1,5 +1,13 @@
 /* ============================================
    Responsive Design - Style ACF
+   
+   Breakpoints et adaptations inspirés d'ACF :
+   - Desktop : Grille multi-colonnes, sidebar sticky
+   - Tablet : Layout simplifié, grille adaptative
+   - Mobile : Modale plein écran, boutons empilés
+   - Très petits écrans : Tableau en mode card
+   
+   Référence : Responsive design ACF Pro
    ============================================ */
 
 /* Tablettes et petits écrans */

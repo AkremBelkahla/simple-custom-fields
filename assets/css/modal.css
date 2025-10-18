@@ -1,5 +1,14 @@
 /* ============================================
    Modales - Style ACF
+   
+   Design inspiré des modales d'ACF Pro :
+   - Animations d'entrée fluides (fade + slide)
+   - Backdrop avec effet blur
+   - Headers avec gradient subtil
+   - Boutons avec états hover/active
+   - Scrollbar personnalisée
+   
+   Référence : Modales d'édition de champs ACF
    ============================================ */
 
 .scf-modal {

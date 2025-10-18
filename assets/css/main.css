@@ -1,17 +1,29 @@
 /* ============================================
-   Simple Custom Fields - Style ACF
-   Palette de couleurs inspirée d'ACF
+   Simple Custom Fields - Design inspiré d'ACF
+   
+   Ce design s'inspire fortement d'Advanced Custom Fields (ACF)
+   pour offrir une expérience utilisateur familière et professionnelle.
+   
+   Références ACF :
+   - Palette de couleurs : Bleu #0783BE (couleur signature ACF)
+   - Layout en cards : Inspiré de la page "Field Groups" d'ACF
+   - Animations : Transitions fluides comme dans ACF Pro
+   - Typography : Hiérarchie similaire à l'interface ACF
+   
+   @author Akrem Belkahla
+   @link https://infinityweb.tn
+   @version 1.4.0
    ============================================ */
 
 :root {
-	/* Couleurs principales ACF */
-	--scf-primary: #0783BE;
-	--scf-primary-hover: #066a9c;
-	--scf-primary-light: #e7f5fb;
-	--scf-secondary: #00A0D2;
-	--scf-success: #46B450;
-	--scf-danger: #DC3232;
-	--scf-warning: #FFB900;
+	/* Couleurs principales - Palette ACF */
+	--scf-primary: #0783BE;        /* Bleu signature ACF */
+	--scf-primary-hover: #066a9c;  /* Hover state ACF */
+	--scf-primary-light: #e7f5fb;  /* Background léger ACF */
+	--scf-secondary: #00A0D2;      /* Bleu secondaire ACF */
+	--scf-success: #46B450;        /* Vert WordPress/ACF */
+	--scf-danger: #DC3232;         /* Rouge WordPress/ACF */
+	--scf-warning: #FFB900;        /* Jaune WordPress/ACF */
 	
 	/* Couleurs de texte */
 	--scf-text-primary: #23282d;
@@ -95,7 +107,13 @@
 }
 
 /* ============================================
-   Liste des groupes - Style Cards
+   Liste des groupes - Style Cards (inspiré ACF)
+   
+   Design inspiré de la page "Field Groups" d'ACF :
+   - Cards avec hover effect
+   - Métadonnées visuelles (nombre de champs, type)
+   - Indicateurs de statut colorés
+   - Actions intégrées dans chaque card
    ============================================ */
 
 .scf-groups-grid {
@@ -187,7 +205,7 @@
 	background: var(--scf-bg-secondary);
 }
 
-/* Indicateur de statut */
+/* Indicateur de statut (style ACF) */
 .status-indicator {
 	display: inline-flex;
 	align-items: center;
@@ -238,7 +256,7 @@
 	}
 }
 
-/* Actions de la carte */
+/* Actions de la carte (inspiré des actions ACF) */
 .scf-group-card-actions {
 	display: flex;
 	gap: var(--scf-spacing-sm);

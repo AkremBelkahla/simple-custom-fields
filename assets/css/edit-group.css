@@ -1,5 +1,14 @@
 /* ============================================
    Page d'édition de groupe - Style ACF
+   
+   Interface inspirée de la page d'édition d'ACF :
+   - Layout en colonnes (main content + sidebar)
+   - Postbox avec headers stylisés
+   - Inputs avec focus states bleus
+   - Drag & drop visuel pour réorganiser les champs
+   - Boutons cohérents avec la charte ACF
+   
+   Référence : Page "Edit Field Group" d'ACF Pro
    ============================================ */
 
 /* Layout principal */

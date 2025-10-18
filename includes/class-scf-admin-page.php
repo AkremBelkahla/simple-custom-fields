@@ -3,6 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 class SCF_Admin_Page {
     private static $instance = null;
+    private $security;
 
     public static function get_instance() {
         if (null === self::$instance) {
@@ -12,6 +13,8 @@ class SCF_Admin_Page {
     }
 
     private function __construct() {
+        $this->security = SCF_Security::get_instance();
+        
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
         add_action('admin_post_scf_save_field_group', array($this, 'save_field_group'));
@@ -94,16 +97,13 @@ class SCF_Admin_Page {
     }
 
     public function save_field_group() {
-        if (!current_user_can('manage_options')) {
-            wp_die(__('Vous n\'avez pas les permissions nécessaires pour effectuer cette action.'));
-        }
-
-        if (!isset($_POST['scf_nonce']) || !wp_verify_nonce($_POST['scf_nonce'], 'scf_save_field_group')) {
-            wp_die(__('Nonce de sécurité invalide.'));
+        // Vérification de sécurité complète
+        if (!$this->security->verify_post_request('scf_nonce', 'scf_save_field_group')) {
+            wp_die(__('Échec de la vérification de sécurité.', 'simple-custom-fields'));
         }
 
         $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
-        $title = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
+        $title = isset($_POST['title']) ? $this->security->sanitize_value($_POST['title'], 'text') : '';
         $fields = isset($_POST['fields']) ? $_POST['fields'] : array();
         $fields = $this->sanitize_fields($fields);
         $rules = isset($_POST['rules']) ? $this->sanitize_rules($_POST['rules']) : array();
@@ -112,7 +112,7 @@ class SCF_Admin_Page {
             wp_die(__('Le titre du groupe est obligatoire.'));
         }
 
-        $description = isset($_POST['description']) ? sanitize_textarea_field($_POST['description']) : '';
+        $description = isset($_POST['description']) ? $this->security->sanitize_value($_POST['description'], 'textarea') : '';
         $status = isset($_POST['status']) ? $_POST['status'] : 'draft';
 
         $post_data = array(
@@ -142,48 +142,20 @@ class SCF_Admin_Page {
 
     public function delete_group() {
         try {
-            // Vérification de la méthode HTTP
-            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                throw new Exception('Méthode non autorisée');
-            }
-
-            // Vérification AJAX
-            if (!defined('DOING_AJAX') || !DOING_AJAX) {
-                throw new Exception('Requête invalide');
-            }
-
-            // Vérification des permissions
-            if (!current_user_can('manage_options')) {
-                throw new Exception('Permissions insuffisantes');
-            }
-
-            if (!isset($_POST['nonce'])) {
-                throw new Exception('Nonce manquant');
-            }
-
-            $nonce = sanitize_text_field($_POST['nonce']);
-
-            if (!wp_verify_nonce($nonce, 'scf_nonce')) {
-                throw new Exception('Session expirée - Veuillez rafraîchir la page');
-            }
-
-            // Vérification du referrer
-            $referrer = wp_get_referer();
-            if (!$referrer || strpos($referrer, admin_url()) !== 0) {
-                throw new Exception('Origine de la requête non autorisée');
+            // Vérification de sécurité complète avec la classe Security
+            $nonce = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
+            
+            if (!$this->security->verify_ajax_request('scf_delete_group', $nonce)) {
+                throw new Exception(__('Échec de la vérification de sécurité', 'simple-custom-fields'));
             }
 
             // Récupération et validation de l'ID
             $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
-            if (!$group_id) {
-                throw new Exception('ID de groupe invalide');
-            }
-
-            // Vérification du groupe
-            $group = get_post($group_id);
-            error_log('Group object: ' . print_r($group, true));
-            if (!$group || $group->post_type !== 'scf-field-group') {
-                throw new Exception('Groupe non trouvé ou type invalide');
+            
+            // Validation du post avec la classe Security
+            $group = $this->security->validate_post_id($group_id, 'scf-field-group');
+            if (!$group) {
+                throw new Exception(__('Groupe non trouvé ou invalide', 'simple-custom-fields'));
             }
 
             // Suppression des meta données
@@ -367,21 +339,18 @@ class SCF_Admin_Page {
      * Callback AJAX pour récupérer les paramètres d'un type de champ
      */
     public function ajax_get_field_settings() {
-        // Vérifier le nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'scf_nonce')) {
-            wp_send_json_error('Nonce invalide');
+        // Vérification de sécurité complète
+        $nonce = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
+        
+        if (!$this->security->verify_ajax_request('scf_get_field_settings', $nonce)) {
+            wp_send_json_error(__('Échec de la vérification de sécurité', 'simple-custom-fields'));
         }
         
-        // Vérifier les permissions
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error('Permissions insuffisantes');
-        }
-        
-        // Récupérer le type de champ
-        $field_type = isset($_POST['field_type']) ? sanitize_text_field($_POST['field_type']) : '';
+        // Récupérer et valider le type de champ
+        $field_type = isset($_POST['field_type']) ? $this->security->sanitize_value($_POST['field_type'], 'key') : '';
         
         if (empty($field_type)) {
-            wp_send_json_error('Type de champ non spécifié');
+            wp_send_json_error(__('Type de champ non spécifié', 'simple-custom-fields'));
         }
         
         // Récupérer les paramètres du champ via la classe SCF_Fields

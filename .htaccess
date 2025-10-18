@@ -1,0 +1,31 @@
+# Protection des fichiers sensibles
+<FilesMatch "\.(log|md|json|lock|xml|dist)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Bloquer l'accès aux fichiers de configuration
+<FilesMatch "^(composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml(\.dist)?|\.gitignore|\.env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protéger les dossiers sensibles
+Options -Indexes
+
+# Protection contre l'injection de scripts
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Désactiver l'exécution de PHP dans certains dossiers
+<FilesMatch "\.php$">
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteCond %{REQUEST_URI} ^.*(uploads|assets).*$
+        RewriteRule ^(.*)$ - [F,L]
+    </IfModule>
+</FilesMatch>

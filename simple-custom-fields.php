@@ -2,12 +2,14 @@
 /**
  * Plugin Name: Simple Custom Fields
  * Description: Un plugin simple pour créer et gérer des champs personnalisés dans WordPress.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: Akrem Belkahla
  * Author URI: https://infinityweb.tn
  * Author Agency: Infinity Web
  * Text Domain: simple-custom-fields
  * Domain Path: /languages
+ * 
+ * Security: Protection CSRF, Rate Limiting, Validation stricte
  */
 
 if (!defined('ABSPATH')) {
@@ -21,6 +23,7 @@ define('SCF_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 // Chargement des fichiers de classes
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-database.php';
+require_once SCF_PLUGIN_DIR . 'includes/class-scf-security.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-simple-custom-fields.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-admin-page.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-meta-boxes.php';

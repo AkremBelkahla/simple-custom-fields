@@ -1,14 +1,8 @@
 /* ============================================
-   Simple Custom Fields - Design inspiré d'ACF
+   Simple Custom Fields - Design Moderne
    
-   Ce design s'inspire fortement d'Advanced Custom Fields (ACF)
-   pour offrir une expérience utilisateur familière et professionnelle.
-   
-   Références ACF :
-   - Palette de couleurs : Bleu #0783BE (couleur signature ACF)
-   - Layout en cards : Inspiré de la page "Field Groups" d'ACF
-   - Animations : Transitions fluides comme dans ACF Pro
-   - Typography : Hiérarchie similaire à l'interface ACF
+   Interface moderne et professionnelle pour la gestion
+   de champs personnalisés dans WordPress.
    
    @author Akrem Belkahla
    @link https://infinityweb.tn
@@ -16,14 +10,14 @@
    ============================================ */
 
 :root {
-	/* Couleurs principales - Palette ACF */
-	--scf-primary: #0783BE;        /* Bleu signature ACF */
-	--scf-primary-hover: #066a9c;  /* Hover state ACF */
-	--scf-primary-light: #e7f5fb;  /* Background léger ACF */
-	--scf-secondary: #00A0D2;      /* Bleu secondaire ACF */
-	--scf-success: #46B450;        /* Vert WordPress/ACF */
-	--scf-danger: #DC3232;         /* Rouge WordPress/ACF */
-	--scf-warning: #FFB900;        /* Jaune WordPress/ACF */
+	/* Couleurs principales */
+	--scf-primary: #0783BE;
+	--scf-primary-hover: #066a9c;
+	--scf-primary-light: #e7f5fb;
+	--scf-secondary: #00A0D2;
+	--scf-success: #46B450;
+	--scf-danger: #DC3232;
+	--scf-warning: #FFB900;
 	
 	/* Couleurs de texte */
 	--scf-text-primary: #23282d;

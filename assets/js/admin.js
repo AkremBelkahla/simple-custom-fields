@@ -99,11 +99,25 @@ jQuery(document).ready(function($) {
 
     // Gestion de l'ajout d'une option
     $(document).on('click', '.add-option', function() {
-        var template = $('#option-template').html()
+        var templateHtml = $('#option-template').html();
+        
+        if (!templateHtml) {
+            console.error('Template #option-template non trouvé');
+            return;
+        }
+        
+        var template = templateHtml
             .replace(/{label}/g, '')
             .replace(/{value}/g, '');
         var $newOption = $(template);
-        $(this).siblings('.options-list').append($newOption);
+        var $optionsList = $(this).closest('.scf-modal-body').find('.options-list');
+        
+        if ($optionsList.length === 0) {
+            console.error('.options-list non trouvé');
+            return;
+        }
+        
+        $optionsList.append($newOption);
         
         // Synchronisation automatique label -> valeur
         $newOption.find('.option-label').on('input', function() {

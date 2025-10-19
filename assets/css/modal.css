@@ -122,54 +122,66 @@
     color: var(--scf-text-primary);
 }
 
-/* Boutons de la modale */
-#optionsModal .scf-modal-footer .button,
-.scf-modal-footer .button {
-    padding: 10px 20px !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    border-radius: 8px !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    cursor: pointer !important;
+/* Boutons de la modale - Utilisation de la classe scf-add-field */
+#optionsModal .scf-add-field,
+#optionsModal .button.scf-add-field {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 6px !important;
-    border: none !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    gap: 8px !important;
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
     height: auto !important;
     line-height: 1.4 !important;
 }
 
+/* Bouton secondaire (Annuler) */
+#optionsModal .button-secondary,
 #optionsModal .scf-modal-footer .button-secondary,
 .scf-modal-footer .button-secondary {
     background: white !important;
     color: var(--scf-text-primary) !important;
     border: 2px solid var(--scf-border-color) !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    text-shadow: none !important;
 }
 
+#optionsModal .button-secondary:hover,
 #optionsModal .scf-modal-footer .button-secondary:hover,
 .scf-modal-footer .button-secondary:hover {
     background: var(--scf-bg-hover) !important;
     border-color: var(--scf-primary) !important;
     color: var(--scf-primary) !important;
-    transform: translateY(-1px) !important;
+    transform: translateY(-2px) scale(1.02) !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
+#optionsModal .button-secondary:active,
+.scf-modal-footer .button-secondary:active {
+    transform: translateY(0) scale(0.98) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Bouton primaire (Enregistrer) - Style identique à scf-add-field */
+#optionsModal .button-primary,
 #optionsModal .scf-modal-footer .button-primary,
 .scf-modal-footer .button-primary {
     background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
     border: none !important;
     border-color: transparent !important;
     color: white !important;
-    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
     position: relative !important;
     overflow: hidden !important;
 }
 
+#optionsModal .button-primary::before,
 .scf-modal-footer .button-primary::before {
     content: '';
     position: absolute;
@@ -181,21 +193,26 @@
     transition: left 0.5s ease;
 }
 
+#optionsModal .button-primary:hover::before,
 .scf-modal-footer .button-primary:hover::before {
     left: 100%;
 }
 
+#optionsModal .button-primary:hover,
+#optionsModal .button-primary:focus,
 .scf-modal-footer .button-primary:hover,
 .scf-modal-footer .button-primary:focus {
     background: linear-gradient(135deg, var(--scf-primary-hover) 0%, #088ab8 100%) !important;
     border-color: transparent !important;
     transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 6px 20px rgba(7, 131, 190, 0.35), 0 3px 6px rgba(0, 0, 0, 0.15) !important;
+    color: white !important;
 }
 
+#optionsModal .button-primary:active,
 .scf-modal-footer .button-primary:active {
     transform: translateY(0) scale(0.98) !important;
-    box-shadow: 0 1px 4px rgba(7, 131, 190, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.2) !important;
 }
 
 /* Liste des options dans la modale */
@@ -234,9 +251,12 @@
     letter-spacing: 0.3px;
 }
 
+/* Champs input de la modale - Style uniforme */
+#optionsModal .scf-input,
 #optionsModal .option-field input,
 .scf-modal .option-field input,
-.option-field input {
+.option-field input,
+.scf-input {
     width: 100% !important;
     padding: 10px 12px !important;
     border: 1px solid var(--scf-border-color) !important;
@@ -248,70 +268,92 @@
     line-height: 1.4 !important;
 }
 
+#optionsModal .scf-input:focus,
 #optionsModal .option-field input:focus,
 .scf-modal .option-field input:focus,
-.option-field input:focus {
+.option-field input:focus,
+.scf-input:focus {
     border-color: var(--scf-primary) !important;
     outline: none !important;
     box-shadow: 0 0 0 3px rgba(7, 131, 190, 0.1) !important;
 }
 
-.option-row .remove-option {
-    padding: 0;
-    width: 36px;
-    height: 36px;
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--scf-bg-primary);
-    border: 1px solid var(--scf-border-color);
-    border-radius: var(--scf-border-radius);
-    color: var(--scf-danger);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+/* Bouton supprimer option - Style moderne */
+#optionsModal .scf-btn-delete,
+#optionsModal .remove-option,
+.option-row .remove-option,
+.scf-btn-delete {
+    padding: 0 !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: white !important;
+    border: 2px solid var(--scf-danger) !important;
+    border-radius: 8px !important;
+    color: var(--scf-danger) !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
-.option-row .remove-option:hover {
-    background: var(--scf-danger);
-    border-color: var(--scf-danger);
-    color: #fff;
-    transform: scale(1.05);
+#optionsModal .scf-btn-delete:hover,
+#optionsModal .remove-option:hover,
+.option-row .remove-option:hover,
+.scf-btn-delete:hover {
+    background: var(--scf-danger) !important;
+    border-color: var(--scf-danger) !important;
+    color: white !important;
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3) !important;
 }
 
-.option-row .remove-option .dashicons {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
+#optionsModal .scf-btn-delete:active,
+.option-row .remove-option:active,
+.scf-btn-delete:active {
+    transform: translateY(0) scale(0.95) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
+#optionsModal .scf-btn-delete .dashicons,
+.option-row .remove-option .dashicons,
+.scf-btn-delete .dashicons {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* Bouton Ajouter une option - Style identique à scf-add-field */
 #optionsModal .add-option,
 .scf-modal .add-option,
 .add-option {
-    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
-    border: none !important;
-    border-color: transparent !important;
-    color: white !important;
-    padding: 10px 20px !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    border-radius: 8px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
+    padding: 12px 24px !important;
+    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+    border: none !important;
+    border-color: transparent !important;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     cursor: pointer !important;
     text-decoration: none !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
     position: relative !important;
     overflow: hidden !important;
     height: auto !important;
     line-height: 1.4 !important;
 }
 
+#optionsModal .add-option::before,
 .add-option::before {
     content: '';
     position: absolute;
@@ -323,28 +365,34 @@
     transition: left 0.5s ease;
 }
 
+#optionsModal .add-option:hover::before,
 .add-option:hover::before {
     left: 100%;
 }
 
+#optionsModal .add-option:hover,
+#optionsModal .add-option:focus,
 .add-option:hover,
 .add-option:focus {
     background: linear-gradient(135deg, var(--scf-primary-hover) 0%, #088ab8 100%) !important;
     border-color: transparent !important;
     transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 6px 20px rgba(7, 131, 190, 0.35), 0 3px 6px rgba(0, 0, 0, 0.15) !important;
     color: white !important;
 }
 
+#optionsModal .add-option:active,
 .add-option:active {
     transform: translateY(0) scale(0.98) !important;
-    box-shadow: 0 1px 4px rgba(7, 131, 190, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.2) !important;
 }
 
+#optionsModal .add-option .dashicons,
 .add-option .dashicons {
     font-size: 18px !important;
     width: 18px !important;
     height: 18px !important;
+    margin-top: 0 !important;
 }
 
 /* Animation pour les nouvelles options */

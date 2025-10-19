@@ -12,13 +12,14 @@
 
 /* Style de base pour tous les boutons */
 .scf-btn,
+#optionsModal button,
 .scf-edit-group-page .button,
 .scf-edit-group-page button {
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
 	gap: 8px !important;
-	padding: 12px 20px !important;
+	padding: 0px 10px !important;
 	font-size: 15px !important;
 	font-weight: 600 !important;
 	border-radius: 8px !important;
@@ -315,14 +316,14 @@
 .scf-publish-card .button-primary,
 .scf-publish-card #publish {
 	width: 100% !important;
-	padding: 12px 20px !important;
+	padding: 0px 10px !important;
 	font-size: 15px !important;
 	font-weight: 600 !important;
 	background: var(--scf-primary) !important;
 	border: none !important;
 	border-color: var(--scf-primary) !important;
 	border-radius: 8px !important;
-	box-shadow: 0 2px 4px rgba(7, 131, 190, 0.2) !important;
+	box-shadow: 0 1px 4px rgba(7, 131, 190, 0.2) !important;
 	transition: all 0.2s ease !important;
 	color: white !important;
 	text-shadow: none !important;

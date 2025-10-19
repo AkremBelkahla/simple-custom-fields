@@ -342,14 +342,14 @@ if ($group_id) {
             <div class="options-list">
                 <!-- Les options seront ajoutées ici dynamiquement -->
             </div>
-            <button type="button" class="button add-option">
+            <button type="button" class="button add-option scf-add-field">
                 <span class="dashicons dashicons-plus-alt2"></span>
                 Ajouter une option
             </button>
         </div>
         <div class="scf-modal-footer">
-            <button type="button" class="button button-secondary close-modal">Annuler</button>
-            <button type="button" class="button button-primary save-options">Enregistrer</button>
+            <button type="button" class="button button-secondary close-modal scf-add-field">Annuler</button>
+            <button type="button" class="button button-primary save-options scf-add-field">Enregistrer</button>
         </div>
     </div>
 </div>
@@ -359,13 +359,13 @@ if ($group_id) {
     <div class="option-row">
         <div class="option-field">
             <label>Libellé</label>
-            <input type="text" class="option-label" placeholder="Libellé" value="{label}">
+            <input type="text" class="option-label scf-input" placeholder="Libellé" value="{label}">
         </div>
         <div class="option-field">
             <label>Valeur</label>
-            <input type="text" class="option-value" placeholder="Valeur" value="{value}">
+            <input type="text" class="option-value scf-input" placeholder="Valeur" value="{value}">
         </div>
-        <button type="button" class="button remove-option">
+        <button type="button" class="button remove-option scf-btn-delete">
             <span class="dashicons dashicons-trash"></span>
         </button>
     </div>

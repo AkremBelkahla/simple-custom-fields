@@ -72,12 +72,23 @@ jQuery(document).ready(function($) {
         
         // Vider et remplir la liste d'options
         $optionsList.empty();
-        options.forEach(function(option) {
-            var template = $('#option-template').html()
-                .replace(/{label}/g, option.label)
-                .replace(/{value}/g, option.value);
-            $optionsList.append(template);
-        });
+        
+        if (options.length > 0) {
+            options.forEach(function(option) {
+                var template = $('#option-template').html()
+                    .replace(/{label}/g, option.label)
+                    .replace(/{value}/g, option.value);
+                $optionsList.append(template);
+            });
+        } else {
+            // Ajouter 2 options vides par défaut
+            for (var i = 0; i < 2; i++) {
+                var template = $('#option-template').html()
+                    .replace(/{label}/g, '')
+                    .replace(/{value}/g, '');
+                $optionsList.append(template);
+            }
+        }
         
         // Ouvrir la modal avec animation
         $modal.css('display', 'flex').hide().fadeIn(200);

@@ -94,9 +94,17 @@ class SCF_Meta_Boxes {
                     'high',
                     array(
                         'fields' => $fields,
-                        'group_id' => $group->ID
+                        'group_id' => $group->ID,
+                        '__block_editor_compatible_meta_box' => true,
+                        '__back_compat_meta_box' => false,
                     )
                 );
+                
+                // Ajouter la classe CSS à la meta box
+                add_filter('postbox_classes_' . $post_type . '_scf-' . $group->ID, function($classes) {
+                    $classes[] = 'scf-meta-box';
+                    return $classes;
+                });
             } else {
                 error_log('Group ' . $group->ID . ' does not apply to post type ' . $post_type);
             }

@@ -166,20 +166,20 @@ if ($group_id) {
                                                 <div class="scf-field-form-group">
                                                     <label>Type de champ</label>
                                                     <select name="fields[<?php echo $index; ?>][type]" class="scf-field-type-select">
-                                                        <option value="text" <?php selected($field['type'], 'text'); ?>>📝 Texte</option>
-                                                        <option value="textarea" <?php selected($field['type'], 'textarea'); ?>>📄 Zone de texte</option>
-                                                        <option value="number" <?php selected($field['type'], 'number'); ?>>🔢 Nombre</option>
-                                                        <option value="email" <?php selected($field['type'], 'email'); ?>>📧 Email</option>
-                                                        <option value="url" <?php selected($field['type'], 'url'); ?>>🔗 URL</option>
-                                                        <option value="date" <?php selected($field['type'], 'date'); ?>>📅 Date</option>
-                                                        <option value="time" <?php selected($field['type'], 'time'); ?>>⏰ Heure</option>
-                                                        <option value="color" <?php selected($field['type'], 'color'); ?>>🎨 Couleur</option>
-                                                        <option value="select" <?php selected($field['type'], 'select'); ?>>📋 Liste déroulante</option>
-                                                        <option value="radio" <?php selected($field['type'], 'radio'); ?>>🔘 Boutons radio</option>
-                                                        <option value="checkbox" <?php selected($field['type'], 'checkbox'); ?>>☑️ Cases à cocher</option>
-                                                        <option value="wysiwyg" <?php selected($field['type'], 'wysiwyg'); ?>>✏️ Éditeur WYSIWYG</option>
-                                                        <option value="image" <?php selected($field['type'], 'image'); ?>>🖼️ Image</option>
-                                                        <option value="file" <?php selected($field['type'], 'file'); ?>>📎 Fichier</option>
+                                                        <option value="text" <?php selected($field['type'], 'text'); ?>>Texte</option>
+                                                        <option value="textarea" <?php selected($field['type'], 'textarea'); ?>>Zone de texte</option>
+                                                        <option value="number" <?php selected($field['type'], 'number'); ?>>Nombre</option>
+                                                        <option value="email" <?php selected($field['type'], 'email'); ?>>Email</option>
+                                                        <option value="url" <?php selected($field['type'], 'url'); ?>>URL</option>
+                                                        <option value="date" <?php selected($field['type'], 'date'); ?>>Date</option>
+                                                        <option value="time" <?php selected($field['type'], 'time'); ?>>Heure</option>
+                                                        <option value="color" <?php selected($field['type'], 'color'); ?>>Couleur</option>
+                                                        <option value="select" <?php selected($field['type'], 'select'); ?>>Liste déroulante</option>
+                                                        <option value="radio" <?php selected($field['type'], 'radio'); ?>>Boutons radio</option>
+                                                        <option value="checkbox" <?php selected($field['type'], 'checkbox'); ?>>Cases à cocher</option>
+                                                        <option value="wysiwyg" <?php selected($field['type'], 'wysiwyg'); ?>>Éditeur WYSIWYG</option>
+                                                        <option value="image" <?php selected($field['type'], 'image'); ?>>Image</option>
+                                                        <option value="file" <?php selected($field['type'], 'file'); ?>>Fichier</option>
                                                     </select>
                                                 </div>
                                                 

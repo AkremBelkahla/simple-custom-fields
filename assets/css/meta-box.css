@@ -9,30 +9,8 @@
     margin: 0 !important;
 }
 
-/* Header du groupe - postbox WordPress */
-#poststuff .postbox.scf-meta-box .postbox-header,
-#poststuff .postbox .postbox-header {
-    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
-    border: none !important;
-    padding: 12px 16px !important;
-}
-
-#poststuff .postbox.scf-meta-box .postbox-header h2,
-#poststuff .postbox .postbox-header h2,
-#poststuff .postbox .postbox-header .hndle {
-    color: white !important;
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    margin: 0 !important;
-}
-
-#poststuff .postbox.scf-meta-box .postbox-header button,
-#poststuff .postbox .postbox-header button {
-    color: white !important;
-}
-
-#poststuff .postbox.scf-meta-box .inside,
-#poststuff .postbox .inside {
+/* Inside de la meta box */
+#poststuff .postbox.scf-meta-box .inside {
     padding: 16px !important;
     background: white !important;
 }

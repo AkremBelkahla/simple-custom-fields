@@ -117,7 +117,7 @@ jQuery(document).ready(function($) {
     // Mettre à jour le badge de type
     function updateTypeBadge($select) {
         var type = $select.val();
-        var typeLabel = $select.find('option:selected').text();
+        var typeLabel = $select.find('option:selected').text().trim();
         var $badge = $select.closest('.scf-field-accordion-item').find('.scf-field-type-badge');
         
         var icons = {
@@ -138,7 +138,12 @@ jQuery(document).ready(function($) {
         };
         
         var icon = icons[type] || 'dashicons-admin-generic';
-        $badge.html(`<span class="dashicons ${icon}"></span> ${typeLabel}`);
+        
+        // Remplacer complètement le contenu du badge
+        $badge.empty().append(
+            $('<span>').addClass('dashicons ' + icon),
+            ' ' + typeLabel
+        );
     }
     
     // Mettre à jour les numéros des champs
@@ -179,4 +184,118 @@ jQuery(document).ready(function($) {
     // Ouvrir le premier champ par défaut
     $('.scf-field-accordion-item:first').addClass('is-open')
         .find('.scf-field-accordion-content').show();
+    
+    // Ajouter un nouveau champ
+    $(document).on('click', '.scf-add-field', function(e) {
+        e.preventDefault(); // Empêcher le comportement par défaut
+        
+        var $accordion = $('.scf-fields-accordion');
+        var fieldIndex = $('.scf-field-accordion-item').length;
+        
+        var newFieldHtml = `
+            <div class="scf-field-accordion-item is-open" data-field-index="${fieldIndex}">
+                <div class="scf-field-accordion-header">
+                    <div class="scf-field-number">
+                        <span class="scf-field-drag-handle dashicons dashicons-menu"></span>
+                        ${fieldIndex + 1}
+                    </div>
+                    
+                    <div class="scf-field-type-badge">
+                        <span class="dashicons dashicons-editor-textcolor"></span>
+                        Texte
+                    </div>
+                    
+                    <div class="scf-field-label-display">
+                        Nouveau champ
+                    </div>
+                    
+                    <div class="scf-field-quick-actions">
+                        <button type="button" class="scf-field-toggle" title="Ouvrir/Fermer">
+                            <span class="dashicons dashicons-arrow-down-alt2"></span>
+                        </button>
+                        <button type="button" class="scf-field-delete" title="Supprimer">
+                            <span class="dashicons dashicons-trash"></span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="scf-field-accordion-content" style="display:block;">
+                    <div class="scf-field-form-grid">
+                        <div class="scf-field-form-group">
+                            <label>Libellé du champ</label>
+                            <input type="text" 
+                                   name="fields[${fieldIndex}][label]" 
+                                   class="scf-field-label-input"
+                                   value="Nouveau champ"
+                                   placeholder="Ex: Titre du produit">
+                        </div>
+                        
+                        <div class="scf-field-form-group">
+                            <label>Nom du champ</label>
+                            <input type="text" 
+                                   name="fields[${fieldIndex}][name]" 
+                                   class="scf-field-name-input"
+                                   value="nouveau_champ_${fieldIndex}"
+                                   placeholder="Ex: titre_produit">
+                        </div>
+                        
+                        <div class="scf-field-form-group">
+                            <label>Type de champ</label>
+                            <select name="fields[${fieldIndex}][type]" class="scf-field-type-select">
+                                <option value="text">Texte</option>
+                                <option value="textarea">Zone de texte</option>
+                                <option value="number">Nombre</option>
+                                <option value="email">Email</option>
+                                <option value="url">URL</option>
+                                <option value="date">Date</option>
+                                <option value="time">Heure</option>
+                                <option value="color">Couleur</option>
+                                <option value="select">Liste déroulante</option>
+                                <option value="radio">Boutons radio</option>
+                                <option value="checkbox">Cases à cocher</option>
+                                <option value="wysiwyg">Éditeur WYSIWYG</option>
+                                <option value="image">Image</option>
+                                <option value="file">Fichier</option>
+                            </select>
+                        </div>
+                        
+                        <div class="scf-field-form-group">
+                            <label>Champ requis</label>
+                            <select name="fields[${fieldIndex}][required]">
+                                <option value="0">Non</option>
+                                <option value="1">Oui</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="scf-field-options-section" style="display:none;">
+                        <h4>
+                            <span class="dashicons dashicons-list-view"></span>
+                            Options du champ
+                        </h4>
+                        
+                        <div class="scf-options-list"></div>
+                        
+                        <button type="button" class="button scf-add-option-btn">
+                            <span class="dashicons dashicons-plus-alt2"></span>
+                            Ajouter une option
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        $accordion.append(newFieldHtml);
+        updateFieldNumbers();
+        
+        // Scroll vers le nouveau champ après un court délai
+        setTimeout(function() {
+            var $newField = $('.scf-field-accordion-item:last');
+            if ($newField.length) {
+                $('html, body').animate({
+                    scrollTop: $newField.offset().top - 100
+                }, 300);
+            }
+        }, 100);
+    });
 });

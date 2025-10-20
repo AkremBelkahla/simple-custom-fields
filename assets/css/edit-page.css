@@ -596,7 +596,7 @@
 #scf-rules.scf-modern-card select,
 #scf-activation.scf-modern-card select {
 	width: 100% !important;
-	padding: 10px 12px !important;
+	padding: 5px 12px !important;
 	border: 1px solid var(--scf-border-color) !important;
 	border-radius: 8px !important;
 	font-size: 14px !important;

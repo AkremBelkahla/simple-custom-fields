@@ -27,7 +27,7 @@
 /* Header de l'accordéon */
 .scf-field-accordion-header {
     display: grid;
-    grid-template-columns: 40px 150px 1fr 200px 40px 40px;
+    grid-template-columns: 40px 150px 1fr 40px 40px;
     gap: 12px;
     padding: 16px;
     align-items: center;
@@ -95,16 +95,6 @@
 
 .scf-field-label-display .required {
     color: var(--scf-danger);
-}
-
-/* Nom du champ */
-.scf-field-name-display {
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    color: var(--scf-text-secondary);
-    background: #f8f9fa;
-    padding: 4px 8px;
-    border-radius: 4px;
 }
 
 /* Actions rapides */
@@ -200,7 +190,7 @@
 .scf-field-form-group input,
 .scf-field-form-group select,
 .scf-field-form-group textarea {
-    padding: 10px 12px;
+    padding: 5px 12px;
     border: 1px solid var(--scf-border-color);
     border-radius: 6px;
     font-size: 14px;

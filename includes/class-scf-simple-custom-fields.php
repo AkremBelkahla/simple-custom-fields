@@ -106,6 +106,17 @@ class SCF_Simple_Custom_Fields {
             array('scf-admin'),
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/responsive.css')
         );
+        
+        // Charger meta-box.css sur les pages d'édition de posts
+        $screen = get_current_screen();
+        if ($screen && in_array($screen->base, array('post', 'page'))) {
+            wp_enqueue_style(
+                'scf-meta-box',
+                plugins_url('assets/css/meta-box.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/meta-box.css')
+            );
+        }
 
         wp_enqueue_script(
             'scf-admin',

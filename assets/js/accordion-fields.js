@@ -125,9 +125,16 @@ jQuery(document).ready(function($) {
             'textarea': 'dashicons-editor-alignleft',
             'number': 'dashicons-calculator',
             'email': 'dashicons-email',
+            'url': 'dashicons-admin-links',
+            'date': 'dashicons-calendar-alt',
+            'time': 'dashicons-clock',
+            'color': 'dashicons-art',
             'select': 'dashicons-list-view',
             'radio': 'dashicons-marker',
-            'checkbox': 'dashicons-yes'
+            'checkbox': 'dashicons-yes',
+            'wysiwyg': 'dashicons-editor-paste-text',
+            'image': 'dashicons-format-image',
+            'file': 'dashicons-media-default'
         };
         
         var icon = icons[type] || 'dashicons-admin-generic';

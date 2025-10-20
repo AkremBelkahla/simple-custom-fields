@@ -96,9 +96,16 @@ if ($group_id) {
                                         'textarea' => array('icon' => 'dashicons-editor-alignleft', 'label' => 'Zone de texte'),
                                         'number' => array('icon' => 'dashicons-calculator', 'label' => 'Nombre'),
                                         'email' => array('icon' => 'dashicons-email', 'label' => 'Email'),
+                                        'url' => array('icon' => 'dashicons-admin-links', 'label' => 'URL'),
+                                        'date' => array('icon' => 'dashicons-calendar-alt', 'label' => 'Date'),
+                                        'time' => array('icon' => 'dashicons-clock', 'label' => 'Heure'),
+                                        'color' => array('icon' => 'dashicons-art', 'label' => 'Couleur'),
                                         'select' => array('icon' => 'dashicons-list-view', 'label' => 'Liste déroulante'),
                                         'radio' => array('icon' => 'dashicons-marker', 'label' => 'Boutons radio'),
-                                        'checkbox' => array('icon' => 'dashicons-yes', 'label' => 'Cases à cocher')
+                                        'checkbox' => array('icon' => 'dashicons-yes', 'label' => 'Cases à cocher'),
+                                        'wysiwyg' => array('icon' => 'dashicons-editor-paste-text', 'label' => 'Éditeur WYSIWYG'),
+                                        'image' => array('icon' => 'dashicons-format-image', 'label' => 'Image'),
+                                        'file' => array('icon' => 'dashicons-media-default', 'label' => 'Fichier')
                                     );
                                     $current_type = $field_types[$field['type']] ?? $field_types['text'];
                                     $show_options = in_array($field['type'], array('select', 'radio', 'checkbox'));
@@ -123,10 +130,6 @@ if ($group_id) {
                                                 <?php if (!empty($field['required'])): ?>
                                                 <span class="required">*</span>
                                                 <?php endif; ?>
-                                            </div>
-                                            
-                                            <div class="scf-field-name-display">
-                                                <?php echo esc_html($field['name']); ?>
                                             </div>
                                             
                                             <div class="scf-field-quick-actions">
@@ -163,13 +166,20 @@ if ($group_id) {
                                                 <div class="scf-field-form-group">
                                                     <label>Type de champ</label>
                                                     <select name="fields[<?php echo $index; ?>][type]" class="scf-field-type-select">
-                                                        <option value="text" <?php selected($field['type'], 'text'); ?>>Texte</option>
-                                                        <option value="textarea" <?php selected($field['type'], 'textarea'); ?>>Zone de texte</option>
-                                                        <option value="number" <?php selected($field['type'], 'number'); ?>>Nombre</option>
-                                                        <option value="email" <?php selected($field['type'], 'email'); ?>>Email</option>
-                                                        <option value="select" <?php selected($field['type'], 'select'); ?>>Liste déroulante</option>
-                                                        <option value="radio" <?php selected($field['type'], 'radio'); ?>>Boutons radio</option>
-                                                        <option value="checkbox" <?php selected($field['type'], 'checkbox'); ?>>Cases à cocher</option>
+                                                        <option value="text" <?php selected($field['type'], 'text'); ?>>📝 Texte</option>
+                                                        <option value="textarea" <?php selected($field['type'], 'textarea'); ?>>📄 Zone de texte</option>
+                                                        <option value="number" <?php selected($field['type'], 'number'); ?>>🔢 Nombre</option>
+                                                        <option value="email" <?php selected($field['type'], 'email'); ?>>📧 Email</option>
+                                                        <option value="url" <?php selected($field['type'], 'url'); ?>>🔗 URL</option>
+                                                        <option value="date" <?php selected($field['type'], 'date'); ?>>📅 Date</option>
+                                                        <option value="time" <?php selected($field['type'], 'time'); ?>>⏰ Heure</option>
+                                                        <option value="color" <?php selected($field['type'], 'color'); ?>>🎨 Couleur</option>
+                                                        <option value="select" <?php selected($field['type'], 'select'); ?>>📋 Liste déroulante</option>
+                                                        <option value="radio" <?php selected($field['type'], 'radio'); ?>>🔘 Boutons radio</option>
+                                                        <option value="checkbox" <?php selected($field['type'], 'checkbox'); ?>>☑️ Cases à cocher</option>
+                                                        <option value="wysiwyg" <?php selected($field['type'], 'wysiwyg'); ?>>✏️ Éditeur WYSIWYG</option>
+                                                        <option value="image" <?php selected($field['type'], 'image'); ?>>🖼️ Image</option>
+                                                        <option value="file" <?php selected($field['type'], 'file'); ?>>📎 Fichier</option>
                                                     </select>
                                                 </div>
                                                 

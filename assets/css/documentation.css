@@ -6,6 +6,16 @@
     background: #f5f7fa;
 }
 
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Offset pour les ancres (pour compenser le header) */
+.scf-field-type-card {
+    scroll-margin-top: 20px;
+}
+
 /* Header */
 .scf-doc-header {
     background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%);
@@ -231,6 +241,47 @@
     color: #a8dadc;
     font-family: 'Courier New', monospace;
     font-size: 13px;
+}
+
+/* Info Box */
+.scf-doc-info {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: #e7f5fb;
+    border-left: 4px solid var(--scf-primary);
+    border-radius: 8px;
+    margin: 24px 0;
+}
+
+.scf-doc-info .dashicons {
+    flex-shrink: 0;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: var(--scf-primary);
+}
+
+.scf-doc-info strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--scf-text-primary);
+    font-size: 15px;
+}
+
+.scf-doc-info code {
+    background: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--scf-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+.scf-doc-info p {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+    color: var(--scf-text-secondary);
 }
 
 /* Code Blocks */

@@ -17,7 +17,24 @@
                 <ul>
                     <li><a href="#introduction">Introduction</a></li>
                     <li><a href="#getting-started">Démarrage rapide</a></li>
-                    <li><a href="#field-types">Types de champs</a></li>
+                    <li><a href="#field-types">Types de champs</a>
+                        <ul>
+                            <li><a href="#field-text">📝 Texte</a></li>
+                            <li><a href="#field-textarea">📄 Zone de texte</a></li>
+                            <li><a href="#field-number">🔢 Nombre</a></li>
+                            <li><a href="#field-email">📧 Email</a></li>
+                            <li><a href="#field-url">🔗 URL</a></li>
+                            <li><a href="#field-date">📅 Date</a></li>
+                            <li><a href="#field-time">⏰ Heure</a></li>
+                            <li><a href="#field-color">🎨 Couleur</a></li>
+                            <li><a href="#field-select">📋 Liste déroulante</a></li>
+                            <li><a href="#field-radio">🔘 Boutons radio</a></li>
+                            <li><a href="#field-checkbox">☑️ Cases à cocher</a></li>
+                            <li><a href="#field-wysiwyg">✏️ Éditeur WYSIWYG</a></li>
+                            <li><a href="#field-image">🖼️ Image</a></li>
+                            <li><a href="#field-file">📎 Fichier</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#display-values">Afficher les valeurs</a></li>
                     <li><a href="#examples">Exemples pratiques</a></li>
                 </ul>
@@ -79,107 +96,121 @@
                 <?php 
                 $field_types = array(
                     array(
+                        'id' => 'field-text',
                         'icon' => '📝',
                         'name' => 'Texte',
                         'usage' => 'Pour du texte court sur une seule ligne',
                         'example' => 'Sous-titre, nom, référence',
-                        'code' => "get_post_meta(get_the_ID(), 'sous_titre', true)"
+                        'code' => "scf_get_field('sous_titre')"
                     ),
                     array(
+                        'id' => 'field-textarea',
                         'icon' => '📄',
                         'name' => 'Zone de texte',
                         'usage' => 'Pour du texte long sur plusieurs lignes',
                         'example' => 'Description, résumé, notes',
-                        'code' => "get_post_meta(get_the_ID(), 'description', true)"
+                        'code' => "scf_get_field('description')"
                     ),
                     array(
+                        'id' => 'field-number',
                         'icon' => '🔢',
                         'name' => 'Nombre',
                         'usage' => 'Pour des valeurs numériques',
                         'example' => 'Prix, quantité, score',
-                        'code' => "get_post_meta(get_the_ID(), 'prix', true)"
+                        'code' => "scf_get_field('prix')"
                     ),
                     array(
+                        'id' => 'field-email',
                         'icon' => '📧',
                         'name' => 'Email',
                         'usage' => 'Pour des adresses email avec validation',
                         'example' => 'Email de contact',
-                        'code' => "get_post_meta(get_the_ID(), 'email', true)"
+                        'code' => "scf_get_field('email')"
                     ),
                     array(
+                        'id' => 'field-url',
                         'icon' => '🔗',
                         'name' => 'URL',
                         'usage' => 'Pour des liens web avec validation',
                         'example' => 'Site web, lien externe',
-                        'code' => "get_post_meta(get_the_ID(), 'site_web', true)"
+                        'code' => "scf_get_field('site_web')"
                     ),
                     array(
+                        'id' => 'field-date',
                         'icon' => '📅',
                         'name' => 'Date',
                         'usage' => 'Pour sélectionner une date',
                         'example' => 'Date d\'événement, deadline',
-                        'code' => "get_post_meta(get_the_ID(), 'date_event', true)"
+                        'code' => "scf_get_field('date_event')"
                     ),
                     array(
+                        'id' => 'field-time',
                         'icon' => '⏰',
                         'name' => 'Heure',
                         'usage' => 'Pour sélectionner une heure',
                         'example' => 'Heure de début, horaire',
-                        'code' => "get_post_meta(get_the_ID(), 'heure', true)"
+                        'code' => "scf_get_field('heure')"
                     ),
                     array(
+                        'id' => 'field-color',
                         'icon' => '🎨',
                         'name' => 'Couleur',
                         'usage' => 'Pour choisir une couleur',
                         'example' => 'Couleur du thème, accent',
-                        'code' => "get_post_meta(get_the_ID(), 'couleur', true)"
+                        'code' => "scf_get_field('couleur')"
                     ),
                     array(
+                        'id' => 'field-select',
                         'icon' => '📋',
                         'name' => 'Liste déroulante',
                         'usage' => 'Pour choisir une option parmi plusieurs',
                         'example' => 'Catégorie, niveau, statut',
-                        'code' => "get_post_meta(get_the_ID(), 'niveau', true)"
+                        'code' => "scf_get_field('niveau')"
                     ),
                     array(
+                        'id' => 'field-radio',
                         'icon' => '🔘',
                         'name' => 'Boutons radio',
                         'usage' => 'Pour choisir une seule option visuellement',
                         'example' => 'Format, type',
-                        'code' => "get_post_meta(get_the_ID(), 'format', true)"
+                        'code' => "scf_get_field('format')"
                     ),
                     array(
+                        'id' => 'field-checkbox',
                         'icon' => '☑️',
                         'name' => 'Cases à cocher',
                         'usage' => 'Pour sélectionner plusieurs options',
                         'example' => 'Tags, caractéristiques',
-                        'code' => "get_post_meta(get_the_ID(), 'tags', true)"
+                        'code' => "scf_get_field('tags')"
                     ),
                     array(
+                        'id' => 'field-wysiwyg',
                         'icon' => '✏️',
                         'name' => 'Éditeur WYSIWYG',
                         'usage' => 'Pour du contenu riche avec mise en forme',
                         'example' => 'Contenu additionnel',
-                        'code' => "get_post_meta(get_the_ID(), 'contenu', true)"
+                        'code' => "scf_get_field('contenu')"
                     ),
                     array(
+                        'id' => 'field-image',
                         'icon' => '🖼️',
                         'name' => 'Image',
                         'usage' => 'Pour uploader une image',
                         'example' => 'Bannière, logo, photo',
-                        'code' => "get_post_meta(get_the_ID(), 'image', true)"
+                        'code' => "scf_get_field('image')"
                     ),
                     array(
+                        'id' => 'field-file',
                         'icon' => '📎',
                         'name' => 'Fichier',
                         'usage' => 'Pour uploader tout type de fichier',
                         'example' => 'PDF, ZIP, document',
-                        'code' => "get_post_meta(get_the_ID(), 'fichier', true)"
+                        'code' => "scf_get_field('fichier')"
                     )
                 );
                 
                 foreach ($field_types as $type): ?>
-                <div class="scf-field-type-card">
+                <div class="scf-field-type-card" id="<?php echo $type['id']; ?>">
                     <div class="scf-field-type-header">
                         <span class="scf-field-icon"><?php echo $type['icon']; ?></span>
                         <h3><?php echo $type['name']; ?></h3>
@@ -197,13 +228,22 @@
             <section id="display-values" class="scf-doc-section">
                 <h2>Afficher les valeurs dans votre thème</h2>
                 
+                <div class="scf-doc-info">
+                    <span class="dashicons dashicons-lightbulb"></span>
+                    <div>
+                        <strong>Fonction du plugin :</strong>
+                        <code>scf_get_field('nom_du_champ')</code>
+                        <p>Cette fonction simplifie la récupération des valeurs et gère automatiquement le post ID.</p>
+                    </div>
+                </div>
+                
                 <div class="scf-doc-code-block">
                     <h3>Exemple complet</h3>
                     <pre><code>&lt;?php
-// Récupérer les valeurs
-$sous_titre = get_post_meta(get_the_ID(), 'sous_titre', true);
-$prix = get_post_meta(get_the_ID(), 'prix', true);
-$image = get_post_meta(get_the_ID(), 'image_banniere', true);
+// Récupérer les valeurs avec scf_get_field()
+$sous_titre = scf_get_field('sous_titre');
+$prix = scf_get_field('prix');
+$image = scf_get_field('image_banniere');
 
 // Afficher
 if ($sous_titre) {
@@ -217,6 +257,14 @@ if ($prix) {
 if ($image) {
     echo wp_get_attachment_image($image, 'large');
 }
+?&gt;</code></pre>
+                </div>
+                
+                <div class="scf-doc-code-block">
+                    <h3>Avec un post ID spécifique</h3>
+                    <pre><code>&lt;?php
+// Récupérer un champ d'un autre post
+$titre = scf_get_field('sous_titre', 123); // Post ID 123
 ?&gt;</code></pre>
                 </div>
             </section>

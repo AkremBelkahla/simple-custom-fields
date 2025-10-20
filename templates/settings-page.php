@@ -160,52 +160,6 @@
             </div>
         </div>
 
-        <!-- Section Outils -->
-        <div class="scf-settings-section">
-            <div class="scf-settings-section-header">
-                <h2>
-                    <span class="dashicons dashicons-admin-tools"></span>
-                    Outils
-                </h2>
-                <p>Outils de maintenance et de débogage</p>
-            </div>
-
-            <div class="scf-tools-grid">
-                <div class="scf-tool-card">
-                    <h3>
-                        <span class="dashicons dashicons-database"></span>
-                        Nettoyer la base de données
-                    </h3>
-                    <p>Supprime les métadonnées orphelines et optimise les tables</p>
-                    <button type="button" class="button scf-btn-clean-db">
-                        Nettoyer maintenant
-                    </button>
-                </div>
-
-                <div class="scf-tool-card">
-                    <h3>
-                        <span class="dashicons dashicons-update"></span>
-                        Régénérer les clés
-                    </h3>
-                    <p>Régénère les noms de champs pour tous les groupes</p>
-                    <button type="button" class="button scf-btn-regenerate">
-                        Régénérer
-                    </button>
-                </div>
-
-                <div class="scf-tool-card scf-tool-danger">
-                    <h3>
-                        <span class="dashicons dashicons-trash"></span>
-                        Réinitialiser le plugin
-                    </h3>
-                    <p>Supprime tous les groupes de champs et réinitialise les paramètres</p>
-                    <button type="button" class="button button-link-delete scf-btn-reset">
-                        Réinitialiser
-                    </button>
-                </div>
-            </div>
-        </div>
-
         <!-- Section À propos -->
         <div class="scf-settings-section">
             <div class="scf-settings-section-header">
@@ -255,21 +209,6 @@ jQuery(document).ready(function($) {
     $('#scf-import-file').on('change', function() {
         var fileName = $(this).val().split('\\').pop();
         $('.scf-file-name').text(fileName);
-    });
-    
-    // Confirmation pour la réinitialisation
-    $('.scf-btn-reset').on('click', function() {
-        if (confirm('⚠️ ATTENTION : Cette action est irréversible !\n\nTous vos groupes de champs seront supprimés définitivement.\n\nVoulez-vous vraiment continuer ?')) {
-            // Action de réinitialisation
-            alert('Fonctionnalité en cours de développement');
-        }
-    });
-    
-    // Nettoyage de la base de données
-    $('.scf-btn-clean-db').on('click', function() {
-        if (confirm('Nettoyer la base de données ?\n\nCette action supprimera les métadonnées orphelines.')) {
-            alert('Fonctionnalité en cours de développement');
-        }
     });
 });
 </script>

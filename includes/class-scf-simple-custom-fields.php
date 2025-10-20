@@ -76,13 +76,26 @@ class SCF_Simple_Custom_Fields {
             );
         }
         
-        // Charger edit-page.css sur la page d'édition de groupe
+        // Charger edit-page.css et accordion-fields.css sur la page d'édition de groupe
         if (strpos($hook, 'scf-add-group') !== false) {
             wp_enqueue_style(
                 'scf-edit-page',
                 plugins_url('assets/css/edit-page.css', dirname(__FILE__)),
                 array('scf-admin'),
                 filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/edit-page.css')
+            );
+            wp_enqueue_style(
+                'scf-accordion-fields',
+                plugins_url('assets/css/accordion-fields.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/accordion-fields.css')
+            );
+            wp_enqueue_script(
+                'scf-accordion-fields',
+                plugins_url('assets/js/accordion-fields.js', dirname(__FILE__)),
+                array('jquery', 'jquery-ui-sortable'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/js/accordion-fields.js'),
+                true
             );
         }
         

@@ -87,94 +87,143 @@ if ($group_id) {
                                 </div>
                             </div>
                             <div class="inside">
-                                <table class="wp-list-table widefat fixed striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"
-                                                class="manage-column column-order"></th>
-                                            <th scope="col"
-                                                class="manage-column column-type">Type</th>
-                                            <th scope="col"
-                                                class="manage-column column-label">Libellé</th>
-                                            <th scope="col"
-                                                class="manage-column column-name">Nom</th>
-                                            <th scope="col"
-                                                class="manage-column column-actions">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="the-list">
-                                        <?php if (!empty($fields)): ?>
-                                        <?php foreach ($fields as $index => $field): ?>
-                                        <tr class="scf-field-row">
-                                            <td class="column-order">
-                                                <span class="dashicons dashicons-menu"></span>
-                                            </td>
-                                            <td class="column-type">
-                                                <select name="fields[<?php echo $index; ?>][type]"
-                                                        class="field-type-select">
-                                                    <option value="text"
-                                                            <?php selected($field['type'], 'text'); ?>>Texte</option>
-                                                    <option value="textarea"
-                                                            <?php selected($field['type'], 'textarea'); ?>>Zone de texte
-                                                    </option>
-                                                    <option value="number"
-                                                            <?php selected($field['type'], 'number'); ?>>Nombre</option>
-                                                    <option value="email"
-                                                            <?php selected($field['type'], 'email'); ?>>Email</option>
-                                                    <option value="select"
-                                                            <?php selected($field['type'], 'select'); ?>>Liste
-                                                        déroulante</option>
-                                                    <option value="radio"
-                                                            <?php selected($field['type'], 'radio'); ?>>Boutons radio
-                                                    </option>
-                                                    <option value="checkbox"
-                                                            <?php selected($field['type'], 'checkbox'); ?>>Cases à
-                                                        cocher</option>
-                                                </select>
-                                            </td>
-                                            <td class="column-label">
-                                                <input type="text"
-                                                       name="fields[<?php echo $index; ?>][label]"
-                                                       class="widefat"
-                                                       placeholder="Libellé du champ"
-                                                       value="<?php echo esc_attr($field['label']); ?>">
-                                            </td>
-                                            <td class="column-name">
-                                                <input type="text"
-                                                       name="fields[<?php echo $index; ?>][name]"
-                                                       class="widefat"
-                                                       placeholder="Nom du champ"
-                                                       value="<?php echo esc_attr($field['name']); ?>">
-                                            </td>
-                                            <td class="column-actions">
-                                                <?php $show_options = in_array($field['type'], array('select', 'radio', 'checkbox')); ?>
-                                                <button type="button"
-                                                        class="button button-primary edit-options"
-                                                        <?php echo !$show_options ? 'style="display: none;"' : ''; ?>>
-                                                    <span class="dashicons dashicons-list-view"
-                                                          style="margin-top: 5px;"
-                                                          title="Options"></span>
+                                <div class="scf-fields-accordion">
+                                    <?php if (!empty($fields)): ?>
+                                    <?php foreach ($fields as $index => $field): ?>
+                                    <?php 
+                                    $field_types = array(
+                                        'text' => array('icon' => 'dashicons-editor-textcolor', 'label' => 'Texte'),
+                                        'textarea' => array('icon' => 'dashicons-editor-alignleft', 'label' => 'Zone de texte'),
+                                        'number' => array('icon' => 'dashicons-calculator', 'label' => 'Nombre'),
+                                        'email' => array('icon' => 'dashicons-email', 'label' => 'Email'),
+                                        'select' => array('icon' => 'dashicons-list-view', 'label' => 'Liste déroulante'),
+                                        'radio' => array('icon' => 'dashicons-marker', 'label' => 'Boutons radio'),
+                                        'checkbox' => array('icon' => 'dashicons-yes', 'label' => 'Cases à cocher')
+                                    );
+                                    $current_type = $field_types[$field['type']] ?? $field_types['text'];
+                                    $show_options = in_array($field['type'], array('select', 'radio', 'checkbox'));
+                                    $options = isset($field['options']) ? $field['options'] : array();
+                                    ?>
+                                    
+                                    <div class="scf-field-accordion-item" data-field-index="<?php echo $index; ?>">
+                                        <!-- Header de l'accordéon -->
+                                        <div class="scf-field-accordion-header">
+                                            <div class="scf-field-number">
+                                                <span class="scf-field-drag-handle dashicons dashicons-menu"></span>
+                                                <?php echo ($index + 1); ?>
+                                            </div>
+                                            
+                                            <div class="scf-field-type-badge">
+                                                <span class="dashicons <?php echo $current_type['icon']; ?>"></span>
+                                                <?php echo $current_type['label']; ?>
+                                            </div>
+                                            
+                                            <div class="scf-field-label-display">
+                                                <?php echo esc_html($field['label']); ?>
+                                                <?php if (!empty($field['required'])): ?>
+                                                <span class="required">*</span>
+                                                <?php endif; ?>
+                                            </div>
+                                            
+                                            <div class="scf-field-name-display">
+                                                <?php echo esc_html($field['name']); ?>
+                                            </div>
+                                            
+                                            <div class="scf-field-quick-actions">
+                                                <button type="button" class="scf-field-toggle" title="Ouvrir/Fermer">
+                                                    <span class="dashicons dashicons-arrow-down-alt2"></span>
                                                 </button>
-                                                <button type="button"
-                                                        class="button button-primary remove-field">
-                                                    <span class="dashicons dashicons-trash"
-                                                          style="margin-top: 5px;"
-                                                          title="Supprimer"></span>
+                                                <button type="button" class="scf-field-delete" title="Supprimer">
+                                                    <span class="dashicons dashicons-trash"></span>
                                                 </button>
-                                                <?php 
-                                                        $options = isset($field['options']) ? $field['options'] : array();
-                                                        $options_json = wp_json_encode($options);
-                                                        ?>
-                                                <input type="hidden"
-                                                       name="fields[<?php echo $index; ?>][options]"
-                                                       class="field-options"
-                                                       value="<?php echo esc_attr($options_json); ?>">
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Contenu de l'accordéon -->
+                                        <div class="scf-field-accordion-content">
+                                            <div class="scf-field-form-grid">
+                                                <div class="scf-field-form-group">
+                                                    <label>Libellé du champ</label>
+                                                    <input type="text" 
+                                                           name="fields[<?php echo $index; ?>][label]" 
+                                                           class="scf-field-label-input"
+                                                           value="<?php echo esc_attr($field['label']); ?>"
+                                                           placeholder="Ex: Titre du produit">
+                                                </div>
+                                                
+                                                <div class="scf-field-form-group">
+                                                    <label>Nom du champ</label>
+                                                    <input type="text" 
+                                                           name="fields[<?php echo $index; ?>][name]" 
+                                                           class="scf-field-name-input"
+                                                           value="<?php echo esc_attr($field['name']); ?>"
+                                                           placeholder="Ex: titre_produit">
+                                                </div>
+                                                
+                                                <div class="scf-field-form-group">
+                                                    <label>Type de champ</label>
+                                                    <select name="fields[<?php echo $index; ?>][type]" class="scf-field-type-select">
+                                                        <option value="text" <?php selected($field['type'], 'text'); ?>>Texte</option>
+                                                        <option value="textarea" <?php selected($field['type'], 'textarea'); ?>>Zone de texte</option>
+                                                        <option value="number" <?php selected($field['type'], 'number'); ?>>Nombre</option>
+                                                        <option value="email" <?php selected($field['type'], 'email'); ?>>Email</option>
+                                                        <option value="select" <?php selected($field['type'], 'select'); ?>>Liste déroulante</option>
+                                                        <option value="radio" <?php selected($field['type'], 'radio'); ?>>Boutons radio</option>
+                                                        <option value="checkbox" <?php selected($field['type'], 'checkbox'); ?>>Cases à cocher</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="scf-field-form-group">
+                                                    <label>
+                                                        <input type="checkbox" 
+                                                               name="fields[<?php echo $index; ?>][required]" 
+                                                               value="1"
+                                                               <?php checked(!empty($field['required'])); ?>>
+                                                        Champ requis
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Section Options -->
+                                            <div class="scf-field-options-section" style="<?php echo !$show_options ? 'display:none;' : ''; ?>">
+                                                <h4>
+                                                    <span class="dashicons dashicons-list-view"></span>
+                                                    Options du champ
+                                                </h4>
+                                                
+                                                <div class="scf-options-list">
+                                                    <?php if (!empty($options)): ?>
+                                                    <?php foreach ($options as $opt_index => $option): ?>
+                                                    <div class="scf-option-item">
+                                                        <input type="text" 
+                                                               name="fields[<?php echo $index; ?>][options][<?php echo $opt_index; ?>][label]" 
+                                                               class="scf-option-label"
+                                                               value="<?php echo esc_attr($option['label']); ?>"
+                                                               placeholder="Libellé">
+                                                        <input type="text" 
+                                                               name="fields[<?php echo $index; ?>][options][<?php echo $opt_index; ?>][value]" 
+                                                               class="scf-option-value"
+                                                               value="<?php echo esc_attr($option['value']); ?>"
+                                                               placeholder="Valeur">
+                                                        <button type="button" class="scf-option-remove">
+                                                            <span class="dashicons dashicons-trash"></span>
+                                                        </button>
+                                                    </div>
+                                                    <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                                
+                                                <button type="button" class="button scf-add-option-btn">
+                                                    <span class="dashicons dashicons-plus-alt2"></span>
+                                                    Ajouter une option
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                             <div class="scf-add-field-wrapper">
                                 <button type="button"

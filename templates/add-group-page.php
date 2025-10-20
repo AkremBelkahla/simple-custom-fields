@@ -174,13 +174,11 @@ if ($group_id) {
                                                 </div>
                                                 
                                                 <div class="scf-field-form-group">
-                                                    <label>
-                                                        <input type="checkbox" 
-                                                               name="fields[<?php echo $index; ?>][required]" 
-                                                               value="1"
-                                                               <?php checked(!empty($field['required'])); ?>>
-                                                        Champ requis
-                                                    </label>
+                                                    <label>Champ requis</label>
+                                                    <select name="fields[<?php echo $index; ?>][required]">
+                                                        <option value="0" <?php selected(empty($field['required'])); ?>>Non</option>
+                                                        <option value="1" <?php selected(!empty($field['required'])); ?>>Oui</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             

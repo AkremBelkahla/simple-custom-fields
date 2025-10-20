@@ -27,7 +27,7 @@
 /* Header de l'accordéon */
 .scf-field-accordion-header {
     display: grid;
-    grid-template-columns: 40px 60px 1fr 200px 200px 120px;
+    grid-template-columns: 40px 150px 1fr 200px 40px 40px;
     gap: 12px;
     padding: 16px;
     align-items: center;
@@ -75,16 +75,15 @@
     background: #e7f5fb;
     color: var(--scf-primary);
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 }
 
 .scf-field-type-badge .dashicons {
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
 }
 
 /* Libellé */
@@ -113,6 +112,7 @@
     display: flex;
     gap: 6px;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .scf-field-toggle {

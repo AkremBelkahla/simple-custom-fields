@@ -108,33 +108,7 @@
 	margin: 0;
 }
 
-.scf-btn-add {
-	background: var(--scf-primary);
-	border-color: var(--scf-primary);
-	color: #fff;
-	padding: 10px 20px;
-	font-size: 14px;
-	font-weight: 600;
-	min-height: 36px;
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	margin: 16px 0;
-	box-shadow: var(--scf-shadow-sm);
-}
-
-.scf-btn-add:hover {
-	background: var(--scf-primary-hover);
-	border-color: var(--scf-primary-hover);
-	color: #fff;
-	box-shadow: var(--scf-shadow);
-}
-
-.scf-btn-add .dashicons {
-	font-size: 20px;
-	width: 20px;
-	height: 20px;
-}
+/* scf-btn-add est défini dans main.css */
 
 .scf-field-list {
 	width: 100%;

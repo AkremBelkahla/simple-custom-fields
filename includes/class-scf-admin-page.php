@@ -63,6 +63,24 @@ class SCF_Admin_Page {
             'scf-add-group',
             array($this, 'render_add_group_page')
         );
+        
+        add_submenu_page(
+            'simple-custom-fields',
+            'Documentation',
+            'Documentation',
+            'manage_options',
+            'scf-documentation',
+            array($this, 'render_documentation_page')
+        );
+        
+        add_submenu_page(
+            'simple-custom-fields',
+            'Paramètres',
+            'Paramètres',
+            'manage_options',
+            'scf-settings',
+            array($this, 'render_settings_page')
+        );
     }
 
     public function render_groups_page() {
@@ -393,8 +411,15 @@ class SCF_Admin_Page {
             $html = '<p>' . __('Aucun paramètre disponible pour ce type de champ.', 'simple-custom-fields') . '</p>';
         }
         
-        wp_send_json_success(array(
-            'html' => $html
-        ));
+        echo json_encode(array('html' => $html));
+        wp_die();
+    }
+    
+    public function render_documentation_page() {
+        include plugin_dir_path(dirname(__FILE__)) . 'templates/documentation-page.php';
+    }
+    
+    public function render_settings_page() {
+        include plugin_dir_path(dirname(__FILE__)) . 'templates/settings-page.php';
     }
 }

@@ -28,6 +28,7 @@ require_once SCF_PLUGIN_DIR . 'includes/class-scf-simple-custom-fields.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-admin-page.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-meta-boxes.php';
 require_once SCF_PLUGIN_DIR . 'includes/class-scf-fields.php';
+require_once SCF_PLUGIN_DIR . 'includes/class-scf-import-export.php';
 
 // Fonction pour récupérer un champ personnalisé
 function scf_get_field($field_name, $post_id = null) {

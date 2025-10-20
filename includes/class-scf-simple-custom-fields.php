@@ -60,13 +60,19 @@ class SCF_Simple_Custom_Fields {
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/main.css')
         );
         
-        // Charger table.css sur la page principale
+        // Charger table.css et groups-page.css sur la page principale
         if (strpos($hook, 'toplevel_page_simple-custom-fields') !== false) {
             wp_enqueue_style(
                 'scf-table',
                 plugins_url('assets/css/table.css', dirname(__FILE__)),
                 array('scf-admin'),
                 filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/table.css')
+            );
+            wp_enqueue_style(
+                'scf-groups-page',
+                plugins_url('assets/css/groups-page.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/groups-page.css')
             );
         }
         
@@ -95,6 +101,37 @@ class SCF_Simple_Custom_Fields {
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/js/admin.js'),
             true
         );
+        
+        // Charger groups-page.js sur la page principale
+        if (strpos($hook, 'toplevel_page_simple-custom-fields') !== false) {
+            wp_enqueue_script(
+                'scf-groups-page',
+                plugins_url('assets/js/groups-page.js', dirname(__FILE__)),
+                array('jquery'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/js/groups-page.js'),
+                true
+            );
+        }
+        
+        // Charger documentation.css sur la page documentation
+        if (strpos($hook, 'scf-documentation') !== false) {
+            wp_enqueue_style(
+                'scf-documentation',
+                plugins_url('assets/css/documentation.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/documentation.css')
+            );
+        }
+        
+        // Charger settings.css sur la page paramètres
+        if (strpos($hook, 'scf-settings') !== false) {
+            wp_enqueue_style(
+                'scf-settings',
+                plugins_url('assets/css/settings.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/settings.css')
+            );
+        }
 
         wp_localize_script('scf-admin', 'scf_vars', array(
             'ajax_url' => admin_url('admin-ajax.php'),

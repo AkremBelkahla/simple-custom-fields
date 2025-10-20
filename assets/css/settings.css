@@ -1,0 +1,411 @@
+/* ============================================
+   Page Paramètres
+   ============================================ */
+
+.scf-settings-page {
+    background: #f5f7fa;
+}
+
+/* Header */
+.scf-settings-header {
+    margin-bottom: 24px;
+}
+
+.scf-settings-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 8px 0;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.scf-settings-header .dashicons {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    color: var(--scf-primary);
+}
+
+.scf-settings-subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: var(--scf-text-secondary);
+}
+
+/* Container */
+.scf-settings-container {
+    max-width: 1200px;
+}
+
+/* Section */
+.scf-settings-section {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.scf-settings-section-header {
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--scf-border-light);
+}
+
+.scf-settings-section-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--scf-text-primary);
+}
+
+.scf-settings-section-header .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: var(--scf-primary);
+}
+
+.scf-settings-section-header p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--scf-text-secondary);
+}
+
+/* Cards Grid */
+.scf-settings-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 24px;
+}
+
+.scf-settings-card {
+    padding: 32px;
+    background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+    border: 1px solid var(--scf-border-light);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.scf-settings-card:hover {
+    border-color: var(--scf-primary);
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.1);
+}
+
+.scf-card-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.scf-card-icon .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.scf-icon-export {
+    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%);
+}
+
+.scf-icon-import {
+    background: linear-gradient(135deg, var(--scf-success) 0%, #38a169 100%);
+}
+
+.scf-settings-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--scf-text-primary);
+}
+
+.scf-settings-card p {
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--scf-text-secondary);
+}
+
+/* Export/Import Options */
+.scf-export-options,
+.scf-import-options {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.scf-export-options label,
+.scf-import-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.scf-export-options input[type="checkbox"],
+.scf-import-options input[type="checkbox"] {
+    margin: 0;
+}
+
+.scf-export-options .description,
+.scf-import-options .description {
+    margin: 8px 0 0 28px;
+    font-size: 13px;
+    color: var(--scf-text-light);
+}
+
+/* File Upload */
+.scf-file-upload {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.scf-file-upload input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.scf-file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 32px;
+    background: #f8f9fa;
+    border: 2px dashed var(--scf-border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.scf-file-label:hover {
+    background: var(--scf-primary-light);
+    border-color: var(--scf-primary);
+}
+
+.scf-file-label .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--scf-primary);
+}
+
+.scf-file-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--scf-text-primary);
+}
+
+.scf-file-name {
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--scf-primary);
+    font-weight: 500;
+}
+
+/* Buttons */
+.scf-btn-export,
+.scf-btn-import {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    width: 100% !important;
+}
+
+.scf-btn-export {
+    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.25) !important;
+}
+
+.scf-btn-export:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(7, 131, 190, 0.35) !important;
+}
+
+.scf-btn-import {
+    background: linear-gradient(135deg, var(--scf-success) 0%, #38a169 100%) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(70, 180, 80, 0.25) !important;
+}
+
+.scf-btn-import:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(70, 180, 80, 0.35) !important;
+}
+
+/* Tools Grid */
+.scf-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.scf-tool-card {
+    padding: 24px;
+    background: #fafbfc;
+    border: 1px solid var(--scf-border-light);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.scf-tool-card:hover {
+    border-color: var(--scf-primary);
+    box-shadow: 0 4px 12px rgba(7, 131, 190, 0.1);
+}
+
+.scf-tool-card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--scf-text-primary);
+}
+
+.scf-tool-card .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.scf-tool-card p {
+    margin: 0 0 16px 0;
+    font-size: 13px;
+    color: var(--scf-text-secondary);
+}
+
+.scf-tool-card button {
+    width: 100%;
+}
+
+.scf-tool-danger {
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+.scf-tool-danger:hover {
+    border-color: var(--scf-danger);
+}
+
+.scf-tool-danger h3 {
+    color: var(--scf-danger);
+}
+
+/* About Card */
+.scf-about-card {
+    padding: 32px;
+    background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
+    border: 1px solid var(--scf-border-light);
+    border-radius: 12px;
+}
+
+.scf-about-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--scf-text-primary);
+}
+
+.scf-about-content > p {
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    color: var(--scf-text-secondary);
+}
+
+.scf-about-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.scf-info-item {
+    font-size: 14px;
+}
+
+.scf-info-item strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--scf-text-secondary);
+    font-weight: 600;
+}
+
+.scf-info-item a {
+    color: var(--scf-primary);
+    text-decoration: none;
+}
+
+.scf-info-item a:hover {
+    text-decoration: underline;
+}
+
+.scf-about-links {
+    display: flex;
+    gap: 12px;
+}
+
+.scf-about-links .button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.scf-about-links .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Form Table */
+.scf-settings-form .form-table th {
+    padding: 20px 10px 20px 0;
+    font-weight: 600;
+}
+
+.scf-settings-form .form-table td {
+    padding: 20px 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .scf-settings-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .scf-tools-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .scf-about-info {
+        grid-template-columns: 1fr;
+    }
+}

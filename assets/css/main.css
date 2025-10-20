@@ -173,7 +173,7 @@
 	align-items: center !important;
 	justify-content: center !important;
 	gap: 8px !important;
-	padding: 12px 24px !important;
+	padding: 0px 10px !important;
 	background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
 	border: none !important;
 	border-color: transparent !important;

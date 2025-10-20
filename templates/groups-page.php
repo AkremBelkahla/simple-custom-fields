@@ -1,13 +1,57 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 
 <div class="wrap scf-groups-page">
-    <div class="scf-page-header">
-        <div class="scf-page-header-left">
-            <h1 class="wp-heading-inline">
-                <span class="dashicons dashicons-admin-settings"></span>
-                Groupes de champs
-            </h1>
-            <p class="scf-page-subtitle">
+    <!-- Barre d'en-tête avec titre et bouton Options -->
+    <div class="scf-top-bar">
+        <h1 class="wp-heading-inline">
+            Groupes de champs
+        </h1>
+        <a href="<?php echo admin_url('admin.php?page=scf-add-group'); ?>"
+           class="page-title-action scf-btn-add">
+            <span class="dashicons dashicons-plus-alt2"></span>
+            Ajouter
+        </a>
+        <button type="button" class="scf-screen-options-toggle" id="scf-screen-options-toggle">
+            Options de l'écran
+            <span class="dashicons dashicons-arrow-down-alt2"></span>
+        </button>
+    </div>
+    
+    <hr class="wp-header-end">
+    
+    <!-- Panneau Options de l'écran -->
+    <div class="scf-screen-options" id="scf-screen-options" style="display: none;">
+        <div class="scf-screen-options-content">
+            <h5>Afficher les colonnes</h5>
+            <div class="scf-screen-options-columns">
+                <label>
+                    <input type="checkbox" class="scf-column-toggle" data-column="description" checked>
+                    Description
+                </label>
+                <label>
+                    <input type="checkbox" class="scf-column-toggle" data-column="fields" checked>
+                    Champs
+                </label>
+                <label>
+                    <input type="checkbox" class="scf-column-toggle" data-column="type" checked>
+                    Type
+                </label>
+                <label>
+                    <input type="checkbox" class="scf-column-toggle" data-column="status" checked>
+                    Statut
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Barre de filtres -->
+    <div class="scf-filters-bar">
+        <div class="scf-filters-left">
+            <span class="scf-filter-link scf-filter-active" data-filter="all">
+                Tous (<?php echo $total_groups; ?>)
+            </span>
+            <span class="scf-filter-separator">|</span>
+            <span class="scf-filter-link" data-filter="active">
                 <?php 
                 $total_groups = count($groups);
                 $active_groups = 0;
@@ -18,32 +62,23 @@
                     $total_fields += is_array($fields) ? count($fields) : 0;
                 }
                 ?>
-                <?php if ($total_groups > 0): ?>
-                    <span class="scf-stat">
-                        <strong><?php echo $total_groups; ?></strong> groupe<?php echo $total_groups > 1 ? 's' : ''; ?>
-                    </span>
-                    <span class="scf-stat-separator">•</span>
-                    <span class="scf-stat">
-                        <strong><?php echo $active_groups; ?></strong> actif<?php echo $active_groups > 1 ? 's' : ''; ?>
-                    </span>
-                    <span class="scf-stat-separator">•</span>
-                    <span class="scf-stat">
-                        <strong><?php echo $total_fields; ?></strong> champ<?php echo $total_fields > 1 ? 's' : ''; ?> au total
-                    </span>
-                <?php else: ?>
-                    Gérez vos groupes de champs personnalisés
-                <?php endif; ?>
-            </p>
+                Actifs (<?php echo $active_groups; ?>)
+            </span>
+            <span class="scf-filter-separator">|</span>
+            <span class="scf-filter-link" data-filter="inactive">
+                Inactifs (<?php echo $total_groups - $active_groups; ?>)
+            </span>
         </div>
-        <div class="scf-page-header-right">
-            <a href="<?php echo admin_url('admin.php?page=scf-add-group'); ?>"
-               class="page-title-action scf-btn-add">
-                <span class="dashicons dashicons-plus-alt2"></span>
-                Ajouter un groupe
-            </a>
+        <div class="scf-filters-right">
+            <input type="search" 
+                   class="scf-search-input" 
+                   placeholder="Rechercher des groupes de champs"
+                   id="scf-search-groups">
+            <button type="button" class="button scf-search-btn">
+                <span class="dashicons dashicons-search"></span>
+            </button>
         </div>
     </div>
-    <hr class="wp-header-end">
 
     <?php if (isset($_GET['message']) && $_GET['message'] === 'success'): ?>
     <div class="notice notice-success is-dismissible">

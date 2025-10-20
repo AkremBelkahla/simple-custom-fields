@@ -4,72 +4,78 @@
 
 /* Container principal */
 .scf-fields {
-    background: white;
-    padding: 0;
-    margin: 0;
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 /* Header du groupe - postbox WordPress */
-#poststuff .postbox.scf-meta-box .postbox-header {
-    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%);
-    border: none;
-    padding: 16px 20px;
+#poststuff .postbox.scf-meta-box .postbox-header,
+#poststuff .postbox .postbox-header {
+    background: linear-gradient(135deg, var(--scf-primary) 0%, #0a9fd8 100%) !important;
+    border: none !important;
+    padding: 12px 16px !important;
 }
 
-#poststuff .postbox.scf-meta-box .postbox-header h2 {
+#poststuff .postbox.scf-meta-box .postbox-header h2,
+#poststuff .postbox .postbox-header h2,
+#poststuff .postbox .postbox-header .hndle {
     color: white !important;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
 }
 
-#poststuff .postbox.scf-meta-box .postbox-header button {
+#poststuff .postbox.scf-meta-box .postbox-header button,
+#poststuff .postbox .postbox-header button {
     color: white !important;
 }
 
-#poststuff .postbox.scf-meta-box .inside {
-    padding: 24px;
-    background: white;
+#poststuff .postbox.scf-meta-box .inside,
+#poststuff .postbox .inside {
+    padding: 16px !important;
+    background: white !important;
 }
 
 /* Champ individuel */
 .scf-field {
-    margin-bottom: 24px;
-    padding: 20px;
-    background: #fafbfc;
-    border: 1px solid #e1e8ed;
-    border-radius: 10px;
-    transition: all 0.2s ease;
+    margin-bottom: 16px !important;
+    padding: 12px 16px !important;
+    background: #fafbfc !important;
+    border: 1px solid #e1e8ed !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
 }
 
 .scf-field:hover {
-    border-color: var(--scf-primary);
-    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.1);
-    background: white;
+    border-color: var(--scf-primary) !important;
+    box-shadow: 0 2px 8px rgba(7, 131, 190, 0.1) !important;
+    background: white !important;
 }
 
 .scf-field:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 
 /* Label du champ */
 .scf-field-label {
-    margin-bottom: 12px;
+    margin-bottom: 8px !important;
 }
 
 .scf-field-label label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--scf-text-primary);
-    text-transform: none;
-    margin: 0;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--scf-text-primary) !important;
+    text-transform: none !important;
+    margin: 0 !important;
 }
 
 .scf-field-label .required {
-    color: var(--scf-danger);
-    font-weight: 700;
+    color: var(--scf-danger) !important;
+    font-weight: 700 !important;
 }
 
 /* Description du champ */
@@ -92,124 +98,124 @@
 .scf-field input[type="date"],
 .scf-field input[type="time"],
 .scf-field input[type="color"] {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
-    font-size: 14px;
-    line-height: 1.5;
-    transition: all 0.2s ease;
-    background: white;
-    box-sizing: border-box;
+    width: 100% !important;
+    padding: 8px 12px !important;
+    border: 2px solid #e1e8ed !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    transition: all 0.2s ease !important;
+    background: white !important;
+    box-sizing: border-box !important;
 }
 
 .scf-input:focus,
 .scf-textarea:focus,
 .scf-select:focus,
 .scf-field input:focus {
-    outline: none;
-    border-color: var(--scf-primary);
-    box-shadow: 0 0 0 4px rgba(7, 131, 190, 0.1);
+    outline: none !important;
+    border-color: var(--scf-primary) !important;
+    box-shadow: 0 0 0 4px rgba(7, 131, 190, 0.1) !important;
 }
 
 /* Textarea */
 .scf-textarea {
-    min-height: 120px;
-    resize: vertical;
-    font-family: inherit;
+    min-height: 120px !important;
+    resize: vertical !important;
+    font-family: inherit !important;
 }
 
 /* Select */
 .scf-select {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 40px;
-    appearance: none;
+    cursor: pointer !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 40px !important;
+    appearance: none !important;
 }
 
 /* Radio buttons */
 .scf-radio-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
 }
 
 .scf-radio-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: white;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 12px !important;
+    background: white !important;
+    border: 2px solid #e1e8ed !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    margin: 0 !important;
 }
 
 .scf-radio-label:hover {
-    border-color: var(--scf-primary);
-    background: #f0f8fb;
+    border-color: var(--scf-primary) !important;
+    background: #f0f8fb !important;
 }
 
 .scf-radio {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    cursor: pointer;
-    accent-color: var(--scf-primary);
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    accent-color: var(--scf-primary) !important;
 }
 
 .scf-option-label {
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--scf-text-primary);
-    flex: 1;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    color: var(--scf-text-primary) !important;
+    flex: 1 !important;
 }
 
 .scf-radio:checked ~ .scf-option-label {
-    font-weight: 600;
-    color: var(--scf-primary);
+    font-weight: 600 !important;
+    color: var(--scf-primary) !important;
 }
 
 /* Checkboxes */
 .scf-checkbox-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
 }
 
 .scf-checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: white;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 12px !important;
+    background: white !important;
+    border: 2px solid #e1e8ed !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    margin: 0 !important;
 }
 
 .scf-checkbox-label:hover {
-    border-color: var(--scf-primary);
-    background: #f0f8fb;
+    border-color: var(--scf-primary) !important;
+    background: #f0f8fb !important;
 }
 
 .scf-checkbox {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    cursor: pointer;
-    accent-color: var(--scf-primary);
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    accent-color: var(--scf-primary) !important;
 }
 
 .scf-checkbox:checked ~ .scf-option-label {
-    font-weight: 600;
-    color: var(--scf-primary);
+    font-weight: 600 !important;
+    color: var(--scf-primary) !important;
 }
 
 /* Color picker */

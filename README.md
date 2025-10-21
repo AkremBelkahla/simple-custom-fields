@@ -1,10 +1,14 @@
 # 🔧 Simple Custom Fields
 
-[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com)
+[![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)](https://github.com)
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org)
+[![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://php.net)
+[![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg)](LICENSE)
 
-## ⚠️ WARNING
-This plugin is currently in development and should NOT be used on production sites.
+Un plugin WordPress moderne et sécurisé pour créer et gérer des champs personnalisés avec une architecture PSR-4.
+
+## ⚠️ Avertissement
+Ce plugin est en développement actif. La version 1.5.0 apporte une refactorisation majeure avec de nouvelles fonctionnalités.
 
 ## 📝 Description
 Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types 📄.
@@ -91,15 +95,92 @@ echo $value ?: 'No value';
 - Use `wp_kses_post()` for HTML content
 - For emails, use `antispambot()` function
 
+## 🆕 Nouveautés Version 1.5.0
+
+### Architecture & Code
+- ✅ **Architecture PSR-4** avec autoloader Composer
+- ✅ **Namespaces modernes** (`SCF\Core`, `SCF\Services`, etc.)
+- ✅ **Système de logging** centralisé avec 8 niveaux
+- ✅ **Gestion d'erreurs** structurée avec notifications admin
+- ✅ **Configuration centralisée** dans `SCF\Core\Config`
+
+### Sécurité
+- ✅ **Validation stricte** par type de champ
+- ✅ **Correction du bug de nonce** lors de la suppression
+- ✅ **Nonces spécifiques** par action AJAX
+- ✅ **Rate limiting** renforcé
+- ✅ **Headers de sécurité** HTTP
+
+### Développement
+- ✅ **Tests unitaires** avec PHPUnit et Brain Monkey
+- ✅ **PHPStan** (niveau 5) pour analyse statique
+- ✅ **PHPCS** avec standards WordPress
+- ✅ **Documentation complète** (Architecture, API, Sécurité)
+
+### Services
+- ✅ `FieldGroupService` : Logique métier isolée
+- ✅ `FieldValidator` : Validation par type
+- ✅ `Logger` : Logs structurés avec rotation
+- ✅ `ErrorHandler` : Gestion centralisée des erreurs
+
+## 📚 Documentation
+
+- 📖 [Architecture](docs/ARCHITECTURE.md) - Architecture technique du plugin
+- 🔌 [API](docs/API.md) - Documentation de l'API publique
+- 🔒 [Sécurité](docs/SECURITY.md) - Guide de sécurité
+- 🤝 [Contribution](docs/CONTRIBUTING.md) - Guide de contribution
+- 📝 [Changelog](CHANGELOG.md) - Historique complet des versions
+
+## 🛠️ Développement
+
+### Installation
+
+```bash
+# Cloner le repository
+git clone https://github.com/infinityweb/simple-custom-fields.git
+cd simple-custom-fields
+
+# Installer les dépendances
+composer install
+```
+
+### Tests
+
+```bash
+# Tous les tests
+composer test
+
+# Tests unitaires
+composer test-unit
+
+# Tests d'intégration
+composer test-integration
+```
+
+### Qualité de code
+
+```bash
+# Vérifier le code
+composer phpcs
+
+# Analyse statique
+composer phpstan
+
+# Tout vérifier
+composer lint
+```
+
 ## 📜 Changelog
-- **Version 1.4.0** : Refonte complète du design 🎨
-  - Nouvelle palette de couleurs moderne
-  - Layout en cards
-  - Animations fluides partout
-  - Design responsive complet
-  - Modales avec backdrop blur
-  - Drag & drop amélioré
-- Version 1.3.0: Amélioration des performances et correction de bugs 🐛
-- Version 1.2.0: Ajout du support pour les shortcodes 🔗
-- Version 1.1.0: Ajout de nouveaux types de champs et amélioration de l'interface 💅
-- Version 1.0.0: Initial release of the plugin 🎉
+
+Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique complet des versions.
+
+## 👨‍💻 Auteur
+
+**Akrem Belkahla**
+- Email: akrem.belkahla@infinityweb.tn
+- Site: [Infinity Web](https://infinityweb.tn)
+- GitHub: [@AkremBelkahla](https://github.com/AkremBelkahla)
+
+## 📄 Licence
+
+GPL-2.0-or-later - Voir le fichier LICENSE pour plus de détails.

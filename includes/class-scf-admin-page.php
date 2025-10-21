@@ -33,9 +33,16 @@ class SCF_Admin_Page {
             wp_enqueue_script('jquery');
             wp_enqueue_script('scf-admin', SCF_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), '1.0.1_' . time(), true);
 
+            // Créer des nonces spécifiques pour chaque action AJAX
+            // IMPORTANT: L'action du nonce doit correspondre exactement à celle utilisée dans verify_ajax_request()
             wp_localize_script('scf-admin', 'scf_vars', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('scf_nonce'),
+                'nonce' => wp_create_nonce('scf_nonce'), // Nonce général (déprécié, à supprimer)
+                'nonces' => array(
+                    'delete_group' => wp_create_nonce('scf_delete_group'),
+                    'get_field_settings' => wp_create_nonce('scf_get_field_settings'),
+                    'save_field_group' => wp_create_nonce('scf_save_field_group'),
+                ),
                 'action' => 'scf_delete_group',
                 'isAdmin' => current_user_can('manage_options') ? '1' : '0'
             ));

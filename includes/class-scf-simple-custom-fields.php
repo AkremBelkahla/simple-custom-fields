@@ -155,9 +155,15 @@ class SCF_Simple_Custom_Fields {
             );
         }
 
+        // Créer des nonces spécifiques pour chaque action AJAX
         wp_localize_script('scf-admin', 'scf_vars', array(
             'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('scf_nonce')
+            'nonce' => wp_create_nonce('scf_nonce'), // Nonce général (déprécié)
+            'nonces' => array(
+                'delete_group' => wp_create_nonce('scf_delete_group'),
+                'get_field_settings' => wp_create_nonce('scf_get_field_settings'),
+                'save_field_group' => wp_create_nonce('scf_save_field_group'),
+            )
         ));
     }
 

@@ -208,10 +208,13 @@ jQuery(document).ready(function($) {
             data: {
                 action: 'scf_delete_group',
                 group_id: groupId,
-                nonce: scf_vars.nonce
+                // Utiliser le nonce spécifique pour l'action delete_group
+                nonce: scf_vars.nonces && scf_vars.nonces.delete_group ? scf_vars.nonces.delete_group : scf_vars.nonce
             },
             beforeSend: function(xhr) {
-                if (!scf_vars || !scf_vars.nonce) {
+                // Vérifier que le nonce est disponible
+                var nonce = scf_vars.nonces && scf_vars.nonces.delete_group ? scf_vars.nonces.delete_group : scf_vars.nonce;
+                if (!scf_vars || !nonce) {
                     console.error('Erreur : Variables de sécurité manquantes');
                     alert('Erreur de sécurité. Veuillez rafraîchir la page.');
                     return false;

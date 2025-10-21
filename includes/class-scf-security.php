@@ -93,8 +93,11 @@ class SCF_Security {
     /**
      * Vérifier le nonce de sécurité
      * 
+     * IMPORTANT: L'action doit être EXACTEMENT la même que celle utilisée
+     * lors de la création du nonce avec wp_create_nonce() ou wp_nonce_field()
+     * 
      * @param string $nonce Nonce à vérifier
-     * @param string $action Action associée au nonce
+     * @param string $action Action associée au nonce (doit correspondre exactement)
      * @return bool
      */
     public function verify_nonce($nonce, $action = 'scf_nonce') {
@@ -105,11 +108,15 @@ class SCF_Security {
             return false;
         }
         
+        // Vérifier le nonce avec l'action exacte
+        // wp_verify_nonce retourne false (0), 1 ou 2
+        // false = invalide, 1 = généré dans les 12 dernières heures, 2 = généré dans les 12-24 dernières heures
         $verified = wp_verify_nonce($nonce, $action);
         
         if (!$verified) {
             $this->log_security_event('nonce_invalid', array(
                 'action' => $action,
+                'nonce_provided' => substr($nonce, 0, 10) . '...', // Log partiel pour sécurité
                 'user_id' => get_current_user_id()
             ));
             return false;
@@ -121,7 +128,7 @@ class SCF_Security {
     /**
      * Vérifier une requête AJAX
      * 
-     * @param string $action Action AJAX
+     * @param string $action Action AJAX (utilisée aussi comme action du nonce)
      * @param string $nonce Nonce à vérifier
      * @param string $capability Capability requise
      * @return bool
@@ -144,8 +151,10 @@ class SCF_Security {
             return false;
         }
         
-        // Vérifier le nonce
-        if (!$this->verify_nonce($nonce)) {
+        // Vérifier le nonce avec l'action spécifique
+        // IMPORTANT: L'action passée ici doit correspondre à celle utilisée lors de la création du nonce
+        // Par exemple: wp_create_nonce('scf_delete_group') doit être vérifié avec verify_nonce($nonce, 'scf_delete_group')
+        if (!$this->verify_nonce($nonce, $action)) {
             return false;
         }
         

@@ -1,16 +1,54 @@
 {
+    "name": "infinityweb/simple-custom-fields",
+    "description": "Plugin WordPress pour créer et gérer des champs personnalisés",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Akrem Belkahla",
+            "email": "akrem.belkahla@infinityweb.tn",
+            "homepage": "https://infinityweb.tn"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
     "require-dev": {
-        "phpunit/phpunit": "10.0",
-        "brain/monkey": "^2.6"
+        "phpunit/phpunit": "^9.5",
+        "brain/monkey": "^2.6",
+        "mockery/mockery": "^1.4",
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpstan/phpstan": "^1.10"
     },
     "autoload": {
         "psr-4": {
-            "SCF\\Fields\\": "includes/Fields/"
+            "SCF\\": "includes/",
+            "SCF\\Fields\\": "includes/Fields/",
+            "SCF\\Core\\": "includes/Core/",
+            "SCF\\Admin\\": "includes/Admin/",
+            "SCF\\Services\\": "includes/Services/",
+            "SCF\\Validators\\": "includes/Validators/",
+            "SCF\\Utilities\\": "includes/Utilities/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SCF\\Tests\\": "tests/"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-unit": "vendor/bin/phpunit --testsuite Unit",
-        "test-integration": "vendor/bin/phpunit --testsuite Integration"
+        "test-integration": "vendor/bin/phpunit --testsuite Integration",
+        "phpcs": "vendor/bin/phpcs --standard=WordPress includes/",
+        "phpstan": "vendor/bin/phpstan analyse includes/",
+        "lint": [
+            "@phpcs",
+            "@phpstan"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
     }
 }

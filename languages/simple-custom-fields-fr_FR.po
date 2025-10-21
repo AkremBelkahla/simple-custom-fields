@@ -1,43 +1,575 @@
+# Traduction française de Simple Custom Fields
+# Copyright (C) 2025 Infinity Web
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: Simple Custom Fields 1.0.0\n"
-"POT-Creation-Date: 2025-04-19 12:30+0100\n"
-"PO-Revision-Date: 2025-04-19 12:30+0100\n"
+"Project-Id-Version: Simple Custom Fields 1.5.0\n"
+"Report-Msgid-Bugs-To: akrem.belkahla@infinityweb.tn\n"
+"POT-Creation-Date: 2025-01-21 12:30+0100\n"
+"PO-Revision-Date: 2025-01-21 12:30+0100\n"
 "Last-Translator: Akrem Belkahla <akrem.belkahla@infinityweb.tn>\n"
-"Language-Team: Infinity Web\n"
+"Language-Team: Infinity Web <contact@infinityweb.tn>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Simple Custom Fields i18n\n"
+"X-Domain: simple-custom-fields\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: includes/class-scf-admin-page.php:23
+# Plugin metadata
 msgid "Simple Custom Fields"
 msgstr "Simple Custom Fields"
 
-#: includes/class-scf-admin-page.php:30
-msgid "Ajouter un groupe"
-msgstr "Ajouter un groupe"
+msgid "A simple plugin to create and manage custom fields in WordPress."
+msgstr "Un plugin simple pour créer et gérer des champs personnalisés dans WordPress."
 
-#: templates/add-group-page.php:3
-msgid "Modifier le groupe"
-msgstr "Modifier le groupe"
+# Menu items
+msgid "Custom Fields"
+msgstr "Champs Personnalisés"
 
-#: templates/add-group-page.php:3
-msgid "Ajouter un groupe"
-msgstr "Ajouter un groupe"
-
-#: templates/groups-page.php:3
-msgid "Groupes de champs"
+msgid "Field Groups"
 msgstr "Groupes de champs"
 
-#: templates/add-group-page.php:134
-msgid "Règles d'affichage"
+msgid "Add Group"
+msgstr "Ajouter un groupe"
+
+msgid "Add New Group"
+msgstr "Ajouter un nouveau groupe"
+
+msgid "Edit Group"
+msgstr "Modifier le groupe"
+
+msgid "All Groups"
+msgstr "Tous les groupes"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+# Field types
+msgid "Text"
+msgstr "Texte"
+
+msgid "Textarea"
+msgstr "Zone de texte"
+
+msgid "Number"
+msgstr "Nombre"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Select"
+msgstr "Sélection"
+
+msgid "Radio"
+msgstr "Boutons radio"
+
+msgid "Checkbox"
+msgstr "Cases à cocher"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "WYSIWYG Editor"
+msgstr "Éditeur WYSIWYG"
+
+msgid "True/False"
+msgstr "Vrai/Faux"
+
+msgid "Color Picker"
+msgstr "Sélecteur de couleur"
+
+msgid "Gallery"
+msgstr "Galerie"
+
+# Field labels
+msgid "Field Name"
+msgstr "Nom du champ"
+
+msgid "Field Label"
+msgstr "Libellé du champ"
+
+msgid "Field Type"
+msgstr "Type de champ"
+
+msgid "Field Instructions"
+msgstr "Instructions du champ"
+
+msgid "Required Field"
+msgstr "Champ obligatoire"
+
+msgid "Default Value"
+msgstr "Valeur par défaut"
+
+msgid "Placeholder"
+msgstr "Texte indicatif"
+
+msgid "Choices"
+msgstr "Choix"
+
+msgid "Min Value"
+msgstr "Valeur minimale"
+
+msgid "Max Value"
+msgstr "Valeur maximale"
+
+msgid "Step"
+msgstr "Pas"
+
+msgid "Rows"
+msgstr "Lignes"
+
+msgid "Character Limit"
+msgstr "Limite de caractères"
+
+# Group settings
+msgid "Group Title"
+msgstr "Titre du groupe"
+
+msgid "Group Description"
+msgstr "Description du groupe"
+
+msgid "Display Rules"
 msgstr "Règles d'affichage"
 
-#: templates/add-group-page.php:163
-msgid "Activation du groupe"
+msgid "Group Activation"
 msgstr "Activation du groupe"
 
-#: includes/class-scf-admin-page.php:104
-msgid "Le titre du groupe est obligatoire."
+msgid "Active"
+msgstr "Actif"
+
+msgid "Inactive"
+msgstr "Inactif"
+
+msgid "Show if"
+msgstr "Afficher si"
+
+msgid "Post Type"
+msgstr "Type de contenu"
+
+msgid "is equal to"
+msgstr "est égal à"
+
+msgid "is not equal to"
+msgstr "n'est pas égal à"
+
+# Buttons
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Save Changes"
+msgstr "Enregistrer les modifications"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Add Field"
+msgstr "Ajouter un champ"
+
+msgid "Remove Field"
+msgstr "Supprimer le champ"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Export"
+msgstr "Exporter"
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Back to Groups"
+msgstr "Retour aux groupes"
+
+# Messages
+msgid "Group saved successfully."
+msgstr "Groupe enregistré avec succès."
+
+msgid "Group deleted successfully."
+msgstr "Groupe supprimé avec succès."
+
+msgid "Group duplicated successfully."
+msgstr "Groupe dupliqué avec succès."
+
+msgid "Field added successfully."
+msgstr "Champ ajouté avec succès."
+
+msgid "Field deleted successfully."
+msgstr "Champ supprimé avec succès."
+
+msgid "Changes saved successfully."
+msgstr "Modifications enregistrées avec succès."
+
+msgid "An error occurred. Please try again."
+msgstr "Une erreur s'est produite. Veuillez réessayer."
+
+msgid "The group title is required."
 msgstr "Le titre du groupe est obligatoire."
+
+msgid "The field name is required."
+msgstr "Le nom du champ est obligatoire."
+
+msgid "The field label is required."
+msgstr "Le libellé du champ est obligatoire."
+
+msgid "Invalid field type."
+msgstr "Type de champ invalide."
+
+msgid "Invalid email address."
+msgstr "Adresse email invalide."
+
+msgid "Invalid URL."
+msgstr "URL invalide."
+
+msgid "Invalid date format."
+msgstr "Format de date invalide."
+
+msgid "Value must be a number."
+msgstr "La valeur doit être un nombre."
+
+msgid "Value is too small."
+msgstr "La valeur est trop petite."
+
+msgid "Value is too large."
+msgstr "La valeur est trop grande."
+
+msgid "This field is required."
+msgstr "Ce champ est obligatoire."
+
+msgid "Invalid choice."
+msgstr "Choix invalide."
+
+msgid "File upload failed."
+msgstr "Échec du téléchargement du fichier."
+
+msgid "Invalid file type."
+msgstr "Type de fichier invalide."
+
+msgid "File is too large."
+msgstr "Le fichier est trop volumineux."
+
+# Security messages
+msgid "Security check failed."
+msgstr "Échec de la vérification de sécurité."
+
+msgid "Invalid nonce."
+msgstr "Nonce invalide."
+
+msgid "Permission denied."
+msgstr "Permission refusée."
+
+msgid "Too many requests. Please try again later."
+msgstr "Trop de requêtes. Veuillez réessayer plus tard."
+
+msgid "Invalid request."
+msgstr "Requête invalide."
+
+# Confirmation messages
+msgid "Are you sure you want to delete this group?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce groupe ?"
+
+msgid "Are you sure you want to delete this field?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce champ ?"
+
+msgid "All data associated with this group will be permanently deleted."
+msgstr "Toutes les données associées à ce groupe seront définitivement supprimées."
+
+msgid "This action cannot be undone."
+msgstr "Cette action ne peut pas être annulée."
+
+# Help text
+msgid "Enter a unique name for this field (lowercase, no spaces)."
+msgstr "Entrez un nom unique pour ce champ (minuscules, sans espaces)."
+
+msgid "Enter a label for this field (shown to users)."
+msgstr "Entrez un libellé pour ce champ (affiché aux utilisateurs)."
+
+msgid "Select the type of field."
+msgstr "Sélectionnez le type de champ."
+
+msgid "Enter instructions for this field (optional)."
+msgstr "Entrez des instructions pour ce champ (optionnel)."
+
+msgid "Make this field required."
+msgstr "Rendre ce champ obligatoire."
+
+msgid "Enter a default value (optional)."
+msgstr "Entrez une valeur par défaut (optionnel)."
+
+msgid "Enter placeholder text (optional)."
+msgstr "Entrez un texte indicatif (optionnel)."
+
+msgid "Enter each choice on a new line."
+msgstr "Entrez chaque choix sur une nouvelle ligne."
+
+msgid "Set the minimum value."
+msgstr "Définir la valeur minimale."
+
+msgid "Set the maximum value."
+msgstr "Définir la valeur maximale."
+
+msgid "Set the step increment."
+msgstr "Définir le pas d'incrémentation."
+
+msgid "Number of rows for textarea."
+msgstr "Nombre de lignes pour la zone de texte."
+
+msgid "Maximum number of characters allowed."
+msgstr "Nombre maximum de caractères autorisés."
+
+# Display rules
+msgid "Show this group if"
+msgstr "Afficher ce groupe si"
+
+msgid "Add Rule"
+msgstr "Ajouter une règle"
+
+msgid "Remove Rule"
+msgstr "Supprimer la règle"
+
+msgid "AND"
+msgstr "ET"
+
+msgid "OR"
+msgstr "OU"
+
+# Post types
+msgid "Post"
+msgstr "Article"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Custom Post Type"
+msgstr "Type de contenu personnalisé"
+
+# Status
+msgid "Published"
+msgstr "Publié"
+
+msgid "Draft"
+msgstr "Brouillon"
+
+msgid "Pending"
+msgstr "En attente"
+
+msgid "Private"
+msgstr "Privé"
+
+# Import/Export
+msgid "Export Group"
+msgstr "Exporter le groupe"
+
+msgid "Import Group"
+msgstr "Importer le groupe"
+
+msgid "Select a JSON file to import"
+msgstr "Sélectionnez un fichier JSON à importer"
+
+msgid "Download JSON"
+msgstr "Télécharger JSON"
+
+msgid "Group exported successfully."
+msgstr "Groupe exporté avec succès."
+
+msgid "Group imported successfully."
+msgstr "Groupe importé avec succès."
+
+msgid "Invalid import file."
+msgstr "Fichier d'importation invalide."
+
+msgid "Import failed. Please check the file format."
+msgstr "Échec de l'importation. Veuillez vérifier le format du fichier."
+
+# Documentation
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "View Documentation"
+msgstr "Voir la documentation"
+
+msgid "API Reference"
+msgstr "Référence API"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Need Help?"
+msgstr "Besoin d'aide ?"
+
+# Version info
+msgid "Version"
+msgstr "Version"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Plugin URI"
+msgstr "URI du plugin"
+
+# Advanced
+msgid "Advanced Settings"
+msgstr "Paramètres avancés"
+
+msgid "Debug Mode"
+msgstr "Mode débogage"
+
+msgid "Enable debug logging"
+msgstr "Activer la journalisation de débogage"
+
+msgid "Clear Cache"
+msgstr "Vider le cache"
+
+msgid "Reset Settings"
+msgstr "Réinitialiser les paramètres"
+
+msgid "Database"
+msgstr "Base de données"
+
+msgid "Optimize Database"
+msgstr "Optimiser la base de données"
+
+msgid "Database optimized successfully."
+msgstr "Base de données optimisée avec succès."
+
+# Validation messages
+msgid "Validation failed."
+msgstr "Échec de la validation."
+
+msgid "Please correct the errors below."
+msgstr "Veuillez corriger les erreurs ci-dessous."
+
+msgid "Invalid input."
+msgstr "Entrée invalide."
+
+msgid "Field validation failed: %s"
+msgstr "Échec de la validation du champ : %s"
+
+# Logging
+msgid "Log Level"
+msgstr "Niveau de journalisation"
+
+msgid "Debug"
+msgstr "Débogage"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Warning"
+msgstr "Avertissement"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Critical"
+msgstr "Critique"
+
+# Notifications
+msgid "Notification"
+msgstr "Notification"
+
+msgid "Success"
+msgstr "Succès"
+
+# Accessibility
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "Toggle"
+msgstr "Basculer"
+
+msgid "Expand"
+msgstr "Développer"
+
+msgid "Collapse"
+msgstr "Réduire"
+
+msgid "Loading..."
+msgstr "Chargement..."
+
+msgid "Please wait..."
+msgstr "Veuillez patienter..."
+
+# Date/Time
+msgid "Today"
+msgstr "Aujourd'hui"
+
+msgid "Yesterday"
+msgstr "Hier"
+
+msgid "Last 7 days"
+msgstr "7 derniers jours"
+
+msgid "Last 30 days"
+msgstr "30 derniers jours"
+
+msgid "This month"
+msgstr "Ce mois-ci"
+
+msgid "Last month"
+msgstr "Le mois dernier"
+
+# Misc
+msgid "No groups found."
+msgstr "Aucun groupe trouvé."
+
+msgid "No fields found."
+msgstr "Aucun champ trouvé."
+
+msgid "Create your first field group"
+msgstr "Créez votre premier groupe de champs"
+
+msgid "Get started by creating a field group."
+msgstr "Commencez par créer un groupe de champs."
+
+msgid "Search groups..."
+msgstr "Rechercher des groupes..."
+
+msgid "Filter by status"
+msgstr "Filtrer par statut"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Select..."
+msgstr "Sélectionner..."
+
+msgid "N/A"
+msgstr "N/D"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Enabled"
+msgstr "Activé"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgid "On"
+msgstr "Activé"
+
+msgid "Off"
+msgstr "Désactivé"

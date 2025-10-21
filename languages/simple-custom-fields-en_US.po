@@ -1,43 +1,575 @@
+# English translation of Simple Custom Fields
+# Copyright (C) 2025 Infinity Web
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: Simple Custom Fields 1.0.0\n"
-"POT-Creation-Date: 2025-04-19 12:30+0100\n"
-"PO-Revision-Date: 2025-04-19 12:30+0100\n"
+"Project-Id-Version: Simple Custom Fields 1.5.0\n"
+"Report-Msgid-Bugs-To: akrem.belkahla@infinityweb.tn\n"
+"POT-Creation-Date: 2025-01-21 12:30+0100\n"
+"PO-Revision-Date: 2025-01-21 12:30+0100\n"
 "Last-Translator: Akrem Belkahla <akrem.belkahla@infinityweb.tn>\n"
-"Language-Team: Infinity Web\n"
+"Language-Team: Infinity Web <contact@infinityweb.tn>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Simple Custom Fields i18n\n"
+"X-Domain: simple-custom-fields\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/class-scf-admin-page.php:23
+# Plugin metadata
 msgid "Simple Custom Fields"
 msgstr "Simple Custom Fields"
 
-#: includes/class-scf-admin-page.php:30
-msgid "Ajouter un groupe"
-msgstr "Add a group"
+msgid "A simple plugin to create and manage custom fields in WordPress."
+msgstr "A simple plugin to create and manage custom fields in WordPress."
 
-#: templates/add-group-page.php:3
-msgid "Modifier le groupe"
-msgstr "Edit group"
+# Menu items
+msgid "Custom Fields"
+msgstr "Custom Fields"
 
-#: templates/add-group-page.php:3
-msgid "Ajouter un groupe"
-msgstr "Add a group"
-
-#: templates/groups-page.php:3
-msgid "Groupes de champs"
+msgid "Field Groups"
 msgstr "Field Groups"
 
-#: templates/add-group-page.php:134
-msgid "Règles d'affichage"
+msgid "Add Group"
+msgstr "Add Group"
+
+msgid "Add New Group"
+msgstr "Add New Group"
+
+msgid "Edit Group"
+msgstr "Edit Group"
+
+msgid "All Groups"
+msgstr "All Groups"
+
+msgid "Settings"
+msgstr "Settings"
+
+# Field types
+msgid "Text"
+msgstr "Text"
+
+msgid "Textarea"
+msgstr "Textarea"
+
+msgid "Number"
+msgstr "Number"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Select"
+msgstr "Select"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Checkbox"
+msgstr "Checkbox"
+
+msgid "File"
+msgstr "File"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "WYSIWYG Editor"
+msgstr "WYSIWYG Editor"
+
+msgid "True/False"
+msgstr "True/False"
+
+msgid "Color Picker"
+msgstr "Color Picker"
+
+msgid "Gallery"
+msgstr "Gallery"
+
+# Field labels
+msgid "Field Name"
+msgstr "Field Name"
+
+msgid "Field Label"
+msgstr "Field Label"
+
+msgid "Field Type"
+msgstr "Field Type"
+
+msgid "Field Instructions"
+msgstr "Field Instructions"
+
+msgid "Required Field"
+msgstr "Required Field"
+
+msgid "Default Value"
+msgstr "Default Value"
+
+msgid "Placeholder"
+msgstr "Placeholder"
+
+msgid "Choices"
+msgstr "Choices"
+
+msgid "Min Value"
+msgstr "Min Value"
+
+msgid "Max Value"
+msgstr "Max Value"
+
+msgid "Step"
+msgstr "Step"
+
+msgid "Rows"
+msgstr "Rows"
+
+msgid "Character Limit"
+msgstr "Character Limit"
+
+# Group settings
+msgid "Group Title"
+msgstr "Group Title"
+
+msgid "Group Description"
+msgstr "Group Description"
+
+msgid "Display Rules"
 msgstr "Display Rules"
 
-#: templates/add-group-page.php:163
-msgid "Activation du groupe"
+msgid "Group Activation"
 msgstr "Group Activation"
 
-#: includes/class-scf-admin-page.php:104
-msgid "Le titre du groupe est obligatoire."
+msgid "Active"
+msgstr "Active"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid "Show if"
+msgstr "Show if"
+
+msgid "Post Type"
+msgstr "Post Type"
+
+msgid "is equal to"
+msgstr "is equal to"
+
+msgid "is not equal to"
+msgstr "is not equal to"
+
+# Buttons
+msgid "Save"
+msgstr "Save"
+
+msgid "Save Changes"
+msgstr "Save Changes"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Add Field"
+msgstr "Add Field"
+
+msgid "Remove Field"
+msgstr "Remove Field"
+
+msgid "Duplicate"
+msgstr "Duplicate"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Back to Groups"
+msgstr "Back to Groups"
+
+# Messages
+msgid "Group saved successfully."
+msgstr "Group saved successfully."
+
+msgid "Group deleted successfully."
+msgstr "Group deleted successfully."
+
+msgid "Group duplicated successfully."
+msgstr "Group duplicated successfully."
+
+msgid "Field added successfully."
+msgstr "Field added successfully."
+
+msgid "Field deleted successfully."
+msgstr "Field deleted successfully."
+
+msgid "Changes saved successfully."
+msgstr "Changes saved successfully."
+
+msgid "An error occurred. Please try again."
+msgstr "An error occurred. Please try again."
+
+msgid "The group title is required."
 msgstr "The group title is required."
+
+msgid "The field name is required."
+msgstr "The field name is required."
+
+msgid "The field label is required."
+msgstr "The field label is required."
+
+msgid "Invalid field type."
+msgstr "Invalid field type."
+
+msgid "Invalid email address."
+msgstr "Invalid email address."
+
+msgid "Invalid URL."
+msgstr "Invalid URL."
+
+msgid "Invalid date format."
+msgstr "Invalid date format."
+
+msgid "Value must be a number."
+msgstr "Value must be a number."
+
+msgid "Value is too small."
+msgstr "Value is too small."
+
+msgid "Value is too large."
+msgstr "Value is too large."
+
+msgid "This field is required."
+msgstr "This field is required."
+
+msgid "Invalid choice."
+msgstr "Invalid choice."
+
+msgid "File upload failed."
+msgstr "File upload failed."
+
+msgid "Invalid file type."
+msgstr "Invalid file type."
+
+msgid "File is too large."
+msgstr "File is too large."
+
+# Security messages
+msgid "Security check failed."
+msgstr "Security check failed."
+
+msgid "Invalid nonce."
+msgstr "Invalid nonce."
+
+msgid "Permission denied."
+msgstr "Permission denied."
+
+msgid "Too many requests. Please try again later."
+msgstr "Too many requests. Please try again later."
+
+msgid "Invalid request."
+msgstr "Invalid request."
+
+# Confirmation messages
+msgid "Are you sure you want to delete this group?"
+msgstr "Are you sure you want to delete this group?"
+
+msgid "Are you sure you want to delete this field?"
+msgstr "Are you sure you want to delete this field?"
+
+msgid "All data associated with this group will be permanently deleted."
+msgstr "All data associated with this group will be permanently deleted."
+
+msgid "This action cannot be undone."
+msgstr "This action cannot be undone."
+
+# Help text
+msgid "Enter a unique name for this field (lowercase, no spaces)."
+msgstr "Enter a unique name for this field (lowercase, no spaces)."
+
+msgid "Enter a label for this field (shown to users)."
+msgstr "Enter a label for this field (shown to users)."
+
+msgid "Select the type of field."
+msgstr "Select the type of field."
+
+msgid "Enter instructions for this field (optional)."
+msgstr "Enter instructions for this field (optional)."
+
+msgid "Make this field required."
+msgstr "Make this field required."
+
+msgid "Enter a default value (optional)."
+msgstr "Enter a default value (optional)."
+
+msgid "Enter placeholder text (optional)."
+msgstr "Enter placeholder text (optional)."
+
+msgid "Enter each choice on a new line."
+msgstr "Enter each choice on a new line."
+
+msgid "Set the minimum value."
+msgstr "Set the minimum value."
+
+msgid "Set the maximum value."
+msgstr "Set the maximum value."
+
+msgid "Set the step increment."
+msgstr "Set the step increment."
+
+msgid "Number of rows for textarea."
+msgstr "Number of rows for textarea."
+
+msgid "Maximum number of characters allowed."
+msgstr "Maximum number of characters allowed."
+
+# Display rules
+msgid "Show this group if"
+msgstr "Show this group if"
+
+msgid "Add Rule"
+msgstr "Add Rule"
+
+msgid "Remove Rule"
+msgstr "Remove Rule"
+
+msgid "AND"
+msgstr "AND"
+
+msgid "OR"
+msgstr "OR"
+
+# Post types
+msgid "Post"
+msgstr "Post"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Custom Post Type"
+msgstr "Custom Post Type"
+
+# Status
+msgid "Published"
+msgstr "Published"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Private"
+msgstr "Private"
+
+# Import/Export
+msgid "Export Group"
+msgstr "Export Group"
+
+msgid "Import Group"
+msgstr "Import Group"
+
+msgid "Select a JSON file to import"
+msgstr "Select a JSON file to import"
+
+msgid "Download JSON"
+msgstr "Download JSON"
+
+msgid "Group exported successfully."
+msgstr "Group exported successfully."
+
+msgid "Group imported successfully."
+msgstr "Group imported successfully."
+
+msgid "Invalid import file."
+msgstr "Invalid import file."
+
+msgid "Import failed. Please check the file format."
+msgstr "Import failed. Please check the file format."
+
+# Documentation
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "View Documentation"
+msgstr "View Documentation"
+
+msgid "API Reference"
+msgstr "API Reference"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Need Help?"
+msgstr "Need Help?"
+
+# Version info
+msgid "Version"
+msgstr "Version"
+
+msgid "Author"
+msgstr "Author"
+
+msgid "Plugin URI"
+msgstr "Plugin URI"
+
+# Advanced
+msgid "Advanced Settings"
+msgstr "Advanced Settings"
+
+msgid "Debug Mode"
+msgstr "Debug Mode"
+
+msgid "Enable debug logging"
+msgstr "Enable debug logging"
+
+msgid "Clear Cache"
+msgstr "Clear Cache"
+
+msgid "Reset Settings"
+msgstr "Reset Settings"
+
+msgid "Database"
+msgstr "Database"
+
+msgid "Optimize Database"
+msgstr "Optimize Database"
+
+msgid "Database optimized successfully."
+msgstr "Database optimized successfully."
+
+# Validation messages
+msgid "Validation failed."
+msgstr "Validation failed."
+
+msgid "Please correct the errors below."
+msgstr "Please correct the errors below."
+
+msgid "Invalid input."
+msgstr "Invalid input."
+
+msgid "Field validation failed: %s"
+msgstr "Field validation failed: %s"
+
+# Logging
+msgid "Log Level"
+msgstr "Log Level"
+
+msgid "Debug"
+msgstr "Debug"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Critical"
+msgstr "Critical"
+
+# Notifications
+msgid "Notification"
+msgstr "Notification"
+
+msgid "Success"
+msgstr "Success"
+
+# Accessibility
+msgid "Close"
+msgstr "Close"
+
+msgid "Open"
+msgstr "Open"
+
+msgid "Toggle"
+msgstr "Toggle"
+
+msgid "Expand"
+msgstr "Expand"
+
+msgid "Collapse"
+msgstr "Collapse"
+
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Please wait..."
+msgstr "Please wait..."
+
+# Date/Time
+msgid "Today"
+msgstr "Today"
+
+msgid "Yesterday"
+msgstr "Yesterday"
+
+msgid "Last 7 days"
+msgstr "Last 7 days"
+
+msgid "Last 30 days"
+msgstr "Last 30 days"
+
+msgid "This month"
+msgstr "This month"
+
+msgid "Last month"
+msgstr "Last month"
+
+# Misc
+msgid "No groups found."
+msgstr "No groups found."
+
+msgid "No fields found."
+msgstr "No fields found."
+
+msgid "Create your first field group"
+msgstr "Create your first field group"
+
+msgid "Get started by creating a field group."
+msgstr "Get started by creating a field group."
+
+msgid "Search groups..."
+msgstr "Search groups..."
+
+msgid "Filter by status"
+msgstr "Filter by status"
+
+msgid "All"
+msgstr "All"
+
+msgid "None"
+msgstr "None"
+
+msgid "Select..."
+msgstr "Select..."
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Enabled"
+msgstr "Enabled"
+
+msgid "Disabled"
+msgstr "Disabled"
+
+msgid "On"
+msgstr "On"
+
+msgid "Off"
+msgstr "Off"

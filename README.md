@@ -5,20 +5,22 @@
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)](https://php.net)
 [![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg)](LICENSE)
 
-Un plugin WordPress moderne et sécurisé pour créer et gérer des champs personnalisés avec une architecture PSR-4.
+> 🌍 **English version** | **[Version française](README.fr.md)**
 
-## ⚠️ Avertissement
-Ce plugin est en développement actif. La version 1.5.0 apporte une refactorisation majeure avec de nouvelles fonctionnalités.
+A modern and secure WordPress plugin to create and manage custom fields with PSR-4 architecture.
+
+## ⚠️ Warning
+This plugin is under active development. Version 1.5.0 brings a major refactoring with new features.
 
 ## 📝 Description
 Simple Custom Fields is a WordPress plugin that allows you to create and manage custom fields for different content types 📄.
 
-**Interface moderne et professionnelle** avec :
-- 🎨 Palette de couleurs moderne
-- 📦 Layout en cards
-- ✨ Animations fluides
-- 📱 Design responsive
-- 🎯 Focus states intuitifs
+**Modern and professional interface** with:
+- 🎨 Modern color palette
+- 📦 Card-based layout
+- ✨ Smooth animations
+- 📱 Responsive design
+- 🎯 Intuitive focus states
 
 The plugin uses a dedicated database table (`wp_scf_fields`) to store all custom field values, providing better performance and scalability compared to WordPress postmeta. This table is automatically created during plugin activation and includes:
 - Optimized indexes for fast queries.
@@ -95,121 +97,151 @@ echo $value ?: 'No value';
 - Use `wp_kses_post()` for HTML content
 - For emails, use `antispambot()` function
 
-## 🆕 Nouveautés Version 1.5.0
+## 🆕 What's New in Version 1.5.0
 
 ### Architecture & Code
-- ✅ **Architecture PSR-4** avec autoloader Composer
-- ✅ **Namespaces modernes** (`SCF\Core`, `SCF\Services`, etc.)
-- ✅ **Système de logging** centralisé avec 8 niveaux
-- ✅ **Gestion d'erreurs** structurée avec notifications admin
-- ✅ **Configuration centralisée** dans `SCF\Core\Config`
+- ✅ **PSR-4 Architecture** with Composer autoloader
+- ✅ **Modern Namespaces** (`SCF\Core`, `SCF\Services`, etc.)
+- ✅ **Centralized Logging System** with 8 levels
+- ✅ **Structured Error Handling** with admin notifications
+- ✅ **Centralized Configuration** in `SCF\Core\Config`
 
-### Sécurité
-- ✅ **Validation stricte** par type de champ
-- ✅ **Correction du bug de nonce** lors de la suppression
-- ✅ **Nonces spécifiques** par action AJAX
-- ✅ **Rate limiting** renforcé
-- ✅ **Headers de sécurité** HTTP
+### Security
+- ✅ **Strict Validation** by field type
+- ✅ **Fixed Nonce Bug** during deletion
+- ✅ **Specific Nonces** per AJAX action
+- ✅ **Enhanced Rate Limiting**
+- ✅ **HTTP Security Headers**
 
-### Développement
-- ✅ **Tests unitaires** avec PHPUnit et Brain Monkey
-- ✅ **PHPStan** (niveau 5) pour analyse statique
-- ✅ **PHPCS** avec standards WordPress
-- ✅ **Documentation complète** (Architecture, API, Sécurité)
+### Development
+- ✅ **Unit Tests** with PHPUnit and Brain Monkey
+- ✅ **PHPStan** (level 5) for static analysis
+- ✅ **PHPCS** with WordPress standards
+- ✅ **Complete Documentation** (Architecture, API, Security)
 
 ### Services
-- ✅ `FieldGroupService` : Logique métier isolée
-- ✅ `FieldValidator` : Validation par type
-- ✅ `Logger` : Logs structurés avec rotation
-- ✅ `ErrorHandler` : Gestion centralisée des erreurs
+- ✅ `FieldGroupService`: Isolated business logic
+- ✅ `FieldValidator`: Type-based validation
+- ✅ `Logger`: Structured logs with rotation
+- ✅ `ErrorHandler`: Centralized error management
 
 ## 📚 Documentation
 
-- 📖 [Architecture](docs/ARCHITECTURE.md) - Architecture technique du plugin
-- 🔌 [API](docs/API.md) - Documentation de l'API publique
-- 🔒 [Sécurité](docs/SECURITY.md) - Guide de sécurité
-- 🤝 [Contribution](docs/CONTRIBUTING.md) - Guide de contribution
-- 📝 [Changelog](CHANGELOG.md) - Historique complet des versions
+- 📖 [Architecture](docs/ARCHITECTURE.md) - Technical architecture
+- 🔌 [API](docs/API.md) - Public API documentation
+- 🔒 [Security](docs/SECURITY.md) - Security guide
+- 🤝 [Contributing](docs/CONTRIBUTING.md) - Contribution guide
+- 📝 [Changelog](CHANGELOG.md) - Complete version history
+- 🌍 [Internationalization](docs/I18N_GUIDE.md) - Translation guide
 
-## 🛠️ Développement
+## 🛠️ Development
 
 ### Installation
 
 ```bash
-# Cloner le repository
+# Clone the repository
 git clone https://github.com/infinityweb/simple-custom-fields.git
 cd simple-custom-fields
 
-# Installer les dépendances
+# Install dependencies
 composer install
 ```
 
 ### Tests
 
 ```bash
-# Tous les tests
+# All tests
 composer test
 
-# Tests unitaires
+# Unit tests
 composer test-unit
 
-# Tests d'intégration
+# Integration tests
 composer test-integration
 ```
 
-### Qualité de code
+### Code Quality
 
 ```bash
-# Vérifier le code
+# Check code
 composer phpcs
 
-# Analyse statique
+# Static analysis
 composer phpstan
 
-# Tout vérifier
+# Check everything
 composer lint
 ```
 
-### Gestion du Changelog
+### Changelog Management
 
 ```bash
-# Ajouter une entrée au changelog
+# Add a changelog entry
 composer changelog:add <type> <message>
 
-# Exemples
-composer changelog:add added "Nouvelle fonctionnalité"
-composer changelog:add fixed "Correction d'un bug"
-composer changelog:add security "Amélioration de sécurité"
+# Examples
+composer changelog:add added "New feature"
+composer changelog:add fixed "Bug fix"
+composer changelog:add security "Security improvement"
 
-# Publier une nouvelle version
+# Release a new version
 composer changelog:release <version>
 
-# Exemple
+# Example
 composer changelog:release 1.5.0
 
-# Afficher le changelog
+# Show changelog
 composer changelog:show
 
-# Aide
+# Help
 composer changelog:help
 ```
 
-**Types disponibles :** `added`, `changed`, `fixed`, `security`, `performance`, `ui`, `docs`, `migration`, `deprecated`, `removed`
+**Available types:** `added`, `changed`, `fixed`, `security`, `performance`, `ui`, `docs`, `migration`, `deprecated`, `removed`
 
-📖 **Documentation complète :** [Guide de gestion du changelog](docs/CHANGELOG_GUIDE.md)  
-💡 **Exemples pratiques :** [Exemples d'utilisation](CHANGELOG_EXAMPLES.md)
+📖 **Complete documentation:** [Changelog Management Guide](docs/CHANGELOG_GUIDE.md)  
+💡 **Practical examples:** [Usage Examples](CHANGELOG_EXAMPLES.md)
+
+### Translation Management
+
+```bash
+# Generate MO files
+composer i18n:generate-mo
+
+# Scan translatable strings
+composer i18n:scan
+
+# Translation statistics
+composer i18n:stats fr_FR
+```
+
+**Supported languages:** French (fr_FR), English (en_US)
+
+📖 **Translation guide:** [Internationalization Guide](docs/I18N_GUIDE.md)
 
 ## 📜 Changelog
 
-Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique complet des versions.
+See [CHANGELOG.md](CHANGELOG.md) for complete version history.
 
-## 👨‍💻 Auteur
+## 🌍 Internationalization
+
+The plugin automatically detects WordPress language:
+- 🇫🇷 French if WordPress is in French
+- 🇬🇧 English for all other languages
+
+**No configuration needed!**
+
+150+ strings fully translated in French and English.
+
+📖 **Translation guide:** [I18N Guide](docs/I18N_GUIDE.md)
+
+## 👨‍💻 Author
 
 **Akrem Belkahla**
 - Email: akrem.belkahla@infinityweb.tn
-- Site: [Infinity Web](https://infinityweb.tn)
+- Website: [Infinity Web](https://infinityweb.tn)
 - GitHub: [@AkremBelkahla](https://github.com/AkremBelkahla)
 
-## 📄 Licence
+## 📄 License
 
-GPL-2.0-or-later - Voir le fichier LICENSE pour plus de détails.
+GPL-2.0-or-later - See LICENSE file for details.

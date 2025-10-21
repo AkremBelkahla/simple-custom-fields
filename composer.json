@@ -49,7 +49,10 @@
         "changelog:add": "php bin/changelog.php add",
         "changelog:release": "php bin/changelog.php release",
         "changelog:show": "php bin/changelog.php show",
-        "changelog:help": "php bin/changelog.php help"
+        "changelog:help": "php bin/changelog.php help",
+        "i18n:generate-mo": "php bin/i18n.php generate-mo",
+        "i18n:scan": "php bin/i18n.php scan",
+        "i18n:stats": "php bin/i18n.php stats"
     },
     "config": {
         "sort-packages": true,

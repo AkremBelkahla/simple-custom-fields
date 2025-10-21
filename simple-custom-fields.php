@@ -121,11 +121,18 @@ function scf_get_field($field_name, $post_id = null) {
     return null;
 }
 
-// Chargement des traductions
+// Chargement des traductions avec le nouveau système
 function scf_load_textdomain() {
-    load_plugin_textdomain('simple-custom-fields', false, SCF_PLUGIN_DIR . 'languages');
+    // Utiliser le gestionnaire de traductions si disponible
+    if (class_exists('SCF\Utilities\I18nManager')) {
+        $i18n = SCF\Utilities\I18nManager::getInstance();
+        $i18n->init();
+    } else {
+        // Fallback vers l'ancien système
+        load_plugin_textdomain('simple-custom-fields', false, dirname(SCF_PLUGIN_BASENAME) . '/languages');
+    }
 }
-add_action('plugins_loaded', 'scf_load_textdomain');
+add_action('plugins_loaded', 'scf_load_textdomain', 1);
 
 // Fonction pour afficher les champs personnalisés sur le front-end via shortcode
 function scf_display_custom_fields_shortcode($atts) {

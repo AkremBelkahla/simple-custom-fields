@@ -1,0 +1,261 @@
+/* ============================================
+   WP_List_Table - Style personnalisé
+   ============================================ */
+
+/* Conteneur principal */
+.scf-groups-page .wp-list-table {
+    background: white;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* En-têtes de colonnes */
+.scf-groups-page .wp-list-table thead th {
+    background: #f6f7f7;
+    color: #2c3338;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 12px 10px;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+/* Lignes du tableau */
+.scf-groups-page .wp-list-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.scf-groups-page .wp-list-table tbody tr:hover {
+    background-color: #f6f7f7;
+}
+
+.scf-groups-page .wp-list-table tbody td {
+    padding: 12px 10px;
+    vertical-align: middle;
+    border-bottom: 1px solid #dcdcde;
+}
+
+/* Colonne titre */
+.scf-groups-page .wp-list-table .column-title {
+    width: 30%;
+}
+
+.scf-groups-page .wp-list-table .column-title strong a {
+    color: #2271b1;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.scf-groups-page .wp-list-table .column-title strong a:hover {
+    color: #135e96;
+}
+
+.scf-groups-page .wp-list-table .column-title .description {
+    margin: 4px 0 0 0;
+    color: #646970;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Colonne description */
+.scf-groups-page .wp-list-table .column-description {
+    width: 25%;
+}
+
+.scf-groups-page .wp-list-table .column-description .description {
+    color: #646970;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Colonne champs */
+.scf-groups-page .wp-list-table .column-fields {
+    width: 15%;
+}
+
+/* Colonne type */
+.scf-groups-page .wp-list-table .column-type {
+    width: 15%;
+}
+
+/* Colonne statut */
+.scf-groups-page .wp-list-table .column-status {
+    width: 15%;
+}
+
+/* Actions de ligne */
+.scf-groups-page .wp-list-table .row-actions {
+    color: #646970;
+}
+
+.scf-groups-page .wp-list-table .row-actions a {
+    color: #2271b1;
+    text-decoration: none;
+}
+
+.scf-groups-page .wp-list-table .row-actions a:hover {
+    color: #135e96;
+}
+
+.scf-groups-page .wp-list-table .row-actions .scf-delete-group {
+    color: #d63638;
+}
+
+.scf-groups-page .wp-list-table .row-actions .scf-delete-group:hover {
+    color: #b32d2e;
+}
+
+/* Badges */
+.scf-groups-page .scf-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.scf-groups-page .scf-badge .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.scf-groups-page .scf-badge-info {
+    background: #e5f5fa;
+    color: #0783be;
+    border: 1px solid rgba(7, 131, 190, 0.2);
+}
+
+.scf-groups-page .scf-badge-secondary {
+    background: #f0f0f1;
+    color: #50575e;
+    border: 1px solid #c3c4c7;
+}
+
+.scf-groups-page .scf-badge-success {
+    background: #d5e8d4;
+    color: #2d662d;
+    border: 1px solid #00a32a;
+}
+
+.scf-groups-page .scf-badge-warning {
+    background: #fcf3cf;
+    color: #996800;
+    border: 1px solid #f0c33c;
+}
+
+/* Vues (filtres de statut) */
+.scf-groups-page .subsubsub {
+    margin: 8px 0 16px 0;
+}
+
+.scf-groups-page .subsubsub a {
+    color: #2271b1;
+    text-decoration: none;
+}
+
+.scf-groups-page .subsubsub a:hover {
+    color: #135e96;
+}
+
+.scf-groups-page .subsubsub a.current {
+    color: #1d2327;
+    font-weight: 600;
+}
+
+.scf-groups-page .subsubsub .count {
+    color: #646970;
+    font-weight: 400;
+}
+
+/* Barre de recherche */
+.scf-groups-page .search-box {
+    margin: 0 0 16px 0;
+}
+
+.scf-groups-page .search-box input[type="search"] {
+    padding: 6px 12px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 13px;
+    width: 280px;
+}
+
+.scf-groups-page .search-box input[type="search"]:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.scf-groups-page .search-box input[type="submit"] {
+    margin-left: 4px;
+}
+
+/* Actions groupées */
+.scf-groups-page .tablenav {
+    margin: 12px 0;
+}
+
+.scf-groups-page .tablenav .actions {
+    padding: 0;
+}
+
+.scf-groups-page .tablenav select {
+    margin-right: 4px;
+}
+
+/* Pagination */
+.scf-groups-page .tablenav-pages {
+    margin: 0;
+}
+
+.scf-groups-page .tablenav-pages .displaying-num {
+    color: #646970;
+    font-size: 13px;
+}
+
+.scf-groups-page .tablenav-pages a {
+    color: #2271b1;
+    text-decoration: none;
+}
+
+.scf-groups-page .tablenav-pages a:hover {
+    color: #135e96;
+}
+
+/* Message "Aucun élément" */
+.scf-groups-page .scf-no-items {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.scf-groups-page .scf-no-items .dashicons {
+    color: #c3c4c7;
+}
+
+.scf-groups-page .scf-no-items p {
+    margin: 12px 0;
+    color: #646970;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .scf-groups-page .wp-list-table .column-description,
+    .scf-groups-page .wp-list-table .column-fields,
+    .scf-groups-page .wp-list-table .column-type {
+        display: none;
+    }
+    
+    .scf-groups-page .wp-list-table .column-title {
+        width: auto;
+    }
+    
+    .scf-groups-page .search-box input[type="search"] {
+        width: 100%;
+        max-width: 280px;
+    }
+}

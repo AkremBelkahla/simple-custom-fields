@@ -91,14 +91,15 @@ class SCF_Admin_Page {
     }
 
     public function render_groups_page() {
-        $groups = get_posts(array(
-            'post_type' => 'scf-field-group',
-            'posts_per_page' => -1,
-            'orderby' => 'title',
-            'order' => 'ASC',
-            'post_status' => array('publish', 'draft')
-        ));
-        require_once SCF_PLUGIN_DIR . 'templates/groups-page.php';
+        // Charger la classe WP_List_Table personnalisée
+        require_once SCF_PLUGIN_DIR . 'includes/Admin/SCF_Groups_List_Table.php';
+        
+        // Créer une instance de la table
+        $list_table = new SCF_Groups_List_Table();
+        $list_table->prepare_items();
+        
+        // Charger le nouveau template avec WP_List_Table
+        require_once SCF_PLUGIN_DIR . 'templates/groups-page-list-table.php';
     }
 
     public function render_add_group_page() {

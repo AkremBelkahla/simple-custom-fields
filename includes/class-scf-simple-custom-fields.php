@@ -69,7 +69,7 @@ class SCF_Simple_Custom_Fields {
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/main.css')
         );
         
-        // Charger table.css et groups-page.css sur la page principale
+        // Charger table.css, groups-page.css et list-table.css sur la page principale
         if (strpos($hook, 'toplevel_page_simple-custom-fields') !== false) {
             wp_enqueue_style(
                 'scf-table',
@@ -82,6 +82,12 @@ class SCF_Simple_Custom_Fields {
                 plugins_url('assets/css/groups-page.css', dirname(__FILE__)),
                 array('scf-admin'),
                 filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/groups-page.css')
+            );
+            wp_enqueue_style(
+                'scf-list-table',
+                plugins_url('assets/css/list-table.css', dirname(__FILE__)),
+                array('scf-admin'),
+                filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/list-table.css')
             );
         }
         

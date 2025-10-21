@@ -45,7 +45,11 @@
         "lint": [
             "@phpcs",
             "@phpstan"
-        ]
+        ],
+        "changelog:add": "php bin/changelog.php add",
+        "changelog:release": "php bin/changelog.php release",
+        "changelog:show": "php bin/changelog.php show",
+        "changelog:help": "php bin/changelog.php help"
     },
     "config": {
         "sort-packages": true,

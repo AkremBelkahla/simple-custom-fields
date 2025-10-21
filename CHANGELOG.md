@@ -46,6 +46,14 @@ et ce projet adhère au [Versioning Sémantique](https://semver.org/lang/fr/).
 - Exemples d'utilisation détaillés
 - Documentation des hooks et filtres
 - Diagrammes de flux de données
+- Guide complet de gestion du changelog (`docs/CHANGELOG_GUIDE.md`)
+
+#### Outils de développement
+- Système de gestion de changelog automatisé (`bin/changelog.php`)
+- Classe `SCF\Utilities\ChangelogManager` pour parser et mettre à jour le changelog
+- Commandes Composer pour faciliter la gestion des versions
+- Mise à jour automatique de la version du plugin lors des releases
+- Support de 10 types d'entrées (added, changed, fixed, security, etc.)
 
 #### Tests
 - Configuration PHPUnit avec Brain Monkey

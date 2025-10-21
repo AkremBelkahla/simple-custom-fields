@@ -170,6 +170,35 @@ composer phpstan
 composer lint
 ```
 
+### Gestion du Changelog
+
+```bash
+# Ajouter une entrée au changelog
+composer changelog:add <type> <message>
+
+# Exemples
+composer changelog:add added "Nouvelle fonctionnalité"
+composer changelog:add fixed "Correction d'un bug"
+composer changelog:add security "Amélioration de sécurité"
+
+# Publier une nouvelle version
+composer changelog:release <version>
+
+# Exemple
+composer changelog:release 1.5.0
+
+# Afficher le changelog
+composer changelog:show
+
+# Aide
+composer changelog:help
+```
+
+**Types disponibles :** `added`, `changed`, `fixed`, `security`, `performance`, `ui`, `docs`, `migration`, `deprecated`, `removed`
+
+📖 **Documentation complète :** [Guide de gestion du changelog](docs/CHANGELOG_GUIDE.md)  
+💡 **Exemples pratiques :** [Exemples d'utilisation](CHANGELOG_EXAMPLES.md)
+
 ## 📜 Changelog
 
 Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique complet des versions.

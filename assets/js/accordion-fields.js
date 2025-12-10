@@ -17,6 +17,10 @@ jQuery(document).ready(function($) {
         // Animation slide
         if ($item.hasClass('is-open')) {
             $content.slideDown(300);
+            // Initialiser le premier onglet comme actif
+            setTimeout(function() {
+                $content.find('[data-tab="general"]').click();
+            }, 100);
         } else {
             $content.slideUp(300);
         }
@@ -41,25 +45,78 @@ jQuery(document).ready(function($) {
         }
     });
     
-    // Ajouter une option
+    // Gestion des onglets
+    $(document).on('click', '.scf-tabs-nav button', function(e) {
+        e.preventDefault();
+        
+        var $button = $(this);
+        var $tabItem = $button.closest('.scf-tab-nav-item');
+        var tabName = $button.data('tab');
+        var $tabsWrapper = $button.closest('.scf-tabs-wrapper');
+        
+        // Retirer la classe active de tous les onglets et panneaux
+        $tabsWrapper.find('.scf-tab-nav-item').removeClass('active');
+        $tabsWrapper.find('.scf-tab-panel').removeClass('active');
+        
+        // Ajouter la classe active à l'onglet cliqué et son panneau
+        $tabItem.addClass('active');
+        $tabsWrapper.find('#tab-' + tabName).addClass('active');
+    });
+    
+    // Gestion de l'affichage/masquage de l'onglet Choix
+    function toggleChoicesTab($fieldAccordion) {
+        var fieldType = $fieldAccordion.find('.scf-field-type-select-tabs').val();
+        var $choicesTab = $fieldAccordion.find('.scf-tab-choices');
+        var $choicesPanel = $fieldAccordion.find('#tab-choices');
+        
+        if (['select', 'radio', 'checkbox'].includes(fieldType)) {
+            $choicesTab.show();
+            $choicesPanel.show();
+        } else {
+            $choicesTab.hide();
+            $choicesPanel.hide();
+            
+            // Si l'onglet Choix était actif, basculer vers Général
+            if ($choicesTab.hasClass('active')) {
+                $fieldAccordion.find('[data-tab="general"]').click();
+            }
+        }
+    }
+    
+    // Afficher/masquer la section options selon le type (pour les onglets)
+    $(document).on('change', '.scf-field-type-select-tabs', function() {
+        toggleChoicesTab($(this).closest('.scf-field-accordion-item'));
+        updateTypeBadge($(this));
+    });
+    
+    // Ajouter une option (pour les onglets)
     $(document).on('click', '.scf-add-option-btn', function() {
-        var $list = $(this).closest('.scf-field-options-section').find('.scf-options-list');
+        var $list = $(this).closest('.scf-tab-section').find('.scf-options-list');
         var fieldIndex = $(this).closest('.scf-field-accordion-item').data('field-index');
         var optionIndex = $list.find('.scf-option-item').length;
         
         var optionHtml = `
-            <div class="scf-option-item">
-                <input type="text" 
-                       name="fields[${fieldIndex}][options][${optionIndex}][label]" 
-                       placeholder="Libellé" 
-                       class="scf-option-label">
-                <input type="text" 
-                       name="fields[${fieldIndex}][options][${optionIndex}][value]" 
-                       placeholder="Valeur" 
-                       class="scf-option-value">
-                <button type="button" class="scf-option-remove">
-                    <span class="dashicons dashicons-trash"></span>
-                </button>
+            <div class="scf-option-item scf-field-row">
+                <div class="scf-field-col">
+                    <label class="scf-field-label">Libellé</label>
+                    <input type="text" 
+                           name="fields[${fieldIndex}][options][${optionIndex}][label]" 
+                           class="scf-field-input"
+                           placeholder="Libellé">
+                </div>
+                <div class="scf-field-col">
+                    <label class="scf-field-label">Valeur</label>
+                    <input type="text" 
+                           name="fields[${fieldIndex}][options][${optionIndex}][value]" 
+                           class="scf-field-input"
+                           placeholder="Valeur">
+                </div>
+                <div class="scf-field-col" style="flex: 0 0 auto;">
+                    <label class="scf-field-label">&nbsp;</label>
+                    <button type="button" class="button scf-option-remove">
+                        <span class="dashicons dashicons-trash"></span>
+                    </button>
+                </div>
             </div>
         `;
         
@@ -74,8 +131,8 @@ jQuery(document).ready(function($) {
     });
     
     // Synchronisation label -> valeur pour les options
-    $(document).on('input', '.scf-option-label', function() {
-        var $valueField = $(this).siblings('.scf-option-value');
+    $(document).on('input', '.scf-option-item input[name*="[label]"]', function() {
+        var $valueField = $(this).closest('.scf-option-item').find('input[name*="[value]"]');
         var currentValue = $valueField.val();
         var sanitizedLabel = sanitizeFieldName($(this).val());
         
@@ -87,8 +144,8 @@ jQuery(document).ready(function($) {
     });
     
     // Synchronisation libellé -> nom du champ
-    $(document).on('input', '.scf-field-label-input', function() {
-        var $nameField = $(this).closest('.scf-field-form-grid').find('.scf-field-name-input');
+    $(document).on('input', '.scf-field-input[name*="[label]"]', function() {
+        var $nameField = $(this).closest('.scf-field-accordion-item').find('input[name*="[name]"]');
         var currentName = $nameField.val();
         var sanitizedLabel = sanitizeFieldName($(this).val());
         
@@ -97,21 +154,11 @@ jQuery(document).ready(function($) {
             $nameField.val(sanitizedLabel);
         }
         $(this).data('prev-label', sanitizedLabel);
-    });
-    
-    // Afficher/masquer la section options selon le type
-    $(document).on('change', '.scf-field-type-select', function() {
-        var type = $(this).val();
-        var $optionsSection = $(this).closest('.scf-field-accordion-content').find('.scf-field-options-section');
         
-        if (type === 'select' || type === 'radio' || type === 'checkbox') {
-            $optionsSection.slideDown(200);
-        } else {
-            $optionsSection.slideUp(200);
-        }
-        
-        // Mettre à jour le badge de type dans le header
-        updateTypeBadge($(this));
+        // Mettre à jour l'affichage dans le header
+        var $labelDisplay = $(this).closest('.scf-field-accordion-item').find('.scf-field-label-display');
+        var labelValue = $(this).val() || 'Nouveau champ';
+        $labelDisplay.text(labelValue);
     });
     
     // Mettre à jour le badge de type
@@ -149,7 +196,9 @@ jQuery(document).ready(function($) {
     // Mettre à jour les numéros des champs
     function updateFieldNumbers() {
         $('.scf-field-accordion-item').each(function(index) {
-            $(this).find('.scf-field-number').text((index + 1));
+            $(this).find('.scf-field-number').contents().filter(function() {
+                return this.nodeType === 3;
+            }).replaceWith((index + 1).toString());
             $(this).attr('data-field-index', index);
         });
     }
@@ -187,115 +236,53 @@ jQuery(document).ready(function($) {
     
     // Ajouter un nouveau champ
     $(document).on('click', '.scf-add-field', function(e) {
-        e.preventDefault(); // Empêcher le comportement par défaut
+        e.preventDefault();
         
         var $accordion = $('.scf-fields-accordion');
         var fieldIndex = $('.scf-field-accordion-item').length;
+        var template = $('#field-template').html();
         
-        var newFieldHtml = `
-            <div class="scf-field-accordion-item is-open" data-field-index="${fieldIndex}">
-                <div class="scf-field-accordion-header">
-                    <div class="scf-field-number">
-                        <span class="scf-field-drag-handle dashicons dashicons-menu"></span>
-                        ${fieldIndex + 1}
-                    </div>
-                    
-                    <div class="scf-field-type-badge">
-                        <span class="dashicons dashicons-editor-textcolor"></span>
-                        Texte
-                    </div>
-                    
-                    <div class="scf-field-label-display">
-                        Nouveau champ
-                    </div>
-                    
-                    <div class="scf-field-quick-actions">
-                        <button type="button" class="scf-field-toggle" title="Ouvrir/Fermer">
-                            <span class="dashicons dashicons-arrow-down-alt2"></span>
-                        </button>
-                        <button type="button" class="scf-field-delete" title="Supprimer">
-                            <span class="dashicons dashicons-trash"></span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="scf-field-accordion-content" style="display:block;">
-                    <div class="scf-field-form-grid">
-                        <div class="scf-field-form-group">
-                            <label>Libellé du champ</label>
-                            <input type="text" 
-                                   name="fields[${fieldIndex}][label]" 
-                                   class="scf-field-label-input"
-                                   value="Nouveau champ"
-                                   placeholder="Ex: Titre du produit">
-                        </div>
-                        
-                        <div class="scf-field-form-group">
-                            <label>Nom du champ</label>
-                            <input type="text" 
-                                   name="fields[${fieldIndex}][name]" 
-                                   class="scf-field-name-input"
-                                   value="nouveau_champ_${fieldIndex}"
-                                   placeholder="Ex: titre_produit">
-                        </div>
-                        
-                        <div class="scf-field-form-group">
-                            <label>Type de champ</label>
-                            <select name="fields[${fieldIndex}][type]" class="scf-field-type-select">
-                                <option value="text">Texte</option>
-                                <option value="textarea">Zone de texte</option>
-                                <option value="number">Nombre</option>
-                                <option value="email">Email</option>
-                                <option value="url">URL</option>
-                                <option value="date">Date</option>
-                                <option value="time">Heure</option>
-                                <option value="color">Couleur</option>
-                                <option value="select">Liste déroulante</option>
-                                <option value="radio">Boutons radio</option>
-                                <option value="checkbox">Cases à cocher</option>
-                                <option value="wysiwyg">Éditeur WYSIWYG</option>
-                                <option value="image">Image</option>
-                                <option value="file">Fichier</option>
-                            </select>
-                        </div>
-                        
-                        <div class="scf-field-form-group">
-                            <label>Champ requis</label>
-                            <select name="fields[${fieldIndex}][required]">
-                                <option value="0">Non</option>
-                                <option value="1">Oui</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="scf-field-options-section" style="display:none;">
-                        <h4>
-                            <span class="dashicons dashicons-list-view"></span>
-                            Options du champ
-                        </h4>
-                        
-                        <div class="scf-options-list"></div>
-                        
-                        <button type="button" class="button scf-add-option-btn">
-                            <span class="dashicons dashicons-plus-alt2"></span>
-                            Ajouter une option
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
+        // Remplacer les placeholders dans le template
+        var newFieldHtml = template
+            .replace(/{index}/g, fieldIndex)
+            .replace(/{index_display}/g, fieldIndex + 1);
         
-        $accordion.append(newFieldHtml);
+        var $newField = $(newFieldHtml);
+        $accordion.append($newField);
+        
+        // Ouvrir le nouveau champ
+        $newField.addClass('is-open').find('.scf-field-accordion-content').show();
+        
+        // Initialiser le premier onglet
+        setTimeout(function() {
+            $newField.find('[data-tab="general"]').click();
+        }, 100);
+        
         updateFieldNumbers();
         
         // Scroll vers le nouveau champ après un court délai
         setTimeout(function() {
-            var $newField = $('.scf-field-accordion-item:last');
-            if ($newField.length) {
-                $('html, body').animate({
-                    scrollTop: $newField.offset().top - 100
-                }, 300);
-            }
-        }, 100);
+            $('html, body').animate({
+                scrollTop: $newField.offset().top - 100
+            }, 300);
+        }, 200);
+        
+        // Déclencher l'événement pour l'initialisation des onglets
+        $(document).trigger('scf-field-added', [$newField]);
+    });
+    
+    // Initialiser les champs existants
+    $('.scf-field-accordion-item').each(function() {
+        var $this = $(this);
+        
+        // Initialiser l'état de l'onglet Choix
+        toggleChoicesTab($this);
+        
+        // Initialiser le premier onglet comme actif si le champ est ouvert
+        if ($this.hasClass('is-open') || $this.find('.scf-field-accordion-content').is(':visible')) {
+            setTimeout(function() {
+                $this.find('[data-tab="general"]').click();
+            }, 100);
+        }
     });
 });

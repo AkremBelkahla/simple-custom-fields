@@ -62,21 +62,13 @@ class SCF_Simple_Custom_Fields {
             return;
         }
 
-        // Utiliser le style WordPress natif - ne charger que les styles essentiels
-        // Commenter les styles personnalisés pour utiliser le style WordPress par défaut
-        
-        // Garder seulement les styles fonctionnels minimales
-        /*
         wp_enqueue_style(
             'scf-admin',
             plugins_url('assets/css/main.css', dirname(__FILE__)),
             array(),
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/main.css')
         );
-        */
         
-        // Utiliser le style WordPress natif - désactiver les styles personnalisés
-        /*
         // Charger table.css, groups-page.css et list-table.css sur la page principale
         if (strpos($hook, 'toplevel_page_simple-custom-fields') !== false) {
             wp_enqueue_style(
@@ -98,10 +90,7 @@ class SCF_Simple_Custom_Fields {
                 filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/list-table.css')
             );
         }
-        */
         
-        // Utiliser le style WordPress natif - désactiver les styles personnalisés
-        /*
         // Charger edit-page.css et accordion-fields.css sur la page d'édition de groupe
         if (strpos($hook, 'scf-add-group') !== false) {
             wp_enqueue_style(
@@ -124,10 +113,7 @@ class SCF_Simple_Custom_Fields {
                 true
             );
         }
-        */
         
-        // Utiliser le style WordPress natif - désactiver les styles personnalisés
-        /*
         // Charger responsive.css
         wp_enqueue_style(
             'scf-responsive',
@@ -135,7 +121,6 @@ class SCF_Simple_Custom_Fields {
             array('scf-admin'),
             filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/responsive.css')
         );
-        */
 
         wp_enqueue_script(
             'scf-admin',
@@ -156,8 +141,6 @@ class SCF_Simple_Custom_Fields {
             );
         }
         
-        // Utiliser le style WordPress natif - désactiver les styles personnalisés
-        /*
         // Charger documentation.css sur la page documentation
         if (strpos($hook, 'scf-documentation') !== false) {
             wp_enqueue_style(
@@ -177,7 +160,6 @@ class SCF_Simple_Custom_Fields {
                 filemtime(plugin_dir_path(dirname(__FILE__)) . 'assets/css/settings.css')
             );
         }
-        */
 
         // Créer des nonces spécifiques pour chaque action AJAX
         wp_localize_script('scf-admin', 'scf_vars', array(

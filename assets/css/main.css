@@ -47,6 +47,15 @@
 	--scf-spacing-md: 16px;
 	--scf-spacing-lg: 24px;
 	--scf-spacing-xl: 32px;
+	
+	/* Onglets */
+	--scf-tabs-border: #dcdcde;
+	--scf-tabs-active: #0073aa;
+	--scf-tabs-hover: #f0f0f1;
+	--scf-tabs-text: #23282d;
+	--scf-tabs-text-active: #0073aa;
+	--scf-spacing-lg: 24px;
+	--scf-spacing-xl: 32px;
 }
 
 /* Import des fichiers CSS */
@@ -617,4 +626,226 @@
 	align-items: center;
 	gap: var(--scf-spacing-sm);
 	cursor: pointer;
+}
+
+/* ============================================
+   Styles des onglets - Style ACF PRO
+   ============================================ */
+
+.scf-tabs-wrapper {
+	background: #fff;
+	border: 1px solid var(--scf-tabs-border);
+	border-radius: var(--scf-border-radius);
+	margin-bottom: var(--scf-spacing-lg);
+	overflow: hidden;
+}
+
+.scf-tabs-nav {
+	display: flex;
+	background: #fbfbfb;
+	border-bottom: 1px solid var(--scf-tabs-border);
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.scf-tab-nav-item {
+	flex: 1;
+	max-width: 200px;
+}
+
+.scf-tab-nav-item button {
+	width: 100%;
+	padding: var(--scf-spacing-md) var(--scf-spacing-lg);
+	background: transparent;
+	border: none;
+	border-right: 1px solid var(--scf-tabs-border);
+	color: var(--scf-tabs-text);
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	display: flex;
+	align-items: center;
+	gap: var(--scf-spacing-sm);
+}
+
+.scf-tab-nav-item:last-child button {
+	border-right: none;
+}
+
+.scf-tab-nav-item button:hover {
+	background: var(--scf-tabs-hover);
+	color: var(--scf-tabs-text);
+}
+
+.scf-tab-nav-item.active button {
+	background: #fff;
+	color: var(--scf-tabs-active);
+	border-bottom: 2px solid var(--scf-tabs-active);
+	margin-bottom: -1px;
+	position: relative;
+	z-index: 1;
+}
+
+.scf-tab-nav-item button .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+.scf-tabs-content {
+	padding: var(--scf-spacing-lg);
+}
+
+.scf-tab-panel {
+	display: none;
+}
+
+.scf-tab-panel.active {
+	display: block;
+	animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Styles des sections dans les onglets */
+.scf-tab-section {
+	margin-bottom: var(--scf-spacing-lg);
+}
+
+.scf-tab-section:last-child {
+	margin-bottom: 0;
+}
+
+.scf-tab-section h4 {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+	margin: 0 0 var(--scf-spacing-md) 0;
+	padding-bottom: var(--scf-spacing-sm);
+	border-bottom: 1px solid var(--scf-border-light);
+	display: flex;
+	align-items: center;
+	gap: var(--scf-spacing-sm);
+}
+
+.scf-tab-section h4 .dashicons {
+	font-size: 16px;
+	color: var(--scf-text-secondary);
+}
+
+/* Styles des champs de formulaire dans les onglets */
+.scf-field-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--scf-spacing-lg);
+	margin-bottom: var(--scf-spacing-md);
+	align-items: flex-start;
+}
+
+.scf-field-col {
+	flex: 1;
+	min-width: 250px;
+}
+
+.scf-field-col-full {
+	flex: 1 1 100%;
+}
+
+.scf-field-label {
+	display: block;
+	font-weight: 600;
+	color: var(--scf-text-primary);
+	margin-bottom: var(--scf-spacing-xs);
+	font-size: 13px;
+}
+
+.scf-field-input,
+.scf-field-select,
+.scf-field-textarea {
+	width: 100%;
+	padding: var(--scf-spacing-sm);
+	border: 1px solid var(--scf-border-color);
+	border-radius: var(--scf-border-radius);
+	font-size: 14px;
+	transition: border-color 0.2s ease;
+}
+
+.scf-field-input:focus,
+.scf-field-select:focus,
+.scf-field-textarea:focus {
+	border-color: var(--scf-primary);
+	outline: none;
+	box-shadow: 0 0 0 2px rgba(7, 131, 190, 0.1);
+}
+
+.scf-field-textarea {
+	min-height: 80px;
+	resize: vertical;
+}
+
+/* Styles des cases à cocher et radios */
+.scf-checkbox-group,
+.scf-radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: var(--scf-spacing-sm);
+}
+
+.scf-checkbox-item,
+.scf-radio-item {
+	display: flex;
+	align-items: center;
+	gap: var(--scf-spacing-sm);
+}
+
+.scf-checkbox-item input[type="checkbox"],
+.scf-radio-item input[type="radio"] {
+	margin: 0;
+}
+
+.scf-checkbox-item label,
+.scf-radio-item label {
+	font-weight: normal;
+	margin: 0;
+	cursor: pointer;
+}
+
+/* Styles des descriptions d'aide */
+.scf-field-description {
+	font-size: 12px;
+	color: var(--scf-text-secondary);
+	margin-top: var(--scf-spacing-xs);
+	font-style: italic;
+}
+
+/* Responsive pour les onglets */
+@media (max-width: 768px) {
+	.scf-tabs-nav {
+		flex-wrap: wrap;
+	}
+	
+	.scf-tab-nav-item {
+		flex: 1 1 50%;
+		max-width: none;
+	}
+	
+	.scf-field-row {
+		flex-direction: column;
+		gap: var(--scf-spacing-md);
+	}
+	
+	.scf-field-col {
+		min-width: 100%;
+	}
 }

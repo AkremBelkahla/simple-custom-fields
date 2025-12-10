@@ -14,25 +14,15 @@ if ($group_id) {
     }
 }
 ?>
-<div class="wrap scf-edit-group-page">
-    <div class="scf-page-header">
-        <div class="scf-page-header-left">
-            <h1 class="wp-heading-inline">
-                <span class="dashicons dashicons-edit"></span>
-                <?php echo $group_id ? 'Modifier le groupe' : 'Ajouter un groupe'; ?>
-            </h1>
-            <p class="scf-page-subtitle">
-                <?php echo $group_id ? 'Modifiez les paramètres de votre groupe de champs' : 'Créez un nouveau groupe de champs personnalisés'; ?>
-            </p>
-        </div>
-        <div class="scf-page-header-right">
-            <a href="<?php echo admin_url('admin.php?page=simple-custom-fields'); ?>"
-               class="page-title-action scf-btn-back">
-                <span class="dashicons dashicons-arrow-left-alt2"></span>
-                Retour à la liste
-            </a>
-        </div>
-    </div>
+<div class="wrap">
+    <h1 class="wp-heading-inline">
+        <?php echo $group_id ? 'Modifier le groupe' : 'Ajouter un groupe'; ?>
+    </h1>
+    
+    <a href="<?php echo admin_url('admin.php?page=simple-custom-fields'); ?>"
+       class="page-title-action">
+        Retour à la liste
+    </a>
     <hr class="wp-header-end">
 
     <form id="scf-form"

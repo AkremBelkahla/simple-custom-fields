@@ -1,331 +1,194 @@
-# Guide de Sécurité - Simple Custom Fields
+# Sécurité - Simple Custom Fields
 
-## 🔒 Vue d'ensemble
-
-Ce document décrit les mesures de sécurité implémentées dans Simple Custom Fields et les bonnes pratiques à suivre.
-
-## 🛡️ Couches de sécurité
+## 🔒 Mesures de sécurité implémentées
 
 ### 1. Protection CSRF (Cross-Site Request Forgery)
+- **Nonces WordPress** : Tous les formulaires et requêtes AJAX utilisent des nonces uniques
+- **Durée de vie** : 12 heures (43200 secondes)
+- **Vérification stricte** : Validation obligatoire avant toute action sensible
 
-#### Nonces WordPress
+### 2. Validation des permissions
+- **Capability check** : `manage_options` requis pour toutes les actions admin
+- **Vérification utilisateur** : Authentification obligatoire
+- **Logging** : Tentatives d'accès non autorisées enregistrées
 
-Chaque action AJAX utilise un nonce spécifique :
+### 3. Sanitization des données
+Toutes les entrées utilisateur sont nettoyées selon leur type :
+- `sanitize_text_field()` pour les textes simples
+- `sanitize_textarea_field()` pour les zones de texte
+- `sanitize_email()` pour les emails
+- `esc_url_raw()` pour les URLs
+- `sanitize_key()` pour les clés/identifiants
+- `intval()` / `floatval()` pour les nombres
 
-```php
-// Création du nonce (côté serveur)
-$nonce = wp_create_nonce('scf_delete_group');
+### 4. Échappement des sorties
+Toutes les données affichées sont échappées :
+- `esc_html()` pour le HTML
+- `esc_attr()` pour les attributs
+- `esc_url()` pour les URLs
+- `esc_js()` pour le JavaScript
+- `wp_kses_post()` pour le contenu HTML autorisé
 
-// Vérification du nonce
-wp_verify_nonce($nonce, 'scf_delete_group');
-```
-
-**IMPORTANT** : L'action utilisée pour créer le nonce DOIT être exactement la même que celle utilisée pour le vérifier.
-
-#### Nonces par action
-
-```javascript
-// Côté JavaScript
-scf_vars.nonces = {
-    delete_group: 'abc123...',
-    get_field_settings: 'def456...',
-    save_field_group: 'ghi789...'
-}
-
-// Utilisation
-nonce: scf_vars.nonces.delete_group
-```
-
-### 2. Vérification des permissions
-
-```php
-// Vérifier que l'utilisateur a les droits nécessaires
-if (!current_user_can('manage_options')) {
-    wp_die(__('Permission refusée', 'simple-custom-fields'));
-}
-```
-
-### 3. Validation des entrées
-
-#### Validation stricte par type
-
-```php
-use SCF\Validators\FieldValidator;
-
-$validator = FieldValidator::get_instance();
-
-// Valider un email
-$result = $validator->validate($email, 'email', array('required' => true));
-
-if ($result !== true) {
-    // $result contient les erreurs
-    foreach ($result as $error) {
-        // Traiter l'erreur
-    }
-}
-```
-
-#### Types de validation disponibles
-
-- **text** : Texte simple avec longueur max
-- **textarea** : Texte multiligne
-- **email** : Adresse email valide
-- **url** : URL valide
-- **number** : Nombre avec min/max optionnels
-- **date** : Date au format YYYY-MM-DD
-- **select/radio** : Choix dans une liste
-- **checkbox** : Sélections multiples
-- **file** : ID d'attachement valide
-
-### 4. Sanitization des données
-
-#### Sanitization automatique
-
-```php
-// Le validateur sanitize automatiquement selon le type
-$clean_value = $validator->sanitize($value, 'email');
-```
-
-#### Fonctions de sanitization WordPress
-
-```php
-// Texte simple
-$clean = sanitize_text_field($input);
-
-// Email
-$clean = sanitize_email($input);
-
-// URL
-$clean = esc_url_raw($input);
-
-// Textarea
-$clean = sanitize_textarea_field($input);
-
-// Clé (slug)
-$clean = sanitize_key($input);
-
-// HTML autorisé
-$clean = wp_kses_post($input);
-```
-
-### 5. Échappement des sorties
-
-**TOUJOURS** échapper les données avant affichage :
-
-```php
-// Texte simple
-echo esc_html($value);
-
-// Attribut HTML
-echo '<div data-value="' . esc_attr($value) . '">';
-
-// URL
-echo '<a href="' . esc_url($value) . '">';
-
-// JavaScript
-echo '<script>var data = "' . esc_js($value) . '";</script>';
-
-// Textarea
-echo '<textarea>' . esc_textarea($value) . '</textarea>';
-```
+### 5. Protection AJAX
+- Vérification de `DOING_AJAX`
+- Validation du referer HTTP
+- Actions autorisées en liste blanche
+- Rate limiting (50 requêtes/heure/utilisateur)
 
 ### 6. Rate Limiting
-
-Protection contre les abus :
-
-```php
-// Limite : 50 requêtes par heure par utilisateur
-if (!$this->check_rate_limit()) {
-    wp_die(__('Trop de requêtes. Veuillez réessayer plus tard.', 'simple-custom-fields'));
-}
-```
+- **Limite** : 50 requêtes par heure et par utilisateur
+- **Stockage** : Transients WordPress
+- **Logging** : Dépassements enregistrés
 
 ### 7. Headers de sécurité HTTP
+```
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+### 8. Protection des fichiers
+- `.htaccess` pour bloquer l'accès aux fichiers sensibles
+- Désactivation de l'exécution PHP dans les dossiers uploads/assets
+- Blocage de l'indexation des répertoires
+
+### 9. Validation des IDs
+- Vérification de l'existence des posts
+- Validation du type de post
+- Protection contre les injections
+
+### 10. Logging de sécurité
+Événements enregistrés (en mode WP_DEBUG) :
+- Tentatives d'accès non autorisées
+- Nonces invalides
+- Rate limit dépassé
+- Actions suspectes
+
+## 🛡️ Classe SCF_Security
+
+La classe centralisée `SCF_Security` gère toutes les vérifications :
 
 ```php
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: SAMEORIGIN');
-header('X-XSS-Protection: 1; mode=block');
-header('Referrer-Policy: strict-origin-when-cross-origin');
+$security = SCF_Security::get_instance();
+
+// Vérifier les permissions
+$security->check_permissions('manage_options');
+
+// Vérifier un nonce
+$security->verify_nonce($nonce, 'action_name');
+
+// Vérifier une requête AJAX complète
+$security->verify_ajax_request('action', $nonce);
+
+// Sanitize des données
+$clean_data = $security->sanitize_array($data, 'text');
+
+// Échapper pour l'affichage
+$safe_output = $security->escape_output($data, 'html');
+
+// Valider un ID de post
+$post = $security->validate_post_id($id, 'scf-field-group');
 ```
 
 ## 🔐 Bonnes pratiques
 
-### Requêtes AJAX sécurisées
+### Pour les développeurs
 
-#### Côté serveur (PHP)
-
+1. **Toujours vérifier les permissions**
 ```php
-public function ajax_handler() {
-    // 1. Vérifier que c'est une requête AJAX
-    if (!wp_doing_ajax()) {
-        wp_die();
-    }
-    
-    // 2. Vérifier les permissions
-    if (!current_user_can('manage_options')) {
-        wp_send_json_error(__('Permission refusée', 'simple-custom-fields'));
-    }
-    
-    // 3. Vérifier le nonce
-    $nonce = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
-    if (!wp_verify_nonce($nonce, 'scf_my_action')) {
-        wp_send_json_error(__('Nonce invalide', 'simple-custom-fields'));
-    }
-    
-    // 4. Valider et sanitizer les données
-    $data = isset($_POST['data']) ? sanitize_text_field($_POST['data']) : '';
-    
-    // 5. Traiter la requête
-    // ...
-    
-    // 6. Retourner la réponse
-    wp_send_json_success(array('message' => 'Succès'));
+if (!$this->security->check_permissions('manage_options')) {
+    wp_die('Accès refusé');
 }
 ```
 
-#### Côté client (JavaScript)
-
-```javascript
-jQuery.ajax({
-    url: scf_vars.ajax_url,
-    type: 'POST',
-    data: {
-        action: 'scf_my_action',
-        nonce: scf_vars.nonces.my_action,
-        data: myData
-    },
-    success: function(response) {
-        if (response.success) {
-            // Traiter le succès
-        } else {
-            // Traiter l'erreur
-        }
-    },
-    error: function(xhr, status, error) {
-        console.error('Erreur AJAX:', error);
-    }
-});
-```
-
-### Validation de formulaire
-
+2. **Toujours valider les nonces**
 ```php
-public function save_field_group() {
-    // 1. Vérifier le nonce
-    if (!isset($_POST['scf_nonce']) || !wp_verify_nonce($_POST['scf_nonce'], 'scf_save_field_group')) {
-        wp_die(__('Échec de la vérification de sécurité', 'simple-custom-fields'));
-    }
-    
-    // 2. Vérifier les permissions
-    if (!current_user_can('manage_options')) {
-        wp_die(__('Permission refusée', 'simple-custom-fields'));
-    }
-    
-    // 3. Valider les données requises
-    if (empty($_POST['title'])) {
-        wp_die(__('Le titre est requis', 'simple-custom-fields'));
-    }
-    
-    // 4. Sanitizer toutes les entrées
-    $title = sanitize_text_field($_POST['title']);
-    $description = sanitize_textarea_field($_POST['description']);
-    
-    // 5. Valider les données
-    $validator = FieldValidator::get_instance();
-    // ...
-    
-    // 6. Sauvegarder
-    // ...
+if (!$this->security->verify_nonce($_POST['nonce'], 'action')) {
+    wp_die('Nonce invalide');
 }
 ```
 
-### Requêtes de base de données
-
-**TOUJOURS** utiliser des requêtes préparées :
-
+3. **Toujours sanitize les entrées**
 ```php
-global $wpdb;
-
-// ✅ BON - Requête préparée
-$results = $wpdb->get_results($wpdb->prepare(
-    "SELECT * FROM {$wpdb->prefix}scf_fields WHERE post_id = %d AND field_name = %s",
-    $post_id,
-    $field_name
-));
-
-// ❌ MAUVAIS - Injection SQL possible
-$results = $wpdb->get_results(
-    "SELECT * FROM {$wpdb->prefix}scf_fields WHERE post_id = $post_id"
-);
+$value = $this->security->sanitize_value($_POST['field'], 'text');
 ```
 
-## 🚨 Gestion des erreurs
-
-### Logging sécurisé
-
+4. **Toujours échapper les sorties**
 ```php
-use SCF\Utilities\Logger;
-
-$logger = Logger::get_instance();
-
-// Ne jamais logger de données sensibles (mots de passe, tokens, etc.)
-$logger->error('Échec de connexion', array(
-    'user_id' => $user_id,
-    'ip' => $ip_address,
-    // ❌ Ne PAS logger : 'password' => $password
-));
+echo $this->security->escape_output($value, 'html');
 ```
 
-### Messages d'erreur
-
+5. **Utiliser la validation complète pour AJAX**
 ```php
-// ✅ BON - Message générique pour l'utilisateur
-wp_send_json_error(__('Une erreur est survenue', 'simple-custom-fields'));
-
-// ❌ MAUVAIS - Révèle des informations système
-wp_send_json_error('MySQL Error: ' . $wpdb->last_error);
+if (!$this->security->verify_ajax_request('action', $nonce)) {
+    wp_send_json_error('Sécurité échouée');
+}
 ```
 
-## 🔍 Audit de sécurité
+### Pour les utilisateurs
 
-### Checklist
+1. **Gardez WordPress à jour**
+2. **Utilisez des mots de passe forts**
+3. **Limitez les utilisateurs avec capability `manage_options`**
+4. **Activez HTTPS sur votre site**
+5. **Faites des sauvegardes régulières**
 
-- [ ] Tous les nonces sont vérifiés
-- [ ] Les permissions sont vérifiées
-- [ ] Les entrées sont validées
-- [ ] Les entrées sont sanitizées
-- [ ] Les sorties sont échappées
-- [ ] Les requêtes SQL sont préparées
-- [ ] Le rate limiting est actif
-- [ ] Les erreurs sont loggées de manière sécurisée
-- [ ] Les données sensibles ne sont pas exposées
-- [ ] Les headers de sécurité sont définis
+## 🚨 Signaler une vulnérabilité
 
-### Outils de test
+Si vous découvrez une faille de sécurité :
 
-```bash
-# Vérifier le code avec PHPCS
-composer phpcs
+1. **NE PAS** créer d'issue publique
+2. Envoyer un email à : akrem.belkahla@infinityweb.tn
+3. Inclure :
+   - Description détaillée
+   - Steps to reproduce
+   - Impact potentiel
+   - Version affectée
 
-# Analyse statique avec PHPStan
-composer phpstan
+Nous nous engageons à :
+- Répondre sous 48h
+- Corriger sous 7 jours (vulnérabilités critiques)
+- Créditer le découvreur (si souhaité)
 
-# Tests de sécurité
-composer test
-```
+## 📋 Checklist de sécurité
+
+- [x] Protection CSRF avec nonces
+- [x] Validation des permissions utilisateur
+- [x] Sanitization de toutes les entrées
+- [x] Échappement de toutes les sorties
+- [x] Protection contre les injections SQL (prepared statements)
+- [x] Rate limiting sur les requêtes AJAX
+- [x] Headers de sécurité HTTP
+- [x] Protection des fichiers sensibles
+- [x] Validation des IDs et types de posts
+- [x] Logging des événements de sécurité
+- [x] Vérification du referer HTTP
+- [x] Protection contre XSS
+- [x] Protection contre CSRF
+- [x] Protection contre les injections
+- [x] Classe de sécurité centralisée
 
 ## 📚 Ressources
 
+- [WordPress Security Handbook](https://developer.wordpress.org/plugins/security/)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [WordPress Nonces](https://developer.wordpress.org/plugins/security/nonces/)
 - [Data Validation](https://developer.wordpress.org/plugins/security/data-validation/)
-- [Securing Input](https://developer.wordpress.org/plugins/security/securing-input/)
-- [Securing Output](https://developer.wordpress.org/plugins/security/securing-output/)
-- [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/)
 
-## 🐛 Signaler une vulnérabilité
+## 🔄 Mises à jour
 
-Si vous découvrez une vulnérabilité de sécurité, veuillez l'envoyer par email à :
-**akrem.belkahla@infinityweb.tn**
+### Version 1.4.1 (Octobre 2025)
+- ✅ Ajout de la classe `SCF_Security` centralisée
+- ✅ Implémentation du rate limiting
+- ✅ Headers de sécurité HTTP
+- ✅ Protection .htaccess
+- ✅ Logging des événements de sécurité
+- ✅ Validation stricte des requêtes AJAX
 
-**Ne créez PAS d'issue publique pour les problèmes de sécurité.**
+---
+
+**Auteur** : Akrem Belkahla  
+**Agence** : Infinity Web  
+**Email** : akrem.belkahla@infinityweb.tn  
+**Version** : 1.4.1

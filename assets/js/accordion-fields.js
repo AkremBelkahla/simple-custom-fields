@@ -19,7 +19,7 @@ jQuery(document).ready(function($) {
             $content.slideDown(300);
             // Initialiser le premier onglet comme actif
             setTimeout(function() {
-                $content.find('[data-tab="general"]').click();
+                $content.find('.scf-tabs-nav button[data-tab^="general"]').first().click();
             }, 100);
         } else {
             $content.slideUp(300);
@@ -67,18 +67,16 @@ jQuery(document).ready(function($) {
     function toggleChoicesTab($fieldAccordion) {
         var fieldType = $fieldAccordion.find('.scf-field-type-select-tabs').val();
         var $choicesTab = $fieldAccordion.find('.scf-tab-choices');
-        var $choicesPanel = $fieldAccordion.find('#tab-choices');
+        var $choicesPanel = $fieldAccordion.find('.scf-tab-panel[id^="tab-choices"]');
         
         if (['select', 'radio', 'checkbox'].includes(fieldType)) {
             $choicesTab.show();
-            $choicesPanel.show();
         } else {
             $choicesTab.hide();
-            $choicesPanel.hide();
             
             // Si l'onglet Choix était actif, basculer vers Général
             if ($choicesTab.hasClass('active')) {
-                $fieldAccordion.find('[data-tab="general"]').click();
+                $fieldAccordion.find('.scf-tabs-nav button[data-tab^="general"]').click();
             }
         }
     }
@@ -255,7 +253,7 @@ jQuery(document).ready(function($) {
         
         // Initialiser le premier onglet
         setTimeout(function() {
-            $newField.find('[data-tab="general"]').click();
+            $newField.find('.scf-tabs-nav button[data-tab^="general"]').first().click();
         }, 100);
         
         updateFieldNumbers();
@@ -281,7 +279,7 @@ jQuery(document).ready(function($) {
         // Initialiser le premier onglet comme actif si le champ est ouvert
         if ($this.hasClass('is-open') || $this.find('.scf-field-accordion-content').is(':visible')) {
             setTimeout(function() {
-                $this.find('[data-tab="general"]').click();
+                $this.find('.scf-tabs-nav button[data-tab^="general"]').first().click();
             }, 100);
         }
     });

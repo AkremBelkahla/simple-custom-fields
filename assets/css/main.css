@@ -634,24 +634,28 @@
 
 .scf-tabs-wrapper {
 	background: #fff;
-	border: 1px solid var(--scf-tabs-border);
+	border: 1px solid var(--scf-border-color);
 	border-radius: var(--scf-border-radius);
 	margin-bottom: var(--scf-spacing-lg);
 	overflow: hidden;
+	box-shadow: var(--scf-shadow-sm);
 }
 
 .scf-tabs-nav {
 	display: flex;
-	background: #fbfbfb;
-	border-bottom: 1px solid var(--scf-tabs-border);
+	background: #f8f9f9;
 	padding: 0;
 	margin: 0;
 	list-style: none;
+	align-items: stretch;
 }
 
 .scf-tab-nav-item {
 	flex: 1;
 	max-width: 200px;
+	position: relative;
+	display: flex;
+	margin-bottom: 0px;
 }
 
 .scf-tab-nav-item button {
@@ -659,15 +663,20 @@
 	padding: var(--scf-spacing-md) var(--scf-spacing-lg);
 	background: transparent;
 	border: none;
-	border-right: 1px solid var(--scf-tabs-border);
-	color: var(--scf-tabs-text);
+	border-right: 1px solid var(--scf-border-color);
+	color: var(--scf-text-secondary);
 	font-size: 14px;
 	font-weight: 500;
 	cursor: pointer;
 	transition: all 0.2s ease;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	gap: var(--scf-spacing-sm);
+	position: relative;
+	line-height: 1.2;
+	height: 100%;
+	min-height: 48px;
 }
 
 .scf-tab-nav-item:last-child button {
@@ -675,27 +684,48 @@
 }
 
 .scf-tab-nav-item button:hover {
-	background: var(--scf-tabs-hover);
-	color: var(--scf-tabs-text);
+	background: #fff;
+	color: var(--scf-primary);
 }
 
 .scf-tab-nav-item.active button {
 	background: #fff;
-	color: var(--scf-tabs-active);
-	border-bottom: 2px solid var(--scf-tabs-active);
+	color: var(--scf-primary);
+	border-bottom: 3px solid var(--scf-primary);
 	margin-bottom: -1px;
 	position: relative;
 	z-index: 1;
+	font-weight: 600;
+}
+
+.scf-tab-nav-item.active button::after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: var(--scf-primary);
 }
 
 .scf-tab-nav-item button .dashicons {
 	font-size: 16px;
 	width: 16px;
 	height: 16px;
+	transition: color 0.2s ease;
+}
+
+.scf-tab-nav-item button:hover .dashicons {
+	color: var(--scf-primary);
+}
+
+.scf-tab-nav-item.active button .dashicons {
+	color: var(--scf-primary);
 }
 
 .scf-tabs-content {
 	padding: var(--scf-spacing-lg);
+	background: #fff;
 }
 
 .scf-tab-panel {

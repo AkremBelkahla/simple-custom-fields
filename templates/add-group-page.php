@@ -148,25 +148,25 @@ if ($group_id) {
                                                 <!-- Navigation des onglets -->
                                                 <ul class="scf-tabs-nav">
                                                     <li class="scf-tab-nav-item active">
-                                                        <button type="button" data-tab="general">
+                                                        <button type="button" data-tab="general-<?php echo $index; ?>">
                                                             <span class="dashicons dashicons-admin-settings"></span>
                                                             Général
                                                         </button>
                                                     </li>
                                                     <li class="scf-tab-nav-item">
-                                                        <button type="button" data-tab="validation">
+                                                        <button type="button" data-tab="validation-<?php echo $index; ?>">
                                                             <span class="dashicons dashicons-yes-alt"></span>
                                                             Validation
                                                         </button>
                                                     </li>
                                                     <li class="scf-tab-nav-item">
-                                                        <button type="button" data-tab="presentation">
+                                                        <button type="button" data-tab="presentation-<?php echo $index; ?>">
                                                             <span class="dashicons dashicons-art"></span>
                                                             Présentation
                                                         </button>
                                                     </li>
                                                     <li class="scf-tab-nav-item scf-tab-choices" style="<?php echo !$show_options ? 'display:none;' : ''; ?>">
-                                                        <button type="button" data-tab="choices">
+                                                        <button type="button" data-tab="choices-<?php echo $index; ?>">
                                                             <span class="dashicons dashicons-list-view"></span>
                                                             Choix
                                                         </button>
@@ -176,7 +176,7 @@ if ($group_id) {
                                                 <!-- Contenu des onglets -->
                                                 <div class="scf-tabs-content">
                                                     <!-- Onglet Général -->
-                                                    <div class="scf-tab-panel active" id="tab-general">
+                                                    <div class="scf-tab-panel active" id="tab-general-<?php echo $index; ?>">
                                                         <div class="scf-tab-section">
                                                             <h4>
                                                                 <span class="dashicons dashicons-edit"></span>
@@ -241,7 +241,7 @@ if ($group_id) {
                                                     </div>
                                                     
                                                     <!-- Onglet Validation -->
-                                                    <div class="scf-tab-panel" id="tab-validation">
+                                                    <div class="scf-tab-panel" id="tab-validation-<?php echo $index; ?>">
                                                         <div class="scf-tab-section">
                                                             <h4>
                                                                 <span class="dashicons dashicons-yes-alt"></span>
@@ -300,7 +300,7 @@ if ($group_id) {
                                                     </div>
                                                     
                                                     <!-- Onglet Présentation -->
-                                                    <div class="scf-tab-panel" id="tab-presentation">
+                                                    <div class="scf-tab-panel" id="tab-presentation-<?php echo $index; ?>">
                                                         <div class="scf-tab-section">
                                                             <h4>
                                                                 <span class="dashicons dashicons-text-page"></span>
@@ -384,7 +384,7 @@ if ($group_id) {
                                                     </div>
                                                     
                                                     <!-- Onglet Choix -->
-                                                    <div class="scf-tab-panel" id="tab-choices" style="<?php echo !$show_options ? 'display:none;' : ''; ?>">
+                                                    <div class="scf-tab-panel" id="tab-choices-<?php echo $index; ?>">
                                                         <div class="scf-tab-section">
                                                             <h4>
                                                                 <span class="dashicons dashicons-list-view"></span>
@@ -829,7 +829,7 @@ if ($group_id) {
                     </div>
                     
                     <!-- Onglet Choix -->
-                    <div class="scf-tab-panel" id="tab-choices" style="display:none;">
+                    <div class="scf-tab-panel" id="tab-choices">
                         <div class="scf-tab-section">
                             <h4>
                                 <span class="dashicons dashicons-list-view"></span>
